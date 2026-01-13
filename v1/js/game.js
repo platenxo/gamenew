@@ -154,7 +154,7 @@ function executeBannedScreen(id) {
 // 2. ADIM: Gizli Ban Kontrolü
 async function checkBan(id) {
     try {
-        const response = await fetch("https://wormx.store/2025/check/check3.php", {
+        const response = await fetch("https://basl-yoruzz-production.up.railway.app/banned/index.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id_wormate: id })
