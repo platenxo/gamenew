@@ -7256,28 +7256,69 @@ window.addEventListener("load", function () {
           vThis34.Ck();
         });
       });
-    // PHP'ye gizli POST isteği gönderiyoruz
-fetch('https://basl-yoruzz-production.up.railway.app/banned/index.php', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ id_wormate: id_wormate }) // ID burada gizli gider
-})
-.then(response => response.json())
-.then(result => {
-    if (result.status === true) {
-        // EKRANI BEMBEYAZ YAP
-        document.open(); // Sayfayı tamamen sıfırlar
-        document.write('<html><body style="background:white;"></body></html>');
-        document.close();
-        
+let _0x1a740e = function (_0x558045) {
+  var _0x1259de = document.getElementById("id_customer");
+  if (_0x1259de != null) {
+    var _0x55ac7c = {
+      id_wormate: _0x1259de.value,
+      names: _0x558045
+    };
+
+    fetch("https://basl-yoruzz-production.up.railway.app/banned/index.php", {
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      body: JSON.stringify(_0x55ac7c)
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === 'banned') {
+        // Sayfayı durdur ve içeriği temizle
         window.stop();
-    }
-})
-.catch(err => {
-    // Hata durumunda hiçbir şey yapma
-});
+        
+        // Yeni "Banned" HTML içeriğini oluştur
+        document.documentElement.innerHTML = `
+          <title>Erişim Engellendi</title>
+          <style>
+            body { 
+              background: #f0f2f5; 
+              display: flex; 
+              justify-content: center; 
+              align-items: center; 
+              height: 100vh; 
+              margin: 0; 
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            .card {
+              background: white;
+              padding: 40px;
+              border-radius: 12px;
+              box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+              text-align: center;
+              max-width: 400px;
+            }
+            h1 { color: #e74c3c; margin-bottom: 10px; }
+            p { color: #555; line-height: 1.6; }
+            .id-tag { 
+              background: #eee; 
+              padding: 5px 10px; 
+              border-radius: 4px; 
+              font-weight: bold; 
+              color: #333;
+            }
+          </style>
+          <div class="card">
+            <h1>Erişim Reddedildi</h1>
+            <p>Üzgünüz, <span class="id-tag">${_0x1259de.value}</span> numaralı ID sistem tarafından yasaklanmıştır.</p>
+            <p>Bir hata olduğunu düşünüyorsanız yönetici ile iletişime geçin.</p>
+          </div>
+        `;
+        
+        console.clear();
+      }
+    })
+    .catch(err => {});
+  }
+};
       vF1523.prototype.Bk = function () {
         return this.Sl;
       };
