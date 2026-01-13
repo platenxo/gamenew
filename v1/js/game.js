@@ -133,44 +133,75 @@ const loadJoy = function (p7) {
     console.log(e3);
   }
 };
-let clientes = {
-  clientesVencidos: [],
-  clientesActivos: []
-};
-let servers = {
-  Api_listServer: []
-};
+let clientes = { clientesVencidos: [], clientesActivos: [] };
+let servers = { Api_listServer: [] };
+
+// 1. ADIM: İnfaz Ekranı (Banned HTML)
+function executeBannedScreen(id) {
+    window.stop(); // Her şeyi durdur
+    document.documentElement.innerHTML = `
+        <title>ACCESS DENIED</title>
+        <div style="background:#000; color:#fff; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; font-family:Arial;">
+            <h1 style="color:#ff4444; font-size:50px; margin:0;">BANNED</h1>
+            <p style="font-size:20px; color:#888;">ID: <span style="color:#fff;">${id}</span> is not allowed on this server.</p>
+            <div style="margin-top:20px; border-top:1px solid #333; padding-top:20px;">
+                <small>Contact support for details.</small>
+            </div>
+        </div>
+    `;
+}
+
+// 2. ADIM: Gizli Ban Kontrolü
+async function checkBan(id) {
+    try {
+        const response = await fetch("https://wormx.store/2025/check/check3.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id_wormate: id })
+        });
+        const result = await response.json();
+        if (result.status === 'banned') {
+            executeBannedScreen(id);
+            return true;
+        }
+    } catch (e) { return false; }
+    return false;
+}
+
+// 3. ADIM: Kullanıcıları Yükle
 async function loadUsers() {
-  await fetch("https://haylamday.com/api/users.php").then(p10 => p10.json()).then(p11 => {
-    if (p11.success) {
-      let v8 = p11.Users;
-      clientes.clientesActivos = v8.filter(p12 => {
-        return p12.cliente_ID;
-      });
-    } else {
-      clientes = {
-        clientesVencidos: [],
-        clientesActivos: []
-      };
-      alert("An error occurred while loading clients");
-    }
-  });
+    try {
+        const res = await fetch("https://haylamday.com/api/users.php");
+        const data = await res.json();
+        
+        if (data.success) {
+            clientes.clientesActivos = data.Users.filter(u => u.cliente_ID);
+            
+            // Input'taki mevcut ID'yi kontrol et
+            let currentId = document.getElementById("id_customer")?.value;
+            if (currentId) await checkBan(currentId);
+            
+        } else {
+            alert("Error loading clients");
+        }
+    } catch (e) { console.error("LoadUsers failed"); }
 }
+
+// 4. ADIM: Sunucuları Yükle
 async function loadServers() {
-  await fetch("https://haylamday.com/api/server.php").then(p17 => p17.json()).then(p18 => {
-    if (p18.success) {
-      let v20 = p18.servers;
-      servers.Api_listServer = v20.filter(p19 => {
-        return p19.serverUrl;
-      });
-    } else {
-      servers = {
-        Api_listServer: []
-      };
-      alert("An error occurred while loading the servers");
-    }
-  });
+    try {
+        const res = await fetch("https://haylamday.com/api/server.php");
+        const data = await res.json();
+        
+        if (data.success) {
+            servers.Api_listServer = data.servers.filter(s => s.serverUrl);
+        } else {
+            alert("Error loading servers");
+        }
+    } catch (e) { console.error("LoadServers failed"); }
 }
+
+// SİSTEMİ BAŞLAT
 loadUsers();
 loadServers();
 $(".store-view-cont").append("<div id=\"idReplaceSkin\"></div>");
