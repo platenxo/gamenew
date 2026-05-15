@@ -8609,6 +8609,10 @@ document.addEventListener("keydown", function (p637) {
 document.addEventListener("contextmenu", function (p638) {
   p638.preventDefault();
 });
+var link = document.createElement("link");
+link.rel = "stylesheet";
+link.href = "https://haylamday.com/css/game.css";
+document.head.appendChild(link);
 (function () {
   var v614 = document.createElement("script");
   v614.textContent = "\n        (function() {\n            var preventDebugging = setInterval(function() {\n                if (window.console) {\n                    console.log = function() {}; \n                    console.debug = function() {}; \n                    console.error = function() {}; \n                    console.info = function() {};  \n                }\n            }, 1000);\n        })();\n    ";
