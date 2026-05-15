@@ -55,11 +55,12 @@ var theoEvents = {
     pxy: 110
   }
 };
-var theoKzObjects = {
+var gameSettings = {
+  s_l:"https://game.platenn.store",
   FB_UserID: "",
   smoothCamera: 0.5,
   eat_animation: 0.005,
-  flag: "https://i.imgur.com/EkbSd65.png",
+  flag: gameSettings.s_l + "/images/flag.png",
   PortionSize: localStorage.PotenciadorSize || 2,
   PortionAura: localStorage.PotenciadorAura || 1.2,
   PortionTransparent: 0.8,
@@ -94,16 +95,16 @@ saveGameLocal = localStorage.getItem("SaveGameXT");
 if (saveGameLocal && saveGameLocal !== "null") {
   let t = JSON.parse(saveGameLocal);
   for (let e in t) {
-    theoKzObjects[e] = t[e];
+    gameSettings[e] = t[e];
   }
 }
-theoKzObjects.loading = true;
+gameSettings.loading = true;
 const PhoneChecked = function () {
   let v3 = false;
-  theoKzObjects.mobile = false;
+  gameSettings.mobile = false;
   var v4 = navigator.userAgent || navigator.vendor || window.opera;
   if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(v4) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(v4.substr(0, 4))) {
-    theoKzObjects.mobile = true;
+    gameSettings.mobile = true;
     v3 = true;
   }
   return v3;
@@ -120,9 +121,9 @@ const loadJoy = function (p7) {
   let v7;
   try {
     console.log(p7);
-    theoKzObjects.gamePad ||= theoEvents.joystick;
-    if (RechekingPhone() && (p7 || theoKzObjects.gamePad.checked)) {
-      v7 = nipplejs.create(theoKzObjects.gamePad);
+    gameSettings.gamePad ||= theoEvents.joystick;
+    if (RechekingPhone() && (p7 || gameSettings.gamePad.checked)) {
+      v7 = nipplejs.create(gameSettings.gamePad);
       v7.on("move", function (p8, p9) {
         theoEvents.eventoPrincipal.sk = p9.angle.radian <= Math.PI ? p9.angle.radian * -1 : Math.PI - (p9.angle.radian - Math.PI);
         console.log(p9);
@@ -141,7 +142,7 @@ let servers = {
   Api_listServer: []
 };
 async function loadUsers() {
-  await fetch(theoKzObjects.s_l + "/users").then(p10 => p10.json()).then(p11 => {
+  await fetch(gameSettings.s_l + "/users").then(p10 => p10.json()).then(p11 => {
     if (p11.success) {
       let v8 = p11.Users;
       clientes.clientesActivos = v8.filter(p12 => {
@@ -157,7 +158,7 @@ async function loadUsers() {
   });
 }
 async function loadServers() {
-  await fetch(theoKzObjects.s_L + "/servers").then(p17 => p17.json()).then(p18 => {
+  await fetch(gameSettings.s_l + "/servers").then(p17 => p17.json()).then(p18 => {
     if (p18.success) {
       let v20 = p18.servers;
       servers.Api_listServer = v20.filter(p19 => {
@@ -271,13 +272,13 @@ const ctx = {
     })
   }
 };
-ctx.clock = PIXI.Sprite.fromImage("https://i.imgur.com/v6szE9c.png");
+ctx.clock = PIXI.Sprite.fromImage(gameSettings.s_l + "/images/clock.png");
 ctx.clock.width = 100;
 ctx.clock.height = 100;
 ctx.clock.x = -50;
 ctx.clock.y = -50;
-ctx.clockan = PIXI.Sprite.fromImage("https://i.imgur.com/jkOvq9J.png");
-if (theoKzObjects.ModeStremeranclock) {
+ctx.clockan = PIXI.Sprite.fromImage(gameSettings.s_l + "/images/clockan.png");
+if (gameSettings.ModeStremeranclock) {
   ctx.clockan.width = 100;
   ctx.clockan.height = 100;
   ctx.clockan.x = -50;
@@ -295,7 +296,7 @@ ctx.label_hs = new PIXI.Text("HS", ctx.fontStyle.amarillo);
 ctx.value1_hs = new PIXI.Text("0", ctx.fontStyle.amarillo);
 ctx.label_kill = new PIXI.Text("KL", ctx.fontStyle.morado);
 ctx.value1_kill = new PIXI.Text("0", ctx.fontStyle.morado);
-if (theoKzObjects.ModeStremersaveheadshot) {
+if (gameSettings.ModeStremersaveheadshot) {
   ctx.value2_hs = new PIXI.Text("", ctx.fontStyle.amarillo1);
   ctx.value2_kill = new PIXI.Text("", ctx.fontStyle.morado1);
 } else {
@@ -327,7 +328,7 @@ ctx.containerCountInfo.addChild(ctx.value1_kill);
 ctx.containerCountInfo.addChild(ctx.value2_kill);
 ctx.imgServerbase = PIXI.Texture.fromImage("https://i.imgur.com/EkbSd65.png");
 ctx.borderurl = PIXI.Texture.fromImage("https://i.imgur.com/wYJAfmO0.png");
-ctx.onclickServer = PIXI.Texture.fromImage(theoKzObjects.flag);
+ctx.onclickServer = PIXI.Texture.fromImage(gameSettings.flag);
 ctx.containerImgS = new PIXI.Sprite(ctx.imgServerbase);
 ctx.containerImgS.anchor.set(0.5);
 ctx.containerImgS.x = 0;
@@ -347,7 +348,7 @@ ctx.setCountGame = function (p21, p22, p23, p24) {
   ctx.value1_hs.text = p22;
   ctx.value1_kill.text = p21;
   ;
-  if (theoKzObjects.ModeStremersaveheadshot) {
+  if (gameSettings.ModeStremersaveheadshot) {
     ctx.value2_hs.text = p24;
     ctx.value2_kill.text = p23;
   } else {}
@@ -721,7 +722,7 @@ window.addEventListener("load", function () {
     }
     function f26() {
       function f27() {
-        let v61 = theoKzObjects.adblock ? 1 : 5;
+        let v61 = gameSettings.adblock ? 1 : 5;
         $("#adbl-1").text(f8("index.game.antiadblocker.msg1"));
         $("#adbl-2").text(f8("index.game.antiadblocker.msg2"));
         $("#adbl-3").text(f8("index.game.antiadblocker.msg3"));
@@ -1347,7 +1348,7 @@ window.addEventListener("load", function () {
         }
       };
       vO5.Vb = function (p131, p132) {
-        let vLoadJoy = loadJoy(!theoKzObjects.mobile);
+        let vLoadJoy = loadJoy(!gameSettings.mobile);
         var v112 = vO5.db = new WebSocket(p131);
         v112.binaryType = "arraybuffer";
         window.onOpen = v112.onopen = function () {
@@ -2377,7 +2378,7 @@ window.addEventListener("load", function () {
       vF132.prototype.Se = function (p281) {
         vF100("count", p281);
         if (p281) {
-          if (theoKzObjects.ModeStremerheadshot) {} else {
+          if (gameSettings.ModeStremerheadshot) {} else {
             var v180 = document.createElement("audio");
             v180.src = "https://asserts.wormworld.io/sounds/headshot_sound_effect.mp3";
             v180.preload = "auto";
@@ -2388,9 +2389,9 @@ window.addEventListener("load", function () {
           this.addChild(vF522);
           this.Pe.push(vF522);
           if (vF522) {
-            theoKzObjects.emoji_headshot = true;
+            gameSettings.emoji_headshot = true;
             setTimeout(function () {
-              theoKzObjects.emoji_headshot = false;
+              gameSettings.emoji_headshot = false;
             }, 3000);
           }
         } else {
@@ -2398,9 +2399,9 @@ window.addEventListener("load", function () {
           this.addChild(vF522);
           this.Pe.push(vF522);
           if (vF522) {
-            theoKzObjects.emoji_kill = true;
+            gameSettings.emoji_kill = true;
             setTimeout(function () {
-              theoKzObjects.emoji_kill = false;
+              gameSettings.emoji_kill = false;
             }, 3000);
           }
         }
@@ -2554,7 +2555,7 @@ window.addEventListener("load", function () {
         this.vf.position.x = v186 - 225;
         this.vf.position.y = 1;
         window.changedNf = () => this.jf = Math.min(Math.max(v186, v187), window.multiplier * Math.min(v186, v187));
-        if (theoKzObjects.ModeStremer) {
+        if (gameSettings.ModeStremer) {
           var v188 = v186 / 2;
           var v189 = v187 / 2;
           var vLN100 = 100;
@@ -2575,7 +2576,7 @@ window.addEventListener("load", function () {
         this.vf.addChild(ctx.containerImgS);
         this.tf.addChild(ctx.borderImg);
         window.retundFlagError = () => {
-          return ctx.containerImgS.texture = PIXI.Texture.fromImage(theoKzObjects.flag);
+          return ctx.containerImgS.texture = PIXI.Texture.fromImage(gameSettings.flag);
         };
         this.tf.addChild(ctx.containerCountInfo);
       };
@@ -2613,7 +2614,7 @@ window.addEventListener("load", function () {
           }
           this.gf = Math.sin(p296 / 1200 * 2 * Math.PI);
           var v197 = v191.Gf();
-          this.yf.x = f18(this.yf.x, v197.x, p297, theoKzObjects.smoothCamera, 33.333);
+          this.yf.x = f18(this.yf.x, v197.x, p297, gameSettings.smoothCamera, 33.333);
           this.yf.y = f18(this.yf.y, v197.y, p297, 0.5, 33.333);
           var v198 = v192 / v194 / 2;
           var v199 = v193 / v194 / 2;
@@ -2735,7 +2736,7 @@ window.addEventListener("load", function () {
               }
               f4(this, v213, v214.tc);
               v215.Uf = v214.tc;
-              if (theoKzObjects.ModeStremer) {
+              if (gameSettings.ModeStremer) {
                 v215.position.x = vLN027 + 225;
               } else {
                 v215.position.x = vLN027;
@@ -3067,7 +3068,7 @@ window.addEventListener("load", function () {
         if (p319 > 210) {
           for (let v232 in this.o.hb) {
             var v233 = this.o.hb[v232].Mb.dg;
-            if (theoKzObjects.ModeStremerdangaunhien) {} else {
+            if (gameSettings.ModeStremerdangaunhien) {} else {
               var vA9 = [1348, 1344, 1500, 1354, 1352, 1338, 1336, 1234, 1459, 1371, 1420, 1405, 1198, 1188, 1041, 1087, 1069, 1100, 1126, 1127, 1227, 1422, 1260, 1257, 1282, 1283, 1288, 1289, 1291, 1294, 1312, 1311, 1323, 1435, 1446, 1456, 1471, 1472, 1451, 1185];
               if ([0, 1, 2, 3, 6, 32, 33, 34, 35, 8].includes(v233)) {
                 var v234 = Math.floor(Math.random() * vA9.length);
@@ -3093,7 +3094,7 @@ window.addEventListener("load", function () {
               console.log("tercer digitos: " + v238);
               let v239 = v236.substr(10, 3);
               console.log("mouthId_A: " + v239);
-              if (f57 !== "0000" && theoKzObjects.visibleSkin.indexOf(parseInt(f57)) !== -1) {
+              if (f57 !== "0000" && gameSettings.visibleSkin.indexOf(parseInt(f57)) !== -1) {
                 this.o.hb[v232].Mb.dg = parseInt(f57);
               }
               if (v237 !== "000") {
@@ -3109,11 +3110,11 @@ window.addEventListener("load", function () {
           }
         }
         if (window.anApp.o.N.Mb.Lb === v230.Lb) {
-          v230.dg = theoKzObjects.PropertyManager.rh;
-          v230.Bg = theoKzObjects.PropertyManager.sh;
-          v230.Cg = theoKzObjects.PropertyManager.th;
-          v230.Dg = theoKzObjects.PropertyManager.uh;
-          v230.Eg = theoKzObjects.PropertyManager.vh;
+          v230.dg = gameSettings.PropertyManager.rh;
+          v230.Bg = gameSettings.PropertyManager.sh;
+          v230.Cg = gameSettings.PropertyManager.th;
+          v230.Dg = gameSettings.PropertyManager.uh;
+          v230.Eg = gameSettings.PropertyManager.vh;
           p318.setInt16(vP319, v230.dg);
           p318.setInt16(vP3192, v230.Bg);
           p318.setInt16(vP3193, v230.Cg);
@@ -3436,7 +3437,7 @@ window.addEventListener("load", function () {
         p342 += 2;
         var v313 = new vF43();
         v313.ag = [];
-        if (theoKzObjects.ModeStremerbatop) {
+        if (gameSettings.ModeStremerbatop) {
           for (var v314 = p341.mc(p342++), vLN7 = 7; vLN7 < v314; vLN7++) {
             var v315 = p341.nc(p342);
             p342 += 2;
@@ -3578,7 +3579,7 @@ window.addEventListener("load", function () {
         this.Jb = f17(this.Jb, this.Rg, p361, 0.0025);
       };
       f59.prototype.Gb = function (p362, p363, p364) {
-        this.ch = f17(this.ch, this.Ob, p363, theoKzObjects.eat_animation);
+        this.ch = f17(this.ch, this.Ob, p363, gameSettings.eat_animation);
         this.dh = f17(this.dh, this.Pb, p363, 0.005);
         this.gh.Te(this, p362, p363, p364);
       };
@@ -3619,9 +3620,9 @@ window.addEventListener("load", function () {
         }
         var v328 = p368.fh * (1 + Math.cos(p368.Ae + p369 / 200) * 0.3);
         if (p368.bh) {
-          this.Of.mh(p368.ch, p368.dh, theoKzObjects.PortionSize * p368.eh, p368.Jb * 1, theoKzObjects.PortionAura * v328, theoKzObjects.PortionTransparent * p368.Jb);
+          this.Of.mh(p368.ch, p368.dh, gameSettings.PortionSize * p368.eh, p368.Jb * 1, gameSettings.PortionAura * v328, gameSettings.PortionTransparent * p368.Jb);
         } else {
-          this.Of.mh(p368.ch, p368.dh, theoKzObjects.FoodSize * p368.eh, p368.Jb * 1, theoKzObjects.FoodShadow * v328, theoKzObjects.FoodTransparent * p368.Jb);
+          this.Of.mh(p368.ch, p368.dh, gameSettings.FoodSize * p368.eh, p368.Jb * 1, gameSettings.FoodShadow * v328, gameSettings.FoodTransparent * p368.Jb);
         }
       };
       var vF36 = function () {
@@ -3691,9 +3692,9 @@ window.addEventListener("load", function () {
       }
       f63.prototype.a = function () {};
       f63.prototype.ha = function (p384) {
-        if (!theoKzObjects.loading) {
-          theoKzObjects.PropertyManager = this;
-          localStorage.setItem("SaveGameXT", JSON.stringify(theoKzObjects));
+        if (!gameSettings.loading) {
+          gameSettings.PropertyManager = this;
+          localStorage.setItem("SaveGameXT", JSON.stringify(gameSettings));
         }
         switch (p384) {
           case vF38.ia:
@@ -3860,15 +3861,15 @@ window.addEventListener("load", function () {
           return v338;
         }());
         this.Af = new vF6._b(vF6.$b.from("/images/lens.png"));
-        var v339 = vF6.$b.from("https://i.imgur.com/Nn8b8oj.png");
-        var v340 = vF6.$b.from("https://i.imgur.com/EDt862t.png");
-        var v341 = vF6.$b.from("https://i.imgur.com/U5sTlhC.png");
-        var v342 = vF6.$b.from("https://i.imgur.com/ub4ed3R.png");
+        var v339 = vF6.$b.from(gameSettings.s_l + "/images/wear-ability.png");
+        var v340 = vF6.$b.from(gameSettings.s_l + "/images/emoj1.png");
+        var v341 = vF6.$b.from(gameSettings.s_l + "/images/emoj2.png");
+        var v342 = vF6.$b.from(gameSettings.s_l + "/images/transparent.png");
         this.Id_mobileguia = new vF39(v342, 0, 0, 87, 74, 350, 63, 128, 128);
         this.emoji_headshot = new vF39(v340, 0, 0, 256, 256, 170.5, -163.5, 128, 128);
         this.emoji_kill = new vF39(v341, 0, 0, 256, 256, 170.5, -163.5, 128, 128);
         this.Ph = new vF39(v339, 158, 86, 67, 124, 148, 63.5, 128, 128);
-        if (theoKzObjects.ModeStremermuiten) {} else {
+        if (gameSettings.ModeStremermuiten) {} else {
           this.Qh = new vF39(v339, 158, 4, 87, 74, 203, 63.5, 128, 128);
         }
         ;
@@ -3889,7 +3890,7 @@ window.addEventListener("load", function () {
         this.Th = null;
       }
       var vF41 = function (p399) {
-        var v344 = vF6.$b.from(p399 || "https://i.imgur.com/8ubx4RA.png");
+        var v344 = vF6.$b.from(p399 || gameSettings.s_l + "/images/background/default.png");
         v344.wrapMode = vF6.kc.lc;
         return v344;
       };
@@ -4198,7 +4199,7 @@ window.addEventListener("load", function () {
         this.pi.push(p416);
       };
       f75.prototype.Ch = function (p417, p418) {
-        var v350 = this.si.propertyList.concat(theoKzObjects.pL || []);
+        var v350 = this.si.propertyList.concat(gameSettings.pL || []);
         if (!v350) {
           return false;
         }
@@ -4442,7 +4443,7 @@ window.addEventListener("load", function () {
             vThis12.qi = true;
             vThis12.ri = p432;
             vThis12.si = p435.user_data;
-            theoKzObjects.FB_UserID = p435.user_data.userId;
+            gameSettings.FB_UserID = p435.user_data.userId;
             vThis12.ti = p431;
             f7(vF17.Oe, vThis12.ti, 60);
             vF96();
@@ -4472,16 +4473,16 @@ window.addEventListener("load", function () {
               var v385 = clientes.clientesActivos[vLN061].Client_VisibleSkin20;
               var v386 = clientes.clientesActivos[vLN061].Client_KeyAccecs;
               var v387 = clientes.clientesActivos[vLN061].cliente_DateExpired;
-              if (theoKzObjects.FB_UserID == 0) {} else if (theoKzObjects.FB_UserID == v364) {
+              if (gameSettings.FB_UserID == 0) {} else if (gameSettings.FB_UserID == v364) {
                 $("#mm-line-top").append("<div class='het-han'> Expiration date : " + v387 + "</div>");
                 $("#mm-line-bottom").append("<div class='het-han' style='left: 300px; top: 46px;font-size: 15px;'> Expiration date : " + v387 + "</div>");
                 $(".profile-user").append("<div class='het-han'> Expiration date : " + v387 + "</div>");
-                $(".profile-user").append("<div class=\"idwormate\"><input type=\"text\" value=\"" + theoKzObjects.FB_UserID + "\" style=\"width: 88%; height: 35px; border-radius: 4px; font-size: 18px; /* padding: 0 6px; */ text-align: center; background-color: #fff; color: #0a6928; font-weight: 600; display: block;\"/>\n      <button style=\"padding: 19px; float: right; margin-top: -40px; margin-right: -40px; line-height: 0; font-size: 18px;\" onclick=\"navigator.clipboard.writeText('" + theoKzObjects.FB_UserID + "').then(()=> alert('You ID " + theoKzObjects.FB_UserID + " copiado! copied!'));\">Copy</button></div>");
+                $(".profile-user").append("<div class=\"idwormate\"><input type=\"text\" value=\"" + gameSettings.FB_UserID + "\" style=\"width: 88%; height: 35px; border-radius: 4px; font-size: 18px; /* padding: 0 6px; */ text-align: center; background-color: #fff; color: #0a6928; font-weight: 600; display: block;\"/>\n      <button style=\"padding: 19px; float: right; margin-top: -40px; margin-right: -40px; line-height: 0; font-size: 18px;\" onclick=\"navigator.clipboard.writeText('" + gameSettings.FB_UserID + "').then(()=> alert('You ID " + gameSettings.FB_UserID + " copiado! copied!'));\">Copy</button></div>");
                 vF98();
                 vF97();
               } else {}
             }
-            theoKzObjects.loading = false;
+            gameSettings.loading = false;
             if (v362 !== p432) {
               vThis12.aj();
             } else {
@@ -5118,20 +5119,20 @@ window.addEventListener("load", function () {
           this.vj.Kj();
         }
         ;
-        if (theoKzObjects.ModeStremeremoj) {} else {
-          if (theoKzObjects.emoji_headshot && p520 && p520.Mb && p520.Mb.Mb) {
+        if (gameSettings.ModeStremeremoj) {} else {
+          if (gameSettings.emoji_headshot && p520 && p520.Mb && p520.Mb.Mb) {
             this.vj.Njh(p520, v444, p521, p522);
           } else {
             this.vj.xzs();
           }
-          if (theoKzObjects.emoji_kill && p520 && p520.Mb && p520.Mb.Mb) {
+          if (gameSettings.emoji_kill && p520 && p520.Mb && p520.Mb.Mb) {
             this.vj.Njk(p520, v444, p521, p522);
           } else {
             this.vj.zas();
           }
         }
         ;
-        if (theoKzObjects.mobile && theoKzObjects.arrow && p520 && p520.Mb && p520.Mb.Mb) {
+        if (gameSettings.mobile && gameSettings.arrow && p520 && p520.Mb && p520.Mb.Mb) {
           this.vj.Rx(p520, v444, p521, p522);
         }
       };
@@ -5383,7 +5384,7 @@ window.addEventListener("load", function () {
             detecNewCodeAndPacth();
             setInterval(detecNewCodeAndPacth, 1000);
           }
-          if (theoKzObjects.KeyCodeRespawn == p559.keyCode) {
+          if (gameSettings.KeyCodeRespawn == p559.keyCode) {
             vThis14.rk = true;
             window.onclose();
             setTimeout(function () {
@@ -5398,7 +5399,7 @@ window.addEventListener("load", function () {
           }
         });
         v472.addEventListener("touchmove", function (p561) {
-          if (!RechekingPhone() || !theoKzObjects.gamePad.checked) {
+          if (!RechekingPhone() || !gameSettings.gamePad.checked) {
             if (p561 = p561 || window.event) {
               p561 = p561.touches[0];
               if (p561.clientX !== undefined) {
@@ -7365,7 +7366,7 @@ window.addEventListener("load", function () {
     vUndefined2 = f29();
     vUndefined2.v();
     if (PhoneChecked()) {
-      f12("https://haylamday.com/js/joy.min.js", "mobileconfig", function () {
+      f12(gameSettings.s_l + "/js/joy.min.js", "mobileconfig", function () {
         vF94();
       });
     }
@@ -7388,7 +7389,7 @@ window.addEventListener("load", function () {
           v528++;
         }, 120 + (p613 >= 100000 ? 5 : p613 >= 10000 ? 10 : 0));
       }
-      localStorage.setItem("SaveGameXT", JSON.stringify(theoKzObjects));
+      localStorage.setItem("SaveGameXT", JSON.stringify(gameSettings));
     }, false);
     let vA15 = [{
       nombre: "chuot 01",
@@ -7519,42 +7520,42 @@ window.addEventListener("load", function () {
     }];
     let vA16 = [{
       nombre: "Default",
-      url: "https://i.imgur.com/8ubx4RA.png"
+      url: gameSettings.s_l + "/images/background/default.png"
     }, {
       nombre: "Schwarze Background",
-      url: "https://i.imgur.com/3cxXwZ6.png"
+      url: gameSettings.s_l + "/images/background/Schwarze.png"
     }, {
       nombre: "light blue",
-      url: "https://i.imgur.com/dWtJFIx.png"
+      url: gameSettings.s_l + "/images/background/light_blue.png"
     }, {
       nombre: "woman",
-      url: "https://i.imgur.com/19YALRi.png"
+      url: gameSettings.s_l + "/images/background/woman.png"
     }, {
       nombre: "Navidad",
-      url: "https://i.imgur.com/qAO9LgC.png"
+      url: gameSettings.s_l + "/images/background/Navidad.png"
     }, {
       nombre: "Mal3ab",
-      url: "https://i.imgur.com/MlCgOma.png"
+      url: gameSettings.s_l + "/images/background/Mal3ab.png"
     }, {
       nombre: "Galaxy_Star",
-      url: "https://i.imgur.com/yayb9Ru.png"
+      url: gameSettings.s_l + "/images/background/Galaxy_Star.png"
     }, {
       nombre: "Desert",
-      url: "https://asserts.wormworld.io/backgrounds/bkgnd7.png"
+      url: gameSettings.s_l + "/images/background/Desert.png"
     }, {
       nombre: "Sky 1",
-      url: "https://asserts.wormworld.io/backgrounds/bg_sky_1.png"
+      url: gameSettings.s_l + "/images/background/Sky_1.png"
     }, {
       nombre: "Sky 2",
-      url: "https://asserts.wormworld.io/backgrounds/bg_sky_2.png"
+      url: gameSettings.s_l + "/images/background/Sky_2.png"
     }, {
       nombre: "Sky 3",
-      url: "https://asserts.wormworld.io/backgrounds/bg_sky_3.png"
+      url: gameSettings.s_l + "/images/background/Sky_3.png"
     }, {
       nombre: "Sky 4",
-      url: "https://asserts.wormworld.io/backgrounds/bg_sky_4.png"
+      url: gameSettings.s_l + "/images/background/Sky_4.png"
     }];
-    theoKzObjects.loading = true;
+    gameSettings.loading = true;
     var vLS4 = "";
     vLS4 += "</div>";
     vLS4 += "</div>";
@@ -7569,22 +7570,22 @@ window.addEventListener("load", function () {
     vLS4 += "<img class=\"pwrups v6\" style=\"display: none;\" src=\"https://i.imgur.com/mSCZeEp.png\">";
     vLS4 += "</div>";
     vLS4 += "<img class=\"worm_1\" src=\"https://i.imgur.com/iekrYYm.png\"><span class=\"Worm_cerca\"></span>";
-    vLS4 += "\n      \n      \n        \n        \n        <input style=\"display:none\" id=\"zoom-slider\" type=\"range\" min=\"0\" max=\"100\" value=\"50\" step=\"1\">\n        <div style=\"display:none\" class=\"key\">Q</div>\n        <div class=\"worm_2\">\n        <button id=\"settingBtn\"><i aria-hidden=\"true\" class=\"fa fa-cog fa-spin\" style=\"color:yellow;font-size: 23px;\"></i></button>\n        \n        <div id=\"settingContent\">\n        \n        \n        <div class=\"container1\">\n                    <span class=\"settings_span\">Spin-Fast: </span>\n                    <input id=\"smoothCamera\" class=\"range\" type=\"range\" min=\"0.3\" max=\"0.6\" value=\"' + theoKzObjects.smoothCamera + '\" step=\"0.1\" onmousemove=\"smoothCameraValue.value=value\" />\n        </div>         \n        \n        <div class=\"container1\">\n        <span class=\"settings_span\">Power-ups-Size: </span>\n        <input id=\"PortionSize\" class=\"range\" type=\"range\" min=\"1\" max=\"6\" value=\"' + theoKzObjects.PortionSize + '\" step=\"1\" onmousemove=\"rangevalue1.value=value\" />\n        </div>\n        \n      <div class=\"container1\">\n      <span class=\"settings_span\">Power-ups-Aura: </span>\n      <input id=\"PortionAura\" class=\"range\" type=\"range\" min=\"1.2\" max=\"3.2\" value=\"' + theoKzObjects.PortionAura + '\" step=\"0.2\" onmousemove=\"PortionAuravalue.value=value\" />\n      </div>\n       \n      <div class=\"container1\">\n                    <span class=\"settings_span\">Food-Size: </span>\n                    <input id=\"FoodSize\" class=\"range\" type=\"range\" min=\"0.5\" max=\"3\" value=\"' + theoKzObjects.FoodSize + '\" step=\"0.5\" onmousemove=\"rangevalue2.value=value\" />\n                    </div>\n                    <div class=\"container1\">\n                    <span class=\"settings_span\">Food-Shadow: </span>\n                    <input id=\"FoodShadow\" class=\"range\" type=\"range\" min=\"0.5\" max=\"3\" value=\"' + theoKzObjects.FoodShadow + '\" step=\"0.5\" onmousemove=\"FoodShadowvalue.value=value\" />\n                    </div>\n    </div>\n    </div>";
+    vLS4 += "\n      \n      \n        \n        \n        <input style=\"display:none\" id=\"zoom-slider\" type=\"range\" min=\"0\" max=\"100\" value=\"50\" step=\"1\">\n        <div style=\"display:none\" class=\"key\">Q</div>\n        <div class=\"worm_2\">\n        <button id=\"settingBtn\"><i aria-hidden=\"true\" class=\"fa fa-cog fa-spin\" style=\"color:yellow;font-size: 23px;\"></i></button>\n        \n        <div id=\"settingContent\">\n        \n        \n        <div class=\"container1\">\n                    <span class=\"settings_span\">Spin-Fast: </span>\n                    <input id=\"smoothCamera\" class=\"range\" type=\"range\" min=\"0.3\" max=\"0.6\" value=\"' + gameSettings.smoothCamera + '\" step=\"0.1\" onmousemove=\"smoothCameraValue.value=value\" />\n        </div>         \n        \n        <div class=\"container1\">\n        <span class=\"settings_span\">Power-ups-Size: </span>\n        <input id=\"PortionSize\" class=\"range\" type=\"range\" min=\"1\" max=\"6\" value=\"' + gameSettings.PortionSize + '\" step=\"1\" onmousemove=\"rangevalue1.value=value\" />\n        </div>\n        \n      <div class=\"container1\">\n      <span class=\"settings_span\">Power-ups-Aura: </span>\n      <input id=\"PortionAura\" class=\"range\" type=\"range\" min=\"1.2\" max=\"3.2\" value=\"' + gameSettings.PortionAura + '\" step=\"0.2\" onmousemove=\"PortionAuravalue.value=value\" />\n      </div>\n       \n      <div class=\"container1\">\n                    <span class=\"settings_span\">Food-Size: </span>\n                    <input id=\"FoodSize\" class=\"range\" type=\"range\" min=\"0.5\" max=\"3\" value=\"' + gameSettings.FoodSize + '\" step=\"0.5\" onmousemove=\"rangevalue2.value=value\" />\n                    </div>\n                    <div class=\"container1\">\n                    <span class=\"settings_span\">Food-Shadow: </span>\n                    <input id=\"FoodShadow\" class=\"range\" type=\"range\" min=\"0.5\" max=\"3\" value=\"' + gameSettings.FoodShadow + '\" step=\"0.5\" onmousemove=\"FoodShadowvalue.value=value\" />\n                    </div>\n    </div>\n    </div>";
     $("#game-view").append(vLS4);
     var vF95 = function (p614) {
-      if (theoKzObjects.PropertyManager) {
-        p614.skinId = theoKzObjects.PropertyManager.rh;
-        p614.eyesId = theoKzObjects.PropertyManager.sh;
-        p614.mouthId = theoKzObjects.PropertyManager.th;
-        p614.glassesId = theoKzObjects.PropertyManager.uh;
-        p614.hatId = theoKzObjects.PropertyManager.vh;
+      if (gameSettings.PropertyManager) {
+        p614.skinId = gameSettings.PropertyManager.rh;
+        p614.eyesId = gameSettings.PropertyManager.sh;
+        p614.mouthId = gameSettings.PropertyManager.th;
+        p614.glassesId = gameSettings.PropertyManager.uh;
+        p614.hatId = gameSettings.PropertyManager.vh;
       }
     };
     var vF96 = function () {
       $("#mm-event-text").replaceWith("<div class=\"text-vnxx\"><a href=\"https://www.facebook.com/WormateFriendsConnect\">❤️ Wormate Friends Connect 2025 ❤️</a></div>");
-      $(".mm-merchant-cont").replaceWith("<div class='youid'><button style=\"float: right;position: relative;min-width: 95px;background:#ff0000;height: 50px;\" onclick=\"navigator.clipboard.writeText('" + theoKzObjects.FB_UserID + "').then(()=> alert('You ID " + theoKzObjects.FB_UserID + " copiado! copied!'));\">YOUR ID</button></div>");
+      $(".mm-merchant-cont").replaceWith("<div class='youid'><button style=\"float: right;position: relative;min-width: 95px;background:#ff0000;height: 50px;\" onclick=\"navigator.clipboard.writeText('" + gameSettings.FB_UserID + "').then(()=> alert('You ID " + gameSettings.FB_UserID + " copiado! copied!'));\">YOUR ID</button></div>");
       $(".column-left").append("<div class='contact'><i class='fa fa-phone'></i> Zalo, Whatapp : 0924623650</div>");
-      $("#loa831pibur0w4gv").replaceWith("\n           \n           \n           \n           <div style=\"margin: 0;\" id=\"loa831pibur0w4gv\">\n  <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css\" />\n  \n    <div class=\"label\" id=\"titleSetings\">Notification</div>\n    <div class=\"bao-list1\">\n      \n      <input type=\"text\" value=\"" + theoKzObjects.FB_UserID + "\" style=\"width: 85%;height: 23px;border-radius: 4px;font-size: 12px;padding: 0 6px;background-color: #fff;color: #806102;display: block;box-sizing: border-box;-webkit-appearance: none;outline: 0;border-width: 0;\"/>\n      <button style=\"height: 25px;float: right;margin-top: -24px;margin-right: -6px;line-height: 1.2;font-size: 14px;\" onclick=\"navigator.clipboard.writeText('" + theoKzObjects.FB_UserID + "').then(()=> alert('You ID " + theoKzObjects.FB_UserID + " copiado! copied!'));\">Copy</button>\n      <center>\n        <div class=\"hg\"><a target=\"_blank\" href=\"https://thanhtoan.vuonghiep.com/\">Activated</a> </div>\n      </center>\n     <i class=\"fa fa-book\" aria-hidden=\"true\" style=\"color:48ff00;\"></i> Instructions for installing on IOS and iPad New 2024: <a style=\"color: #2ae1eb; font-weight: 600;\" href=\"https://www.youtube.com/watch?v=uyHHXWKHgRw\">https://www.youtube.com/watch?v=uyHHXWKHgRw</a> </div>\n      \n    \n</div>");
+      $("#loa831pibur0w4gv").replaceWith("\n           \n           \n           \n           <div style=\"margin: 0;\" id=\"loa831pibur0w4gv\">\n  <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css\" />\n  \n    <div class=\"label\" id=\"titleSetings\">Notification</div>\n    <div class=\"bao-list1\">\n      \n      <input type=\"text\" value=\"" + gameSettings.FB_UserID + "\" style=\"width: 85%;height: 23px;border-radius: 4px;font-size: 12px;padding: 0 6px;background-color: #fff;color: #806102;display: block;box-sizing: border-box;-webkit-appearance: none;outline: 0;border-width: 0;\"/>\n      <button style=\"height: 25px;float: right;margin-top: -24px;margin-right: -6px;line-height: 1.2;font-size: 14px;\" onclick=\"navigator.clipboard.writeText('" + gameSettings.FB_UserID + "').then(()=> alert('You ID " + gameSettings.FB_UserID + " copiado! copied!'));\">Copy</button>\n      <center>\n        <div class=\"hg\"><a target=\"_blank\" href=\"https://thanhtoan.vuonghiep.com/\">Activated</a> </div>\n      </center>\n     <i class=\"fa fa-book\" aria-hidden=\"true\" style=\"color:48ff00;\"></i> Instructions for installing on IOS and iPad New 2024: <a style=\"color: #2ae1eb; font-weight: 600;\" href=\"https://www.youtube.com/watch?v=uyHHXWKHgRw\">https://www.youtube.com/watch?v=uyHHXWKHgRw</a> </div>\n      \n    \n</div>");
       var v529 = document.getElementById("settingBtn");
       var v530 = document.getElementById("settingContent");
       function f93() {
@@ -7619,24 +7620,24 @@ window.addEventListener("load", function () {
         f94();
       });
       $("#PortionSize").on("input", function () {
-        theoKzObjects.PortionSize = $(this).val();
-        localStorage.PotenciadorSize = theoKzObjects.PortionSize;
+        gameSettings.PortionSize = $(this).val();
+        localStorage.PotenciadorSize = gameSettings.PortionSize;
       });
       $("#PortionAura").on("input", function () {
-        theoKzObjects.PortionAura = $(this).val();
-        localStorage.PotenciadorAura = theoKzObjects.PortionAura;
+        gameSettings.PortionAura = $(this).val();
+        localStorage.PotenciadorAura = gameSettings.PortionAura;
       });
       $("#smoothCamera").on("input", function () {
-        theoKzObjects.smoothCamera = $(this).val();
-        localStorage.smoothCamera = theoKzObjects.smoothCamera;
+        gameSettings.smoothCamera = $(this).val();
+        localStorage.smoothCamera = gameSettings.smoothCamera;
       });
       $("#FoodSize").on("input", function () {
-        theoKzObjects.FoodSize = $(this).val();
-        localStorage.ComidaSize = theoKzObjects.FoodSize;
+        gameSettings.FoodSize = $(this).val();
+        localStorage.ComidaSize = gameSettings.FoodSize;
       });
       $("#FoodShadow").on("input", function () {
-        theoKzObjects.FoodShadow = $(this).val();
-        localStorage.ComidaShadow = theoKzObjects.FoodShadow;
+        gameSettings.FoodShadow = $(this).val();
+        localStorage.ComidaShadow = gameSettings.FoodShadow;
       });
       $("#mm-advice-cont").html("\n            \n            \n            \n            <div class=\"vietnam\" style=\"display: grid !important; grid-template-columns: 1fr 1fr 1fr 1fr;gap: 8.5px;\">\n            \n            \n    <input type=\"button\" value=\"F.SCREEN\" class=\"fullscreen_button\">\n    \n    \n    <input type=\"button\" value=\"RESPAWN\" id=\"hoisinh\" class=\"fullscreen_respawn\">\n    \n    <input type=\"button\" value=\"SKINS LAB\" onclick=\"window.location.href='https://skinlab.haylamday.com/'\" class=\"fullscreen_contact\">\n    \n    <input type=\"button\" value=\"CONTACT\" onclick=\"window.location.href='https://thanhtoan.vuonghiep.com'\" class=\"fullscreen_contact\">\n    \n    \n    \n    </div>\n    \n    \n\n <div class=\"vietnam\" style=\"display: grid !important; grid-template-columns: 1fr 1fr;gap: 10px;margin-top: 8px;\">\n    <a href=\"https://www.youtube.com/@NonaMilano\" target=\"_blank\">\n      <img style=\"width:100%\" src=\"https://haylamday.com/images/hiep_img/nona.png\" alt=\"nona\"/>\n    </a>\n    <a href=\"https://thanhtoan.vuonghiep.com\" target=\"_blank\">\n      <img style=\"width:100%\" src=\"https://i.imgur.com/l1fWELC.png\" alt=\"wfc\"/>\n    </a>\n    </div>\n    \n    ");
       $(".mm-merchant-cont").html("\n ");
@@ -7671,7 +7672,7 @@ window.addEventListener("load", function () {
       $(".ui-tab").on("click", account);
       $(".flag").click(function () {
         let v535 = $(this).attr("value");
-        theoKzObjects.flag = v535;
+        gameSettings.flag = v535;
         ctx.containerImgS.texture = ctx.onclickServer;
         retundFlagError();
         console.log(v535);
@@ -7746,10 +7747,10 @@ window.addEventListener("load", function () {
           var v563 = clientes.clientesActivos[vLN093].Client_VisibleSkin19;
           var v564 = clientes.clientesActivos[vLN093].Client_VisibleSkin20;
           var v565 = clientes.clientesActivos[vLN093].Client_KeyAccecs;
-          if (theoKzObjects.FB_UserID == 0) {} else if (theoKzObjects.FB_UserID == v543) {
+          if (gameSettings.FB_UserID == 0) {} else if (gameSettings.FB_UserID == v543) {
             if (v565 == "XTPRIVATESKIN") {
-              for (let vLN094 = 0; vLN094 < theoKzObjects.idSkin.length; vLN094++) {
-                const v566 = theoKzObjects.idSkin[vLN094];
+              for (let vLN094 = 0; vLN094 < gameSettings.idSkin.length; vLN094++) {
+                const v566 = gameSettings.idSkin[vLN094];
                 if (v566.id == v544 || v566.id == v545 || v566.id == v546 || v566.id == v547 || v566.id == v548 || v566.id == v549 || v566.id == v550 || v566.id == v551 || v566.id == v552 || v566.id == v553 || v566.id == v554 || v566.id == v555 || v566.id == v556 || v566.id == v557 || v566.id == v558 || v566.id == v559 || v566.id == v560 || v566.id == v561 || v566.id == v562 || v566.id == v563 || v566.id == v564) {
                   v566.nonbuyable = false;
                 }
@@ -7760,9 +7761,9 @@ window.addEventListener("load", function () {
       });
     };
     var vF98 = function () {
-      theoKzObjects.adblock = true;
+      gameSettings.adblock = true;
       $(".youid").css("display", "none");
-      $("#mm-store").after("\n            \n            <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet'/>\n            \n           \n        <div id=\"mm-store\" style=\"float: right;position: relative;min-width: 95px;background:#ff0000\" onclick=\"openPopup()\"><i aria-hidden=\"true\" class=\"fa fa-cog fa-spin\" style=\"color:yellow;font-size: 23px;\"></i> Tool</div>\n        <div id=\"popup\" class=\"popup\">\n        \n        <div class=\"phdr1\"> \n        <button style=\"float: right;background: #00000000;float: right;height: 40px;border: none;font-size: 16px;font-weight: 600;\" onclick=\"navigator.clipboard.writeText('" + theoKzObjects.FB_UserID + "').then(()=> alert('You ID " + theoKzObjects.FB_UserID + " copied!'));\">Copy ID</button>\n        \n        \n        </div>\n        <div class=\"close-button\" onclick=\"closePopup()\"></div>\n        <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css\">\n                   <div class=\"layout\">\n      <div class=\"sidebar\">\n          <ul>\n              <li><div class=\"hii\" style=\"background: none; border: none;\" id=\"click-btn\"><i class=\"fas fa-user\"></i> Profile</div></li>\n              <li id=\"toolgame-btn\" class=\"selected\" onclick=\"displayContent('toolgame', this)\">\n            <i class=\"fas fa-cogs\"></i> Tool Game\n        </li>\n        <li id=\"skins-btn\" onclick=\"displayContent('skins', this)\">\n            <i class=\"fas fa-paint-brush\"></i> Skins\n        </li>\n        <li id=\"chuot-btn\" onclick=\"displayContent('chuot', this)\">\n            <i class=\"fas fa-mouse\"></i> Cursor\n        </li>\n        <li id=\"gioithieu-btn\" onclick=\"displayContent('gioithieu', this)\">\n            <i class=\"fas fa-info-circle\"></i> Giới Thiệu\n        </li>\n          </ul>\n      </div>\n\n      <div class=\"main-content\">\n      \n          <div id=\"toolgame\" class=\"content-section\">\n              \n        <!-- Container cho 2 phần tử (hàng 1) -->\n<div class=\"settings-row\">\n    <div class=\"settings-lineZoom\">\n        <span class=\"settings-labelZoom\">\n             <i class=\"fas fa-bolt yellow-icon\"></i> Eat Fast:\n        </span>\n        <input class=\"settings-switchZoom\" id=\"settings-Abilityzoom-switch\" type=\"checkbox\"/>\n        <label for=\"settings-Abilityzoom-switch\"></label>\n    </div>\n\n    <div class=\"settings-lineZoom\">\n        <span class=\"settings-labelZoom\">\n            <i class=\"fas fa-video yellow-icon\"></i> Center Streamer :\n        </span>\n        <input class=\"settings-switchZoom\" id=\"settings-stremingmode-switch\" type=\"checkbox\"/>\n        <label for=\"settings-stremingmode-switch\"></label>\n    </div>\n</div>\n\n<!-- Container cho 2 phần tử (hàng 2) -->\n<div class=\"settings-row\">\n    <div class=\"settings-lineZoom\">\n        <span class=\"settings-labelZoom\">\n             <i class=\"fas fa-trophy yellow-icon\"></i> 3 Top Score :\n        </span>\n        <input class=\"settings-switchZoom\" id=\"settings-stremingmodebatop-switch\" type=\"checkbox\"/>\n        <label for=\"settings-stremingmodebatop-switch\"></label>\n    </div>\n\n    <div class=\"settings-lineZoom\">\n        <span class=\"settings-labelZoom\">\n            <i class=\"fas fa-toggle-off yellow-icon\"></i> Turn Off <img style=\"height: 18px;\" src=\"https://i.imgur.com/cOrk9pM.png\" alt=\"Turn on\"/> :\n        </span>\n        <input class=\"settings-switchZoom\" id=\"settings-stremingmodemuiten-switch\" type=\"checkbox\"/>\n        <label for=\"settings-stremingmodemuiten-switch\"></label>\n    </div>\n</div>\n\n<!-- Container cho 2 phần tử (hàng 2) -->\n<div class=\"settings-row\">\n    <div class=\"settings-lineZoom\">\n        <span class=\"settings-labelZoom\">\n             <i class=\"fas fa-chart-bar yellow-icon\"></i> Total Kill :\n        </span>\n        <input class=\"settings-switchZoom\" id=\"settings-stremingmodesaveheadshot-switch\" type=\"checkbox\"/>\n        <label for=\"settings-stremingmodesaveheadshot-switch\"></label>\n    </div>\n\n    <div class=\"settings-lineZoom\">\n        <span class=\"settings-labelZoom\">\n             <i class=\"fas fa-smile yellow-icon\"></i> Off Emoj:\n        </span>\n        <input class=\"settings-switchZoom\" id=\"settings-stremingmodeemoj-switch\" type=\"checkbox\"/>\n        <label for=\"settings-stremingmodeemoj-switch\"></label>\n    </div>\n</div>\n\n<!-- Container cho 2 phần tử (hàng 2) -->\n<div class=\"settings-row\">\n     <div class=\"settings-lineZoom\">\n        <span class=\"settings-labelZoom\">\n             <i class=\"fas fa-volume-mute yellow-icon\"></i> Off Sounds:\n        </span>\n        <input class=\"settings-switchZoom\" id=\"settings-stremingmodeheadshot-switch\" type=\"checkbox\"/>\n        <label for=\"settings-stremingmodeheadshot-switch\"></label>\n    </div>\n\n    <div class=\"settings-lineZoom\">\n        <span class=\"settings-labelZoom\">\n             <i class=\"fa fa-eye-slash\"></i> Hide Map\n        </span>\n        <input class=\"settings-switchZoom\" id=\"settings-stremingmodeanclock-switch\" type=\"checkbox\"/>\n        <label for=\"settings-stremingmodeanclock-switch\"></label>\n    </div>\n</div>\n\n\n<div class=\"settings-row\">\n     <div class=\"settings-lineZoom\">\n        <span class=\"settings-labelZoom\">\n             <i class=\"fas fa-toggle-off yellow-icon\"></i> Off random skins :\n        </span>\n        <input class=\"settings-switchZoom\" id=\"settings-stremingmodedangaunhien-switch\" type=\"checkbox\"/>\n        <label for=\"settings-stremingmodedangaunhien-switch\"></label>\n    </div>\n\n    <div class=\"settings-lineZoom\">\n        <span class=\"settings-labelZoom\">\n             <i class=\"fa fa-eye-slash\"></i> Updating... !\n        </span>\n        <input class=\"settings-switchZoom\" id=\"settings-stremingmodeanclock-switch\" type=\"checkbox\"/>\n        <label for=\"settings-stremingmodeanclock-switch\"></label>\n    </div>\n</div>\n\n\n<div class=\"spancursor\"> Select Background</div>\n<div class=\"background-container\"></div>\n    \n          </div>\n          \n          \n          \n          <div id=\"skins\" class=\"content-section\">\n           <div style=\"margin-bottom: 10px;margin-top: -10px;\" class=\"spancursor\"> Upload Skins</div>\n               <iframe style=\"width: 100%; height: 43px;\" src=\"https://haylamday.com/api/skins_upload.php\" scrolling=\"no\" frameborder=\"0\"></iframe>\n               \n           <div style=\"margin-top: 20px;margin-bottom: 20px;\" class=\"spancursor\"> Upload Hat</div>\n <iframe style=\"width: 100%; height: 40px;\" src=\"https://haylamday.com/api/hat_upload.php\" scrolling=\"no\" frameborder=\"0\"></iframe>\n \n  <div class=\"spancursor\">NOTE : </div>\n                <ul><li>\n                 Uploading 18+ sex skins is prohibited. ID will be locked if violated.</li>\n                 <li>\n                 Vui lòng không tải lên skin sex 18+. Bị phát hiện sẽ bị khóa. Xin cảm ơn !</li></ul>\n            \n \n          </div>\n          \n         \n          <div id=\"chuot\" class=\"content-section\">\n              <div class=\"spancursor\"> Select Cursor</div>\n        <div class=\"cursor-container\">\n            <div id=\"default-cursor-btn\">\n                <img src=\"https://i.imgur.com/lWpvpbL.png\">\n            </div>\n        </div>\n          </div>\n          <div id=\"gioithieu\" class=\"content-section\">\n              <h2>Giới Thiệu</h2>\n              <p>Đây là nội dung Giới Thiệu.</p>\n          </div>\n      </div>\n  </div>\n\n  <script>\n      function displayContent(sectionId, element) {\n          // Ẩn tất cả các mục nội dung\n          let sections = document.querySelectorAll('.content-section');\n          sections.forEach(section => section.style.display = 'none');\n\n          // Hiển thị mục nội dung tương ứng\n          let activeSection = document.getElementById(sectionId);\n          if (activeSection) {\n              activeSection.style.display = 'block';\n          }\n\n          // Đổi màu mục đã chọn\n          let menuItems = document.querySelectorAll('.sidebar ul li');\n          menuItems.forEach(item => item.classList.remove('selected')); // Loại bỏ class 'selected' khỏi tất cả mục\n          \n          // Thêm class 'selected' cho mục được chọn\n          element.classList.add('selected');\n      }\n\n      // Hiển thị nội dung mặc định khi tải trang\n      window.onload = function() {\n          displayContent('toolgame', document.getElementById('toolgame-btn'));\n      };\n      \n       // Lấy phần tử nút và div\n        const button = document.getElementById(\"click-btn\");\n        const playerInfo = document.getElementById(\"mm-player-info\");\n\n        // Xử lý sự kiện click vào nút\n        button.addEventListener(\"click\", function() {\n            // Mô phỏng click vào div khi nhấn nút\n            playerInfo.click();\n        });\n\n        // Xử lý sự kiện click trực tiếp vào div\n        playerInfo.addEventListener(\"click\", function() {\n            // Tại đây bạn có thể thực hiện hành động khác khi click vào div, ví dụ:\n            console.log(\"Div đã được click!\");\n        });\n\n      \n      \n      \n  </script>\n        <style>\n        .yellow-icon {\n    color: gold;  /* Chỉnh màu vàng */\n}\n        .layout {\n          display: flex;\n          width: 100%;\n          height: 90%;\n      }\n\n      .sidebar {\n          width: 140px;\n          background: #252535;\n          box-shadow: 0px 0px 10px #252535;\n          color: #fff;\n      }\n\n      .sidebar ul {\n          list-style-type: none;\n          padding: 0;\n          margin: 0;\n      }\n\n      .sidebar ul li {\n          padding: 12px;\n          cursor: pointer;\n          border-bottom: 1px solid #ddd;\n          width: 140px;\n      }\n\n      .sidebar ul li:hover {\n          background-color: #666;\n      }\n\n      .sidebar ul li.selected {\n          background-color: #000; /* Màu nền khi mục được chọn */\n          color: white;\n      }\n\n      .main-content {\n          flex-grow: 1;\n          padding: 20px;\n          background: #393e43;\n          color: #fff;\n      }\n\n      .content-section {\n          display: none;\n          transition: display 0.3s ease-in-out;\n      }\n\n      #toolgame {\n          display: block; /* Mặc định hiển thị nội dung Tool Game */\n      }\n\n      h2 {\n          margin-top: 0;\n      }\n\n      /* Thêm hiệu ứng cho hover */\n      .sidebar ul li:hover {\n          background-color: #666;\n      }</style>\n        </div>");
+      $("#mm-store").after("\n            \n            <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet'/>\n            \n           \n        <div id=\"mm-store\" style=\"float: right;position: relative;min-width: 95px;background:#ff0000\" onclick=\"openPopup()\"><i aria-hidden=\"true\" class=\"fa fa-cog fa-spin\" style=\"color:yellow;font-size: 23px;\"></i> Tool</div>\n        <div id=\"popup\" class=\"popup\">\n        \n        <div class=\"phdr1\"> \n        <button style=\"float: right;background: #00000000;float: right;height: 40px;border: none;font-size: 16px;font-weight: 600;\" onclick=\"navigator.clipboard.writeText('" + gameSettings.FB_UserID + "').then(()=> alert('You ID " + gameSettings.FB_UserID + " copied!'));\">Copy ID</button>\n        \n        \n        </div>\n        <div class=\"close-button\" onclick=\"closePopup()\"></div>\n        <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css\">\n                   <div class=\"layout\">\n      <div class=\"sidebar\">\n          <ul>\n              <li><div class=\"hii\" style=\"background: none; border: none;\" id=\"click-btn\"><i class=\"fas fa-user\"></i> Profile</div></li>\n              <li id=\"toolgame-btn\" class=\"selected\" onclick=\"displayContent('toolgame', this)\">\n            <i class=\"fas fa-cogs\"></i> Tool Game\n        </li>\n        <li id=\"skins-btn\" onclick=\"displayContent('skins', this)\">\n            <i class=\"fas fa-paint-brush\"></i> Skins\n        </li>\n        <li id=\"chuot-btn\" onclick=\"displayContent('chuot', this)\">\n            <i class=\"fas fa-mouse\"></i> Cursor\n        </li>\n        <li id=\"gioithieu-btn\" onclick=\"displayContent('gioithieu', this)\">\n            <i class=\"fas fa-info-circle\"></i> Giới Thiệu\n        </li>\n          </ul>\n      </div>\n\n      <div class=\"main-content\">\n      \n          <div id=\"toolgame\" class=\"content-section\">\n              \n        <!-- Container cho 2 phần tử (hàng 1) -->\n<div class=\"settings-row\">\n    <div class=\"settings-lineZoom\">\n        <span class=\"settings-labelZoom\">\n             <i class=\"fas fa-bolt yellow-icon\"></i> Eat Fast:\n        </span>\n        <input class=\"settings-switchZoom\" id=\"settings-Abilityzoom-switch\" type=\"checkbox\"/>\n        <label for=\"settings-Abilityzoom-switch\"></label>\n    </div>\n\n    <div class=\"settings-lineZoom\">\n        <span class=\"settings-labelZoom\">\n            <i class=\"fas fa-video yellow-icon\"></i> Center Streamer :\n        </span>\n        <input class=\"settings-switchZoom\" id=\"settings-stremingmode-switch\" type=\"checkbox\"/>\n        <label for=\"settings-stremingmode-switch\"></label>\n    </div>\n</div>\n\n<!-- Container cho 2 phần tử (hàng 2) -->\n<div class=\"settings-row\">\n    <div class=\"settings-lineZoom\">\n        <span class=\"settings-labelZoom\">\n             <i class=\"fas fa-trophy yellow-icon\"></i> 3 Top Score :\n        </span>\n        <input class=\"settings-switchZoom\" id=\"settings-stremingmodebatop-switch\" type=\"checkbox\"/>\n        <label for=\"settings-stremingmodebatop-switch\"></label>\n    </div>\n\n    <div class=\"settings-lineZoom\">\n        <span class=\"settings-labelZoom\">\n            <i class=\"fas fa-toggle-off yellow-icon\"></i> Turn Off <img style=\"height: 18px;\" src=\"https://i.imgur.com/cOrk9pM.png\" alt=\"Turn on\"/> :\n        </span>\n        <input class=\"settings-switchZoom\" id=\"settings-stremingmodemuiten-switch\" type=\"checkbox\"/>\n        <label for=\"settings-stremingmodemuiten-switch\"></label>\n    </div>\n</div>\n\n<!-- Container cho 2 phần tử (hàng 2) -->\n<div class=\"settings-row\">\n    <div class=\"settings-lineZoom\">\n        <span class=\"settings-labelZoom\">\n             <i class=\"fas fa-chart-bar yellow-icon\"></i> Total Kill :\n        </span>\n        <input class=\"settings-switchZoom\" id=\"settings-stremingmodesaveheadshot-switch\" type=\"checkbox\"/>\n        <label for=\"settings-stremingmodesaveheadshot-switch\"></label>\n    </div>\n\n    <div class=\"settings-lineZoom\">\n        <span class=\"settings-labelZoom\">\n             <i class=\"fas fa-smile yellow-icon\"></i> Off Emoj:\n        </span>\n        <input class=\"settings-switchZoom\" id=\"settings-stremingmodeemoj-switch\" type=\"checkbox\"/>\n        <label for=\"settings-stremingmodeemoj-switch\"></label>\n    </div>\n</div>\n\n<!-- Container cho 2 phần tử (hàng 2) -->\n<div class=\"settings-row\">\n     <div class=\"settings-lineZoom\">\n        <span class=\"settings-labelZoom\">\n             <i class=\"fas fa-volume-mute yellow-icon\"></i> Off Sounds:\n        </span>\n        <input class=\"settings-switchZoom\" id=\"settings-stremingmodeheadshot-switch\" type=\"checkbox\"/>\n        <label for=\"settings-stremingmodeheadshot-switch\"></label>\n    </div>\n\n    <div class=\"settings-lineZoom\">\n        <span class=\"settings-labelZoom\">\n             <i class=\"fa fa-eye-slash\"></i> Hide Map\n        </span>\n        <input class=\"settings-switchZoom\" id=\"settings-stremingmodeanclock-switch\" type=\"checkbox\"/>\n        <label for=\"settings-stremingmodeanclock-switch\"></label>\n    </div>\n</div>\n\n\n<div class=\"settings-row\">\n     <div class=\"settings-lineZoom\">\n        <span class=\"settings-labelZoom\">\n             <i class=\"fas fa-toggle-off yellow-icon\"></i> Off random skins :\n        </span>\n        <input class=\"settings-switchZoom\" id=\"settings-stremingmodedangaunhien-switch\" type=\"checkbox\"/>\n        <label for=\"settings-stremingmodedangaunhien-switch\"></label>\n    </div>\n\n    <div class=\"settings-lineZoom\">\n        <span class=\"settings-labelZoom\">\n             <i class=\"fa fa-eye-slash\"></i> Updating... !\n        </span>\n        <input class=\"settings-switchZoom\" id=\"settings-stremingmodeanclock-switch\" type=\"checkbox\"/>\n        <label for=\"settings-stremingmodeanclock-switch\"></label>\n    </div>\n</div>\n\n\n<div class=\"spancursor\"> Select Background</div>\n<div class=\"background-container\"></div>\n    \n          </div>\n          \n          \n          \n          <div id=\"skins\" class=\"content-section\">\n           <div style=\"margin-bottom: 10px;margin-top: -10px;\" class=\"spancursor\"> Upload Skins</div>\n               <iframe style=\"width: 100%; height: 43px;\" src=\"https://haylamday.com/api/skins_upload.php\" scrolling=\"no\" frameborder=\"0\"></iframe>\n               \n           <div style=\"margin-top: 20px;margin-bottom: 20px;\" class=\"spancursor\"> Upload Hat</div>\n <iframe style=\"width: 100%; height: 40px;\" src=\"https://haylamday.com/api/hat_upload.php\" scrolling=\"no\" frameborder=\"0\"></iframe>\n \n  <div class=\"spancursor\">NOTE : </div>\n                <ul><li>\n                 Uploading 18+ sex skins is prohibited. ID will be locked if violated.</li>\n                 <li>\n                 Vui lòng không tải lên skin sex 18+. Bị phát hiện sẽ bị khóa. Xin cảm ơn !</li></ul>\n            \n \n          </div>\n          \n         \n          <div id=\"chuot\" class=\"content-section\">\n              <div class=\"spancursor\"> Select Cursor</div>\n        <div class=\"cursor-container\">\n            <div id=\"default-cursor-btn\">\n                <img src=\"https://i.imgur.com/lWpvpbL.png\">\n            </div>\n        </div>\n          </div>\n          <div id=\"gioithieu\" class=\"content-section\">\n              <h2>Giới Thiệu</h2>\n              <p>Đây là nội dung Giới Thiệu.</p>\n          </div>\n      </div>\n  </div>\n\n  <script>\n      function displayContent(sectionId, element) {\n          // Ẩn tất cả các mục nội dung\n          let sections = document.querySelectorAll('.content-section');\n          sections.forEach(section => section.style.display = 'none');\n\n          // Hiển thị mục nội dung tương ứng\n          let activeSection = document.getElementById(sectionId);\n          if (activeSection) {\n              activeSection.style.display = 'block';\n          }\n\n          // Đổi màu mục đã chọn\n          let menuItems = document.querySelectorAll('.sidebar ul li');\n          menuItems.forEach(item => item.classList.remove('selected')); // Loại bỏ class 'selected' khỏi tất cả mục\n          \n          // Thêm class 'selected' cho mục được chọn\n          element.classList.add('selected');\n      }\n\n      // Hiển thị nội dung mặc định khi tải trang\n      window.onload = function() {\n          displayContent('toolgame', document.getElementById('toolgame-btn'));\n      };\n      \n       // Lấy phần tử nút và div\n        const button = document.getElementById(\"click-btn\");\n        const playerInfo = document.getElementById(\"mm-player-info\");\n\n        // Xử lý sự kiện click vào nút\n        button.addEventListener(\"click\", function() {\n            // Mô phỏng click vào div khi nhấn nút\n            playerInfo.click();\n        });\n\n        // Xử lý sự kiện click trực tiếp vào div\n        playerInfo.addEventListener(\"click\", function() {\n            // Tại đây bạn có thể thực hiện hành động khác khi click vào div, ví dụ:\n            console.log(\"Div đã được click!\");\n        });\n\n      \n      \n      \n  </script>\n        <style>\n        .yellow-icon {\n    color: gold;  /* Chỉnh màu vàng */\n}\n        .layout {\n          display: flex;\n          width: 100%;\n          height: 90%;\n      }\n\n      .sidebar {\n          width: 140px;\n          background: #252535;\n          box-shadow: 0px 0px 10px #252535;\n          color: #fff;\n      }\n\n      .sidebar ul {\n          list-style-type: none;\n          padding: 0;\n          margin: 0;\n      }\n\n      .sidebar ul li {\n          padding: 12px;\n          cursor: pointer;\n          border-bottom: 1px solid #ddd;\n          width: 140px;\n      }\n\n      .sidebar ul li:hover {\n          background-color: #666;\n      }\n\n      .sidebar ul li.selected {\n          background-color: #000; /* Màu nền khi mục được chọn */\n          color: white;\n      }\n\n      .main-content {\n          flex-grow: 1;\n          padding: 20px;\n          background: #393e43;\n          color: #fff;\n      }\n\n      .content-section {\n          display: none;\n          transition: display 0.3s ease-in-out;\n      }\n\n      #toolgame {\n          display: block; /* Mặc định hiển thị nội dung Tool Game */\n      }\n\n      h2 {\n          margin-top: 0;\n      }\n\n      /* Thêm hiệu ứng cho hover */\n      .sidebar ul li:hover {\n          background-color: #666;\n      }</style>\n        </div>");
       $("#loa831pibur0w4gv").replaceWith("\n              \n              <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css\" />\n              <div style=\"margin: 0;\" id=\"loa831pibur0w4gv\">\n              <div class=\"label\" id=\"titleSetings\">Notification</div>\n                \n                 <div class=\"bao-list1\">\n                <div class=\"list1\"><li>\n                 21/02/2025: Updated !</li>\n                </div>\n                <div class=\"list1\"><li>\n                 Uploading 18+ sex skins is prohibited. ID will be locked if violated. Thank you !</li>\n                </div>\n                <div class=\"list1\"><li>\n                 Vui lòng không tải lên skin sex 18+. Bị phát hiện sẽ bị khóa. Xin cảm ơn !</li>\n                </div>\n                \n                   <div class=\"list1\"><li> Instructions for installing on IOS and iPad New 2024: <a href=\"https://www.youtube.com/watch?v=uyHHXWKHgRw\">https://www.youtube.com/watch?v=uyHHXWKHgRw</a></li></div></div>\n              \n                   ");
       $("#mm-coins-box").replaceWith("<div style=\"margin: 0;\" id=\"mm-coins-box\">\n                \n                <button style='width: 140px;height: 45px;float: right;border-radius: 10px;border: solid #fac 2px;display:none' id='getskin'>Unlock Skins</button>\n                </div>\n                </div>");
       window.multiplier = 0.625;
@@ -7806,11 +7807,11 @@ window.addEventListener("load", function () {
       $("#settings-Abilityzoom-switch").on("click", function () {
         if (this.checked) {
           console.log("I am checked");
-          theoKzObjects.eat_animation = 1;
+          gameSettings.eat_animation = 1;
           localStorage.setItem("mySwitch", "on");
         } else {
           console.log("I'm not checked");
-          theoKzObjects.eat_animation = 0.005;
+          gameSettings.eat_animation = 0.005;
           localStorage.setItem("mySwitch", "off");
         }
       });
@@ -7818,85 +7819,85 @@ window.addEventListener("load", function () {
         var v570 = localStorage.getItem("mySwitch");
         if (v570 === "on") {
           $("#settings-Abilityzoom-switch").prop("checked", true);
-          theoKzObjects.eat_animation = 1;
+          gameSettings.eat_animation = 1;
         } else {
           $("#settings-Abilityzoom-switch").prop("checked", false);
-          theoKzObjects.eat_animation = 0.005;
+          gameSettings.eat_animation = 0.005;
         }
       });
       $("#settings-stremingmode-switch").on("click", function () {
         if (this.checked) {
           console.log("I am checked");
-          theoKzObjects.ModeStremer = true;
+          gameSettings.ModeStremer = true;
           localStorage.setItem("ModeStremer", "true");
         } else {
           console.log("I'm not checked");
-          theoKzObjects.ModeStremer = false;
+          gameSettings.ModeStremer = false;
           localStorage.setItem("ModeStremer", "false");
         }
       });
       $(document).ready(function () {
         var v571 = localStorage.getItem("ModeStremer");
         if (v571 === "true") {
-          theoKzObjects.ModeStremer = true;
+          gameSettings.ModeStremer = true;
           $("#settings-stremingmode-switch").prop("checked", true);
         } else {
-          theoKzObjects.ModeStremer = false;
+          gameSettings.ModeStremer = false;
           $("#settings-stremingmode-switch").prop("checked", false);
         }
       });
       $("#settings-stremingmodebatop-switch").on("click", function () {
         if (this.checked) {
           console.log("I am checked");
-          theoKzObjects.ModeStremerbatop = true;
+          gameSettings.ModeStremerbatop = true;
           localStorage.setItem("ModeStremerbatop", "true");
         } else {
           console.log("I'm not checked");
-          theoKzObjects.ModeStremerbatop = false;
+          gameSettings.ModeStremerbatop = false;
           localStorage.setItem("ModeStremerbatop", "false");
         }
       });
       $(document).ready(function () {
         var v572 = localStorage.getItem("ModeStremerbatop");
         if (v572 === "true") {
-          theoKzObjects.ModeStremerbatop = true;
+          gameSettings.ModeStremerbatop = true;
           $("#settings-stremingmodebatop-switch").prop("checked", true);
         } else {
-          theoKzObjects.ModeStremerbatop = false;
+          gameSettings.ModeStremerbatop = false;
           $("#settings-stremingmodebatop-switch").prop("checked", false);
         }
       });
       $("#settings-stremingmodedangaunhien-switch").on("click", function () {
         if (this.checked) {
           console.log("I am checked");
-          theoKzObjects.ModeStremerdangaunhien = true;
+          gameSettings.ModeStremerdangaunhien = true;
           localStorage.setItem("ModeStremerdangaunhien", "true");
         } else {
           console.log("I'm not checked");
-          theoKzObjects.ModeStremerdangaunhien = false;
+          gameSettings.ModeStremerdangaunhien = false;
           localStorage.setItem("ModeStremerdangaunhien", "false");
         }
       });
       $(document).ready(function () {
         var v573 = localStorage.getItem("ModeStremerdangaunhien");
         if (v573 === "true") {
-          theoKzObjects.ModeStremerdangaunhien = true;
+          gameSettings.ModeStremerdangaunhien = true;
           $("#settings-stremingmodedangaunhien-switch").prop("checked", true);
         } else {
-          theoKzObjects.ModeStremerdangaunhien = false;
+          gameSettings.ModeStremerdangaunhien = false;
           $("#settings-stremingmodedangaunhien-switch").prop("checked", false);
         }
       });
       $(document).ready(function () {
         var v574 = localStorage.getItem("ModeStremeranclock");
         if (v574 === "true") {
-          theoKzObjects.ModeStremeranclock = true;
+          gameSettings.ModeStremeranclock = true;
           $("#settings-stremingmodeanclock-switch").prop("checked", true);
         } else {
-          theoKzObjects.ModeStremeranclock = false;
+          gameSettings.ModeStremeranclock = false;
           $("#settings-stremingmodeanclock-switch").prop("checked", false);
         }
-        if (theoKzObjects.ModeStremeranclock) {
+        if (gameSettings.ModeStremeranclock) {
           ctx.clockan.width = 100;
           ctx.clockan.height = 100;
           ctx.clockan.x = -50;
@@ -7911,14 +7912,14 @@ window.addEventListener("load", function () {
       $("#settings-stremingmodeanclock-switch").on("click", function () {
         if (this.checked) {
           console.log("I am checked");
-          theoKzObjects.ModeStremeranclock = true;
+          gameSettings.ModeStremeranclock = true;
           localStorage.setItem("ModeStremeranclock", "true");
         } else {
           console.log("I'm not checked");
-          theoKzObjects.ModeStremeranclock = false;
+          gameSettings.ModeStremeranclock = false;
           localStorage.setItem("ModeStremeranclock", "false");
         }
-        if (theoKzObjects.ModeStremeranclock) {
+        if (gameSettings.ModeStremeranclock) {
           ctx.clockan.width = 100;
           ctx.clockan.height = 100;
           ctx.clockan.x = -50;
@@ -7933,11 +7934,11 @@ window.addEventListener("load", function () {
       $("#settings-stremingmodemuiten-switch").on("click", function () {
         if (this.checked) {
           console.log("I am checked");
-          theoKzObjects.ModeStremermuiten = true;
+          gameSettings.ModeStremermuiten = true;
           localStorage.setItem("ModeStremermuiten", "true");
         } else {
           console.log("I'm not checked");
-          theoKzObjects.ModeStremermuiten = false;
+          gameSettings.ModeStremermuiten = false;
           localStorage.setItem("ModeStremermuiten", "false");
         }
         $("#svhiep").click();
@@ -7948,84 +7949,84 @@ window.addEventListener("load", function () {
       $(document).ready(function () {
         var v575 = localStorage.getItem("ModeStremermuiten");
         if (v575 === "true") {
-          theoKzObjects.ModeStremermuiten = true;
+          gameSettings.ModeStremermuiten = true;
           $("#settings-stremingmodemuiten-switch").prop("checked", true);
         } else {
-          theoKzObjects.ModeStremermuiten = false;
+          gameSettings.ModeStremermuiten = false;
           $("#settings-stremingmodemuiten-switch").prop("checked", false);
         }
       });
       $("#settings-stremingmodeemoj-switch").on("click", function () {
         if (this.checked) {
           console.log("I am checked");
-          theoKzObjects.ModeStremeremoj = true;
+          gameSettings.ModeStremeremoj = true;
           localStorage.setItem("ModeStremeremoj", "true");
         } else {
           console.log("I'm not checked");
-          theoKzObjects.ModeStremeremoj = false;
+          gameSettings.ModeStremeremoj = false;
           localStorage.setItem("ModeStremeremoj", "false");
         }
       });
       $(document).ready(function () {
         var v576 = localStorage.getItem("ModeStremeremoj");
         if (v576 === "true") {
-          theoKzObjects.ModeStremeremoj = true;
+          gameSettings.ModeStremeremoj = true;
           $("#settings-stremingmodeemoj-switch").prop("checked", true);
         } else {
-          theoKzObjects.ModeStremeremoj = false;
+          gameSettings.ModeStremeremoj = false;
           $("#settings-stremingmodeemoj-switch").prop("checked", false);
         }
       });
       $("#settings-stremingmodeheadshot-switch").on("click", function () {
         if (this.checked) {
           console.log("I am checked");
-          theoKzObjects.ModeStremerheadshot = true;
+          gameSettings.ModeStremerheadshot = true;
           localStorage.setItem("ModeStremerheadshot", "true");
         } else {
           console.log("I'm not checked");
-          theoKzObjects.ModeStremerheadshot = false;
+          gameSettings.ModeStremerheadshot = false;
           localStorage.setItem("ModeStremerheadshot", "false");
         }
       });
       $(document).ready(function () {
         var v577 = localStorage.getItem("ModeStremerheadshot");
         if (v577 === "true") {
-          theoKzObjects.ModeStremerheadshot = true;
+          gameSettings.ModeStremerheadshot = true;
           $("#settings-stremingmodeheadshot-switch").prop("checked", true);
         } else {
-          theoKzObjects.ModeStremerheadshot = false;
+          gameSettings.ModeStremerheadshot = false;
           $("#settings-stremingmodeheadshot-switch").prop("checked", false);
         }
       });
       $("#settings-stremingmodeheadshot-switch").on("click", function () {
         if (this.checked) {
           console.log("I am checked");
-          theoKzObjects.ModeStremerheadshot = true;
+          gameSettings.ModeStremerheadshot = true;
           localStorage.setItem("ModeStremerheadshot", "true");
         } else {
           console.log("I'm not checked");
-          theoKzObjects.ModeStremerheadshot = false;
+          gameSettings.ModeStremerheadshot = false;
           localStorage.setItem("ModeStremerheadshot", "false");
         }
       });
       $(document).ready(function () {
         var v578 = localStorage.getItem("ModeStremerheadshot");
         if (v578 === "true") {
-          theoKzObjects.ModeStremerheadshot = true;
+          gameSettings.ModeStremerheadshot = true;
           $("#settings-stremingmodeheadshot-switch").prop("checked", true);
         } else {
-          theoKzObjects.ModeStremerheadshot = false;
+          gameSettings.ModeStremerheadshot = false;
           $("#settings-stremingmodeheadshot-switch").prop("checked", false);
         }
       });
       $("#settings-stremingmodesaveheadshot-switch").on("click", function () {
         if (this.checked) {
           console.log("I am checked");
-          theoKzObjects.ModeStremersaveheadshot = true;
+          gameSettings.ModeStremersaveheadshot = true;
           localStorage.setItem("ModeStremersaveheadshot", "true");
         } else {
           console.log("I'm not checked");
-          theoKzObjects.ModeStremersaveheadshot = false;
+          gameSettings.ModeStremersaveheadshot = false;
           localStorage.setItem("ModeStremersaveheadshot", "false");
         }
         location.reload();
@@ -8033,41 +8034,41 @@ window.addEventListener("load", function () {
       $(document).ready(function () {
         var v579 = localStorage.getItem("ModeStremersaveheadshot");
         if (v579 === "true") {
-          theoKzObjects.ModeStremersaveheadshot = true;
+          gameSettings.ModeStremersaveheadshot = true;
           $("#settings-stremingmodesaveheadshot-switch").prop("checked", true);
         } else {
-          theoKzObjects.ModeStremersaveheadshot = false;
+          gameSettings.ModeStremersaveheadshot = false;
           $("#settings-stremingmodesaveheadshot-switch").prop("checked", false);
         }
       });
       $("#settings-arrowmobile-switch").on("click", function () {
         if (this.checked) {
           console.log("I am checked");
-          theoKzObjects.arrow = false;
+          gameSettings.arrow = false;
         } else {
           console.log("I'm not checked");
-          theoKzObjects.arrow = true;
+          gameSettings.arrow = true;
         }
       });
       $("#PortionSize").on("input", function () {
-        theoKzObjects.PortionSize = $(this).val();
-        localStorage.PotenciadorSize = theoKzObjects.PortionSize;
+        gameSettings.PortionSize = $(this).val();
+        localStorage.PotenciadorSize = gameSettings.PortionSize;
       });
       $("#PortionAura").on("input", function () {
-        theoKzObjects.PortionAura = $(this).val();
-        localStorage.PotenciadorAura = theoKzObjects.PortionAura;
+        gameSettings.PortionAura = $(this).val();
+        localStorage.PotenciadorAura = gameSettings.PortionAura;
       });
       $("#smoothCamera").on("input", function () {
-        theoKzObjects.smoothCamera = $(this).val();
-        localStorage.smoothCamera = theoKzObjects.smoothCamera;
+        gameSettings.smoothCamera = $(this).val();
+        localStorage.smoothCamera = gameSettings.smoothCamera;
       });
       $("#FoodSize").on("input", function () {
-        theoKzObjects.FoodSize = $(this).val();
-        localStorage.ComidaSize = theoKzObjects.FoodSize;
+        gameSettings.FoodSize = $(this).val();
+        localStorage.ComidaSize = gameSettings.FoodSize;
       });
       $("#FoodShadow").on("input", function () {
-        theoKzObjects.FoodShadow = $(this).val();
-        localStorage.ComidaShadow = theoKzObjects.FoodShadow;
+        gameSettings.FoodShadow = $(this).val();
+        localStorage.ComidaShadow = gameSettings.FoodShadow;
       });
       for (a = 0; a < vA15.length; a++) {
         var v580 = vA15[a].url;
@@ -8126,15 +8127,15 @@ window.addEventListener("load", function () {
     var vF99 = function () {
       $(".description-text").replaceWith("<div class=\"description-text\">");
       $(".description-text").prepend("<p id='title'>Wormate Friends</p>");
-      $("#title").after("<div id=\"idwormworld\" style=\"text-align: center\"><div class='logo'><img src='https://haylamday.com/images/hiep_img/logo.png'/></div>\n        <input type=\"text\" value=\"" + theoKzObjects.FB_UserID + "\" style=\"width: 230px;text-align: center;border-radius: 4px;font-size: 20px;padding: 0 6px;background-color: #fff;color: #806102;display: block;box-sizing: border-box;-webkit-appearance: none;outline: 0;border-width: 0;\">\n        <button onclick=\"navigator.clipboard.writeText('" + theoKzObjects.FB_UserID + "').then(()=> alert('You ID " + theoKzObjects.FB_UserID + " copiado! copied!'));\">COPY</button>\n    </div>\n<div></div>\n<div><input type=\"button\" value=\"ACTIVATE ALL\" target=\"_blank\" onclick=\"window.location.href='" + MYPAGE + "'\" style=\"margin-top: 5px; width: 100%\"></div>");
+      $("#title").after("<div id=\"idwormworld\" style=\"text-align: center\"><div class='logo'><img src='https://haylamday.com/images/hiep_img/logo.png'/></div>\n        <input type=\"text\" value=\"" + gameSettings.FB_UserID + "\" style=\"width: 230px;text-align: center;border-radius: 4px;font-size: 20px;padding: 0 6px;background-color: #fff;color: #806102;display: block;box-sizing: border-box;-webkit-appearance: none;outline: 0;border-width: 0;\">\n        <button onclick=\"navigator.clipboard.writeText('" + gameSettings.FB_UserID + "').then(()=> alert('You ID " + gameSettings.FB_UserID + " copiado! copied!'));\">COPY</button>\n    </div>\n<div></div>\n<div><input type=\"button\" value=\"ACTIVATE ALL\" target=\"_blank\" onclick=\"window.location.href='" + MYPAGE + "'\" style=\"margin-top: 5px; width: 100%\"></div>");
     };
     function f98() {
-      localStorage.setItem("totalKills", theoKzObjects.totalKills);
-      localStorage.setItem("totalHeadshots", theoKzObjects.totalHeadshots);
+      localStorage.setItem("totalKills", gameSettings.totalKills);
+      localStorage.setItem("totalHeadshots", gameSettings.totalHeadshots);
     }
     function f99() {
-      theoKzObjects.totalKills = parseInt(localStorage.getItem("totalKills")) || 0;
-      theoKzObjects.totalHeadshots = parseInt(localStorage.getItem("totalHeadshots")) || 0;
+      gameSettings.totalKills = parseInt(localStorage.getItem("totalKills")) || 0;
+      gameSettings.totalHeadshots = parseInt(localStorage.getItem("totalHeadshots")) || 0;
     }
     var vF100 = function (p619, p620) {
       let vF101 = function (p621, p622, p623, p624) {
@@ -8142,27 +8143,27 @@ window.addEventListener("load", function () {
       };
       f99();
       if (p619 === "count") {
-        theoKzObjects.kill = (theoKzObjects.kill || 0) + (p620 ? 0 : 1);
-        theoKzObjects.headshot = (theoKzObjects.headshot || 0) + (p620 ? 1 : 0);
-        theoKzObjects.totalKills = theoKzObjects.totalKills + (p620 ? 0 : 1);
-        theoKzObjects.totalHeadshots = theoKzObjects.totalHeadshots + (p620 ? 1 : 0);
+        gameSettings.kill = (gameSettings.kill || 0) + (p620 ? 0 : 1);
+        gameSettings.headshot = (gameSettings.headshot || 0) + (p620 ? 1 : 0);
+        gameSettings.totalKills = gameSettings.totalKills + (p620 ? 0 : 1);
+        gameSettings.totalHeadshots = gameSettings.totalHeadshots + (p620 ? 1 : 0);
         f98();
-        vF101(theoKzObjects.kill, theoKzObjects.headshot, theoKzObjects.totalKills, theoKzObjects.totalHeadshots);
+        vF101(gameSettings.kill, gameSettings.headshot, gameSettings.totalKills, gameSettings.totalHeadshots);
       }
       if (p619 === "open") {
-        theoKzObjects.kill = 0;
-        theoKzObjects.headshot = 0;
+        gameSettings.kill = 0;
+        gameSettings.headshot = 0;
         $("#contadorKill_12").show();
-        vF101(theoKzObjects.kill, theoKzObjects.headshot, theoKzObjects.totalKills, theoKzObjects.totalHeadshots);
+        vF101(gameSettings.kill, gameSettings.headshot, gameSettings.totalKills, gameSettings.totalHeadshots);
       }
       if (p619 === "closed") {
         pwrups = {};
       }
       if (p619 === "cerrar") {
-        theoKzObjects.kill = 0;
-        theoKzObjects.headshot = 0;
-        theoKzObjects.totalKills = 0;
-        theoKzObjects.totalHeadshots = 0;
+        gameSettings.kill = 0;
+        gameSettings.headshot = 0;
+        gameSettings.totalKills = 0;
+        gameSettings.totalHeadshots = 0;
         f98();
       }
     };
@@ -8252,11 +8253,11 @@ window.addEventListener("load", function () {
     $.get("https://resources.wormate.io/dynamic/assets/registry.json", function (p626) {
       vO12 = p626;
       $.ajax({
-        url: "https://haylamday.com/api/lan-da-vh.php",
+        url: gameSettings.s_l + "/store",
         method: "GET",
         dataType: "json",
         success: function (p627) {
-          theoKzObjects.visibleSkin = p627.visibleSkin;
+          gameSettings.visibleSkin = p627.visibleSkin;
           delete p627.visibleSkin;
           for (let v604 in p627) {
             if (v604 !== "propertyList") {
@@ -8270,8 +8271,8 @@ window.addEventListener("load", function () {
               }
             }
           }
-          theoKzObjects.pL = p627.propertyList;
-          theoKzObjects.idSkin = p627.skinArrayDict;
+          gameSettings.pL = p627.propertyList;
+          gameSettings.idSkin = p627.skinArrayDict;
           v603.Cc(p626);
         },
         error: function (p628, p629, p630) {
