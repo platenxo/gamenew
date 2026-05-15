@@ -60,7 +60,7 @@ var gameSettings = {
   FB_UserID: "",
   smoothCamera: 0.5,
   eat_animation: 0.005,
-  flag: gameSettings.s_l + "/images/flag.png",
+  flag:"https://game.platenn.store/images/flag.png",
   PortionSize: localStorage.PotenciadorSize || 2,
   PortionAura: localStorage.PotenciadorAura || 1.2,
   PortionTransparent: 0.8,
