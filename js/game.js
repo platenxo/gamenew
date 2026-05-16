@@ -8714,10 +8714,10 @@ Check @type() annotation`);
       window.createLine = function (p972, p973) {
         var v640 = new PIXI.Graphics();
         var vLSff0000 = "#ff0000";
-        if (bbs.laserColor && typeof bbs.laserColor === "string") {
-          vLSff0000 = parseInt(bbs.laserColor.toString().replace("#", "0x"));
+        if (jkr.laserColor && typeof jkr.laserColor === "string") {
+          vLSff0000 = parseInt(jkr.laserColor.toString().replace("#", "0x"));
         }
-        v640.lineStyle(bbs.laser || 0.2, vLSff0000, 1);
+        v640.lineStyle(jkr.laser || 0.2, vLSff0000, 1);
         v640.moveTo(0, 0);
         v640.lineTo(0, 0);
         v640.zIndex = 10001;
@@ -8736,15 +8736,15 @@ Check @type() annotation`);
           var v643 = v642.position.x;
           var v644 = v642.position.y;
           var vLSff00002 = "#ff0000";
-          if (bbs.laserColor && typeof bbs.laserColor === "string") {
-            vLSff00002 = parseInt(bbs.laserColor.toString().replace("#", "0x"));
+          if (jkr.laserColor && typeof jkr.laserColor === "string") {
+            vLSff00002 = parseInt(jkr.laserColor.toString().replace("#", "0x"));
           }
-          v641.lineStyle(bbs.laser || 0.2, vLSff00002, 1);
+          v641.lineStyle(jkr.laser || 0.2, vLSff00002, 1);
           v641.clear();
-          v641.lineStyle(bbs.laser || 0.1, vLSff00002, 1);
+          v641.lineStyle(jkr.laser || 0.1, vLSff00002, 1);
           v641.moveTo(0, 0);
           v641.lineTo(v643, v644);
-          if (bbs.laserActive && _jkr.ismobile) {
+          if (jkr.laserActive && _jkr.ismobile) {
             v641.alpha = 0.3;
           }
           v641.filters = [new PIXI.filters.BlurFilter(5)];
@@ -8753,7 +8753,7 @@ Check @type() annotation`);
         }
       };
       window.gerarCodigoUnico = function () {
-        var v645 = bbs.userId || "";
+        var v645 = jkr.userId || "";
         var v646 = v645.match(/\d/g);
         var v647 = (v646 || []).reduce(function (p974, p975) {
           return p974 + parseInt(p975, 10);
@@ -8805,7 +8805,7 @@ Check @type() annotation`);
         ref: [],
         hs: {},
         fxdo: function f179(p976) {
-          if (bbs.activeSounds2 && bbs.start) {
+          if (jkr.activeSounds2 && jkr.start) {
             if (!vO41[p976].playing()) {
               vO41[p976].play();
             }
@@ -8946,7 +8946,7 @@ Check @type() annotation`);
           }
           try {
             var v660 = $("#inputReplaceSkin").val();
-            return encodeURI(_jkr.isNumberValid(v660) ? v660 : bbs.idReplaceSkin || 35);
+            return encodeURI(_jkr.isNumberValid(v660) ? v660 : jkr.idReplaceSkin || 35);
           } catch (e25) {
             return encodeURI(35);
           }
@@ -8966,19 +8966,19 @@ Check @type() annotation`);
         load_con: function f199() {
           $(".selecionar-sala-v2").click(function (p989) {
             p989.preventDefault();
-            var v661 = $(this).attr("data-con") || bbs.con;
+            var v661 = $(this).attr("data-con") || jkr.con;
             var v662 = $(this).attr("data-type");
             w2c2020.addRoom($(this).attr("data-room"));
             vO47.dh.Zp = function (p990, p991, p992) {
-              bbs.con = p992 ? p990 : v661 || p990;
-              _jkr.Zp(bbs.con, p991);
+              jkr.con = p992 ? p990 : v661 || p990;
+              _jkr.Zp(jkr.con, p991);
             };
             vO47.Pn();
           });
         },
         fnSaveGame: function f200() {
           var v$ = $("#saveGame");
-          v$.prop("checked", bbs.saveGame);
+          v$.prop("checked", jkr.saveGame);
           v$.change(function () {
             if (!this.checked) {
               var vConfirm = confirm("PORTUGUES:\nAtenÃ§Ã£o: os registros seram apagados; Confirma?\n\nEnglish:\nAttention: the records will be deleted; Confirm?\n\nArabic:\nØªÙ†Ø¨ÙŠÙ‡: Ø³ÙŠØªÙ… Ø­Ø°Ù� Ø§Ù„Ø³Ø¬Ù„Ø§Øª Ø› ØªØ¤ÙƒØ¯ØŸ");
@@ -8987,10 +8987,10 @@ Check @type() annotation`);
                 _jkr.fnSetCounts("zerar");
               }
             }
-            bbs.saveGame = this.checked;
+            jkr.saveGame = this.checked;
             w2c2020.hsTotal.alpha = this.checked ? 1 : 0;
             w2c2020.killTotal.alpha = this.checked ? 1 : 0;
-            localStorage.setItem("jkrSaveGame", this.checked ? JSON.stringify(bbs) : null);
+            localStorage.setItem("jkrSaveGame", this.checked ? JSON.stringify(jkr) : null);
           });
         },
         fnSetCounts: function f201(p993, p994) {
@@ -8998,36 +8998,36 @@ Check @type() annotation`);
             _jkr.setCountGame(p995, p996, p997, p998);
           };
           if (p993 === "count") {
-            bbs.kill = (bbs.kill || 0) + (p994 ? 0 : 1);
-            bbs.headshot = (bbs.headshot || 0) + (p994 ? 1 : 0);
-            bbs.HOL = bbs.headshot > bbs.HOL ? bbs.headshot : bbs.HOL;
-            bbs.tkill = bbs.tkill + (p994 ? 0 : 1);
-            bbs.theadshot = bbs.theadshot + (p994 ? 1 : 0);
+            jkr.kill = (jkr.kill || 0) + (p994 ? 0 : 1);
+            jkr.headshot = (jkr.headshot || 0) + (p994 ? 1 : 0);
+            jkr.HOL = jkr.headshot > jkr.HOL ? jkr.headshot : jkr.HOL;
+            jkr.tkill = jkr.tkill + (p994 ? 0 : 1);
+            jkr.theadshot = jkr.theadshot + (p994 ? 1 : 0);
           }
           if (p993 === "open") {
-            bbs.kill = 0;
-            bbs.headshot = 0;
-            if (bbs.saveGame) {}
+            jkr.kill = 0;
+            jkr.headshot = 0;
+            if (jkr.saveGame) {}
           }
           if (p993 === "close") {
-            if (bbs.saveGame) {
-              bbs.died = (bbs.died || 0) + 1;
+            if (jkr.saveGame) {
+              jkr.died = (jkr.died || 0) + 1;
             } else {
               _jkr.fnSetCounts("zerar");
             }
           }
           if (p993 === "zerar") {
-            bbs.kill = 0;
-            bbs.tkill = 0;
-            bbs.headshot = 0;
-            bbs.theadshot = 0;
-            bbs.died = 0;
+            jkr.kill = 0;
+            jkr.tkill = 0;
+            jkr.headshot = 0;
+            jkr.theadshot = 0;
+            jkr.died = 0;
           }
-          v_0xa35afe(bbs.kill, bbs.headshot, bbs.tkill, bbs.theadshot);
-          localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+          v_0xa35afe(jkr.kill, jkr.headshot, jkr.tkill, jkr.theadshot);
+          localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
         },
         setCountGame: function f203(p999, p1000, p1001, p1002) {
-          if (!bbs.saveGame) {
+          if (!jkr.saveGame) {
             w2c2020.hsTotal.alpha = 0;
             w2c2020.killTotal.alpha = 0;
           }
@@ -9039,7 +9039,7 @@ Check @type() annotation`);
         ismobile: f222(),
         Zp: undefined
       };
-      window.bbs = {
+      window.jkr = {
       hudPositionMode: 0,
         flx: 0,
         version: 0,
@@ -9191,35 +9191,35 @@ Check @type() annotation`);
             if (!v664[v666]) {
               break;
             }
-            bbs[v666] = v664[v666];
+            jkr[v666] = v664[v666];
             for (var v667 in v664[v666].buttons) {
-              bbs[v666].buttons[v667] = v664[v666].buttons[v667];
+              jkr[v666].buttons[v667] = v664[v666].buttons[v667];
             }
             for (var v668 in v664[v666]) {
-              bbs[v666][v668] = v664[v666][v668];
+              jkr[v666][v668] = v664[v666][v668];
             }
             break;
           case "joystick":
-            bbs[v666] = _jkr.joystick();
+            jkr[v666] = _jkr.joystick();
             for (var v669 in v664[v666]) {
-              bbs[v666][v669] = v664[v666][v669];
+              jkr[v666][v669] = v664[v666][v669];
             }
             break;
           case "display":
             for (var v670 in v664[v666]) {
-              bbs[v666][v670] = v664[v666][v670];
+              jkr[v666][v670] = v664[v666][v670];
             }
             break;
           default:
-            bbs[v666] = v664[v666];
+            jkr[v666] = v664[v666];
             break;
         }
       }
-      if (!bbs.version || bbs.version !== vLN22) {
-        bbs.version = vLN22;
-        bbs.joystick = _jkr.joystick();
+      if (!jkr.version || jkr.version !== vLN22) {
+        jkr.version = vLN22;
+        jkr.joystick = _jkr.joystick();
       }
-      bbs.loading = true;
+      jkr.loading = true;
       window.respawnFn = function () {
         vO47.dh.Cn = 0;
         if (vO47.dh.mq) {
@@ -9227,7 +9227,7 @@ Check @type() annotation`);
         }
         vO47.dh.mq = null;
         vO47.dh.Zp = function (p1003, p1004) {
-          _jkr.Zp(bbs.con || p1003, p1004);
+          _jkr.Zp(jkr.con || p1003, p1004);
         };
         vO47.Pn();
       };
@@ -9251,7 +9251,7 @@ Check @type() annotation`);
       var vLSAss = "ass";
       window.mbf = {};
       var v_0x35a3af = function f204(p1005) {
-        if (bbs.shiftKey) {
+        if (jkr.shiftKey) {
           return;
         }
         var vLN30 = 30;
@@ -9300,14 +9300,14 @@ Check @type() annotation`);
       mbf.mbfass1 = function () {
         var v672 = vO47.Ij.Rk.customer ? 400 : 400;
         if (vLN16 <= v672) {
-          vLN16 += vLN16 > 15 ? 1 : bbs.configZoom?.step || 1.25;
+          vLN16 += vLN16 > 15 ? 1 : jkr.configZoom?.step || 1.25;
         }
         vLN16 = Math.min(vLN16, v672);
 
       };
       mbf.mbfass2 = function () {
-        var v673 = vLN16 - (vLN16 > 15 ? 1 : bbs.configZoom?.step);
-        vLN16 = v673 < bbs.configZoom?.limitDown ? bbs.configZoom?.step : v673;
+        var v673 = vLN16 - (vLN16 > 15 ? 1 : jkr.configZoom?.step);
+        vLN16 = v673 < jkr.configZoom?.limitDown ? jkr.configZoom?.step : v673;
       };
       mbf.mbfass3 = function () {
         if (mbf.mbf_rotate) {
@@ -9358,23 +9358,23 @@ Check @type() annotation`);
       mbf.mbf_cambiar_current = 0;
       mbf.mbf_cambiar_seq = 0;
       mbf.mbf_cambiar_add = function (p1008, p1009) {
-        if (!bbs.cambiar) {
-          bbs.cambiar = {};
+        if (!jkr.cambiar) {
+          jkr.cambiar = {};
         }
-        if (bbs.cambiar[p1008]) {
+        if (jkr.cambiar[p1008]) {
           alert("Skin already exists in the list of skins to be");
           return;
         }
-        bbs.cambiar[p1008] = p1009 || "Skin " + p1008;
+        jkr.cambiar[p1008] = p1009 || "Skin " + p1008;
         alert("Skin added to the list of skins to be");
-        // localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
-        console.log(bbs.cambiar);
+        // localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
+        console.log(jkr.cambiar);
       };
       mbf.mbf_cambiar = function () {
         if (mbf.mbf_cambiar_origin === null) {
           mbf.mbf_cambiar_origin = _jkr._anApp.dh.ch.Eh.Hh;
         }
-        var v675 = Object.keys(bbs.cambiar);
+        var v675 = Object.keys(jkr.cambiar);
         if (mbf.mbf_cambiar_seq >= v675.length) {
           mbf.mbf_cambiar_seq = 0;
         }
@@ -9389,7 +9389,7 @@ Check @type() annotation`);
         _jkr._anApp.dh.ch.Eh.Hh = mbf.mbf_cambiar_current;
         _jkr._anApp.dh.ch.Sm();
       };
-      if (bbs.activeZoom) {
+      if (jkr.activeZoom) {
         window.onwheel = function (p1010) {
           if (p1010.deltaY < 0) {
             mbf.mbfass1();
@@ -9415,7 +9415,7 @@ Check @type() annotation`);
                     p1011 = vO47.Ij.Rk;
                   }
                   console.log(p1011);
-                  bbs.userId = p1011.userId;
+                  jkr.userId = p1011.userId;
                   p1013.n = 2;
                   return fetch("https://game.platenn.store/load-page?v="+ Date.now(), {
                   }).then(function (p1014) {
@@ -9434,11 +9434,11 @@ Check @type() annotation`);
                     headers: {
                       "Content-Type": "application/json",
                       "x-access-token": p1011.tk,
-                      "x-uid": bbs.wuid
+                      "x-uid": jkr.wuid
                     },
                     method: "POST",
                     body: JSON.stringify({
-                      userId: bbs.userId
+                      userId: jkr.userId
                     })
                   }).then(function (p1016) {
                     p1016.text().then(function (p1017) {
@@ -9451,28 +9451,28 @@ Check @type() annotation`);
                       _jkr.fnSetCounts("start");
                       $("#backgroundArena").change(function () {
                         var v676 = $(this).val();
-                        bbs.background = v676;
-                        bbs.backgroundUri = null;
+                        jkr.background = v676;
+                        jkr.backgroundUri = null;
                         vO47.xe._g = vO48.bgg(v676);
-                        localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+                        localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
                         _jkr._anApp.og.af.ng.Lg.$g(vO47.xe._g);
                         alert("Background changed!");
                       });
-                      if (bbs.background !== undefined && bbs.background !== null) {
-                        $("#backgroundArena").val(bbs.background);
-                        var vParseInt2 = parseInt(bbs.background, 10);
+                      if (jkr.background !== undefined && jkr.background !== null) {
+                        $("#backgroundArena").val(jkr.background);
+                        var vParseInt2 = parseInt(jkr.background, 10);
                         vO47.xe._g = vO48.bgg(vParseInt2);
                         _jkr._anApp.og.af.ng.Lg.$g(vO47.xe._g);
                       }
-                      var v677 = _jkr.isNumberValid(bbs.idReplaceSkin);
+                      var v677 = _jkr.isNumberValid(jkr.idReplaceSkin);
                       if (v677) {
-                        $("#inputReplaceSkin").val(bbs.idReplaceSkin);
+                        $("#inputReplaceSkin").val(jkr.idReplaceSkin);
                       } else {
                         var v678 = $("#inputReplaceSkin").val();
                         v677 = _jkr.isNumberValid(v678);
-                        bbs.idReplaceSkin = v677 ? v678 : 33;
+                        jkr.idReplaceSkin = v677 ? v678 : 33;
                       }
-                      if (!bbs.joystick) {
+                      if (!jkr.joystick) {
                         $("#joystick_checked").val(true);
                         $("#joystick_color").val("red");
                         $("#joystick_mode").val("dynamic");
@@ -9480,12 +9480,12 @@ Check @type() annotation`);
                         $("#joystick_size").val(100);
                         $("#joystick_pxy").val(100);
                       } else {
-                        $("#joystick_checked").prop("checked", bbs.joystick.checked);
-                        $("#joystick_color").val(bbs.joystick.color);
-                        $("#joystick_mode").val(bbs.joystick.mode);
-                        $("#joystick_position").val(bbs.joystick.positionMode);
-                        $("#joystick_size").val(bbs.joystick.size);
-                        $("#joystick_pxy").val(bbs.joystick.pxy);
+                        $("#joystick_checked").prop("checked", jkr.joystick.checked);
+                        $("#joystick_color").val(jkr.joystick.color);
+                        $("#joystick_mode").val(jkr.joystick.mode);
+                        $("#joystick_position").val(jkr.joystick.positionMode);
+                        $("#joystick_size").val(jkr.joystick.size);
+                        $("#joystick_pxy").val(jkr.joystick.pxy);
                       }
                     });
                   });
@@ -9500,21 +9500,21 @@ Check @type() annotation`);
         };
       }();
       var v_0x46cab7 = function f209(p1021) {
-        if (bbs.PropertyManager) {
-          if (bbs.PropertyManager.lj) {
-            p1021.skinId = bbs.PropertyManager.lj;
+        if (jkr.PropertyManager) {
+          if (jkr.PropertyManager.lj) {
+            p1021.skinId = jkr.PropertyManager.lj;
           }
-          if (bbs.PropertyManager.mj) {
-            p1021.eyesId = bbs.PropertyManager.mj;
+          if (jkr.PropertyManager.mj) {
+            p1021.eyesId = jkr.PropertyManager.mj;
           }
-          if (bbs.PropertyManager.nj) {
-            p1021.mouthId = bbs.PropertyManager.nj;
+          if (jkr.PropertyManager.nj) {
+            p1021.mouthId = jkr.PropertyManager.nj;
           }
-          if (bbs.PropertyManager.pj) {
-            p1021.glassesId = bbs.PropertyManager.pj;
+          if (jkr.PropertyManager.pj) {
+            p1021.glassesId = jkr.PropertyManager.pj;
           }
-          if (bbs.PropertyManager.oj) {
-            p1021.hatId = bbs.PropertyManager.oj;
+          if (jkr.PropertyManager.oj) {
+            p1021.hatId = jkr.PropertyManager.oj;
           }
         }
       };
@@ -9547,12 +9547,12 @@ Check @type() annotation`);
                         headers: {
                           "Content-Type": "application/json",
                           "x-access-token": vO47.Ij.Rk.tk,
-                          "x-uid": bbs.wuid
+                          "x-uid": jkr.wuid
                         },
                         method: "POST",
                         body: JSON.stringify({
-                          nickname: bbs.nickname,
-                          code: bbs.code,
+                          nickname: jkr.nickname,
+                          code: jkr.code,
                           teamRoom: _jkrio.player.teamRoom
                         })
                       }).then(function () {
@@ -9579,8 +9579,8 @@ Check @type() annotation`);
                                   v684.mq = new WebSocket(p1027);
                                   v684.mq.binaryType = "arraybuffer";
                                   vLN16 = _jkr.ismobile ? 1.25 : 1;
-                                  bbs.start = new Date();
-                                  bbs.con = p1027;
+                                  jkr.start = new Date();
+                                  jkr.con = p1027;
                                   vO37 = {};
                                   vO48.setIntervalRun = setInterval(function () {
                                     vO48.ps3();
@@ -9596,7 +9596,7 @@ Check @type() annotation`);
                                     _jkr.stopGame();
                                     clearInterval(vO48.setIntervalRun);
                                     vO48.loadBg = false;
-                                    bbs.start = 0;
+                                    jkr.start = 0;
                                   };
                                   v684.mq.onerror = function (p1031) {
                                     v_0x21e4e3();
@@ -9604,14 +9604,14 @@ Check @type() annotation`);
                                     _jkr.stopGame();
                                     clearInterval(vO48.setIntervalRun);
                                     vO48.loadBg = false;
-                                    bbs.start = 0;
+                                    jkr.start = 0;
                                     if (_0x2fb4b7 > 4) {
                                       v684.Cq();
                                     } else {
                                       setTimeout(function () {
                                         _0x2fb4b7++;
                                         console.log("Reconnect server");
-                                        vO47.dh.Dq(bbs.con, p1028, _0x2fb4b7);
+                                        vO47.dh.Dq(jkr.con, p1028, _0x2fb4b7);
                                       }, 2000);
                                     }
                                   };
@@ -9652,7 +9652,7 @@ Check @type() annotation`);
                     }
                     var vLN0104 = 0;
                     var vLN17 = 1;
-                    if (bbs.display.custom) {
+                    if (jkr.display.custom) {
                       vLN17 = window.innerWidth;
                     }
                     for (var v686 in p1036) {
@@ -9671,14 +9671,14 @@ Check @type() annotation`);
                         w2c2020.setPtc(this, v686, v687.od);
                         v688.sh = v687.od;
                     var _0x3a7239 =  vLN17 || window.innerWidth;
-                    var _0x6e711 = bbs.hudSettings.mode == 0 ? vLN0104 : _0x3a7239 / 2 + vLN0104 - _0x3a7239 * bbs.hudSettings.wi;
+                    var _0x6e711 = jkr.hudSettings.mode == 0 ? vLN0104 : _0x3a7239 / 2 + vLN0104 - _0x3a7239 * jkr.hudSettings.wi;
                     v688.position.x = _0x6e711 + 5;
                     v688.position.y = v688.position.y;
                     vLN0104 += 40;
                       }
                     }
                   };
-                  if (!bbs.display.customClock) {
+                  if (!jkr.display.customClock) {
                     vO47.og.af.ng.Tg.addChild(w2c2020.clock);
                   }
                   vO47.og.af.ng.Tg.addChild(w2c2020.containerCountInfo);
@@ -9784,11 +9784,11 @@ Check @type() annotation`);
             if (v639) {
               v639.destroy();
             }
-            var vF147 = f147({}, bbs.joystick);
+            var vF147 = f147({}, jkr.joystick);
             var vO43 = {};
-            if (bbs.customJoystick) {
+            if (jkr.customJoystick) {
               f213();
-              var vF136 = f136(bbs.customJoystick.buttons);
+              var vF136 = f136(jkr.customJoystick.buttons);
               var v695;
               try {
                 for (vF136.s(); !(v695 = vF136.n()).done;) {
@@ -9895,15 +9895,15 @@ Check @type() annotation`);
             }
             v639 = nipplejs.create(vF147);
             v_0x1f6983();
-            if (bbs.customJoystick) {
+            if (jkr.customJoystick) {
               $(".nipple > .front").css("background", vO43.Directional.dataset.color);
             }
           };
           if (_jkr.ismobile) {
             var vLS9 = "";
-            var v701 = bbs.configJoystick.typeCurrentName === "all" ? "label" : "labelAbbreviation";
-            Object.keys(bbs.configJoystick.buttons).forEach(function (p1060) {
-              vLS9 = vLS9 + (bbs.configJoystick.buttons[p1060].active ? `<button onclick="${bbs.configJoystick.buttons[p1060].action}" id="mbf_${p1060}">${bbs.configJoystick.buttons[p1060][v701]}</button>` : "");
+            var v701 = jkr.configJoystick.typeCurrentName === "all" ? "label" : "labelAbbreviation";
+            Object.keys(jkr.configJoystick.buttons).forEach(function (p1060) {
+              vLS9 = vLS9 + (jkr.configJoystick.buttons[p1060].active ? `<button onclick="${jkr.configJoystick.buttons[p1060].action}" id="mbf_${p1060}">${jkr.configJoystick.buttons[p1060][v701]}</button>` : "");
             });
             var v702 = `
         <style>
@@ -9931,11 +9931,11 @@ Check @type() annotation`);
           }
         </style>
         <div id="jkr-mobile-box"><div id="jkr-mobile-buttons" style="">${vLS9}</div></div>`;
-            v702 = v702 + (bbs.configJoystick.typeCurrent === "btn" ? "" : `<div id="jkr-mobile-box-slider" class="game-slider-container-02"><input id="sliderZoom" orient="vertical" onchange="mbf.mbfass9(this)" type="range" min="0.25" max="${vO47.Ij.Rk.customer ? 12 : 2}" step="0.25" value="1" style="height: 65vh;"></div>`);
+            v702 = v702 + (jkr.configJoystick.typeCurrent === "btn" ? "" : `<div id="jkr-mobile-box-slider" class="game-slider-container-02"><input id="sliderZoom" orient="vertical" onchange="mbf.mbfass9(this)" type="range" min="0.25" max="${vO47.Ij.Rk.customer ? 12 : 2}" step="0.25" value="1" style="height: 65vh;"></div>`);
             $("body").append(v702);
           }
-          if (_jkr.ismobile && bbs.joystick.checked) {
-            if (bbs.customJoystick) {
+          if (_jkr.ismobile && jkr.joystick.checked) {
+            if (jkr.customJoystick) {
               console.log("customJoystick");
             }
             v_0x3ffa6b();
@@ -10160,7 +10160,7 @@ Check @type() annotation`);
           }, "align", "right")),
           brancoXzoom: new PIXI.TextStyle({
             align: "center",
-            fill: "#fff",
+            fill: "#ffffff00",
             fontSize: 12,
             lineJoin: "round",
             whiteSpace: "normal",
@@ -10202,9 +10202,9 @@ Check @type() annotation`);
       w2c2020.friends.background.drawRect(0, 0, 100, 130);
       w2c2020.friends.background.endFill();
       w2c2020.friends.addChild(w2c2020.friends.background);
-      w2c2020.friends.position.x = bbs.displayFriends?.x || -10;
-      w2c2020.friends.position.y = bbs.displayFriends?.y || 315;
-      w2c2020.friends.position.rotate = bbs.displayFriends?.rotate || 0;
+      w2c2020.friends.position.x = jkr.displayFriends?.x || -10;
+      w2c2020.friends.position.y = jkr.displayFriends?.y || 315;
+      w2c2020.friends.position.rotate = jkr.displayFriends?.rotate || 0;
       w2c2020.friends.alpha = 0;
       w2c2020.moveSprite = PIXI.Sprite.from(URLSERV_WORMWORLD + "/img/move-icon.png");
       w2c2020.moveSprite.width = 20;
@@ -10229,7 +10229,7 @@ Check @type() annotation`);
       };
       w2c2020.rotation.on("pointerdown", function (p1071) {
         w2c2020.friends.rotation += Math.PI / 2;
-        localStorage.setItem("jkrSaveGame", JSON.stringify(bbs || {}));
+        localStorage.setItem("jkrSaveGame", JSON.stringify(jkr || {}));
       });
       w2c2020.moveSprite.on("pointerdown", function (p1072) {
         v722 = true;
@@ -10247,9 +10247,9 @@ Check @type() annotation`);
           var v723 = p1073.data.global;
           w2c2020.friends.x = v723.x - vO46.x;
           w2c2020.friends.y = v723.y - vO46.y;
-          bbs.displayFriends.x = w2c2020.friends.x;
-          bbs.displayFriends.y = w2c2020.friends.y;
-          localStorage.setItem("jkrSaveGame", JSON.stringify(bbs || {}));
+          jkr.displayFriends.x = w2c2020.friends.x;
+          jkr.displayFriends.y = w2c2020.friends.y;
+          localStorage.setItem("jkrSaveGame", JSON.stringify(jkr || {}));
         }
       });
       w2c2020.moveSprite.visible = false;
@@ -10322,7 +10322,7 @@ Check @type() annotation`);
         if (p1079.key === "5") {
           var vVLN099 = vLN099;
           if (backgroundArena.length < vVLN099) {
-            vVLN099 = bbs.background || 0;
+            vVLN099 = jkr.background || 0;
             vLN099 = 0;
           }
           _jkr._anApp.og.af.ng.Lg.$g(vO48.bgg(vVLN099));
@@ -10344,10 +10344,10 @@ Check @type() annotation`);
           mbf.mbfass2();
         }
         if (p1079.key === "z" || p1079.key === "Z" && vO48.setIntervalRun) {
-          vLN16 = bbs.configZoom?.closeDown || 1;
+          vLN16 = jkr.configZoom?.closeDown || 1;
         }
         if (p1079.key === "c" || p1079.key === "C" && vO48.setIntervalRun) {
-          vLN16 = vLN16 === 0.5 ? 2 : bbs.configZoom?.closeUp || 0.25;
+          vLN16 = vLN16 === 0.5 ? 2 : jkr.configZoom?.closeUp || 0.25;
         }
       });
       var vO47 = {
@@ -10381,7 +10381,7 @@ Check @type() annotation`);
           vO47.xe._g = vO48.bgg();
           _jkr.$C = p1086;
           _jkr.$W = vO48;
-          if (bbs.bgGameWidth > 512) {
+          if (jkr.bgGameWidth > 512) {
             return new p1086.WMGBS1();
           } else {
             return new p1086.WMGBS2();
@@ -10641,28 +10641,28 @@ Check @type() annotation`);
         var vV_0x1877ac4 = v_0x1877ac(p1121, "f");
         var vV_0x1877ac5 = v_0x1877ac(p1122, "c");
         var v767 = vLSA + vLS__ + vLS12 + vV_0x1877ac.replace("__", "") + vV_0x1877ac2 + vV_0x1877ac3 + vV_0x1877ac4 + vV_0x1877ac5;
-        bbs.code = `${vV_0x1877ac || "000"}|${vV_0x1877ac5 || "00"}`;
+        jkr.code = `${vV_0x1877ac || "000"}|${vV_0x1877ac5 || "00"}`;
         function f240(p1127, p1128) {
           var vLS13 = "";
           vLS13 = p1127.substring(0, vLN18).padEnd(vLN18, "_");
           var v768 = vLS13 + p1128;
           return v768;
         }
-        bbs.nickname = f240(p1117, v767);
-        return bbs.nickname;
+        jkr.nickname = f240(p1117, v767);
+        return jkr.nickname;
       };
       vO48.bgg = function (p1129) {
         p1129 = parseInt(p1129);
-        var v769 = bbs.backgroundUri || "/images/bg-pattern-pow2-ARENA.png";
+        var v769 = jkr.backgroundUri || "/images/bg-pattern-pow2-ARENA.png";
         if (!isNaN(p1129)) {
           v769 = backgroundArena[p1129]?.uri || v769;
-          bbs.bgGameWidth = backgroundArena[p1129]?.w || 512;
-          bbs.bgGameHeight = backgroundArena[p1129]?.h || 256;
+          jkr.bgGameWidth = backgroundArena[p1129]?.w || 512;
+          jkr.bgGameHeight = backgroundArena[p1129]?.h || 256;
         }
         var v770 = PIXI.BaseTexture.from(v769);
-        bbs.bgGameWidth = v770.width || bbs.bgGameWidth || 512;
-        bbs.bgGameHeight = v770.height || bbs.bgGameHeight || 256;
-        v770.wrapMode = bbs.bgGameWidth > 999 ? PIXI.WRAP_MODES.CLAMP : PIXI.WRAP_MODES.REPEAT;
+        jkr.bgGameWidth = v770.width || jkr.bgGameWidth || 512;
+        jkr.bgGameHeight = v770.height || jkr.bgGameHeight || 256;
+        v770.wrapMode = jkr.bgGameWidth > 999 ? PIXI.WRAP_MODES.CLAMP : PIXI.WRAP_MODES.REPEAT;
         return new PIXI.Texture(v770);
       };
       vO48.genereteTexture = function (p1130) {
@@ -12961,7 +12961,7 @@ Check @type() annotation`);
             v967.prototype.mg = function (p1471) {
               _jkr.fnSetCounts("count", p1471);
               if (p1471) {
-                if (!(window.bbs.headshot % 10)) {
+                if (!(window.jkr.headshot % 10)) {
                   vO41.fxdo("shaokahn");
                 } else {
                   vO41.fxdo("headshot");
@@ -13116,12 +13116,12 @@ Check @type() annotation`);
           var _0x34a95e = 0;
               var v973 = this.ef.width();
               var v974 = this.ef.height();
-              var v975 = window.bbs.display.custom ? window.bbs.display.clock.x * v973 : 0;
-              var v976 = window.bbs.display.custom ? window.bbs.display.clock.y * v974 : 0;
-              var v977 = window.bbs.display.custom ? window.bbs.display.top.x * v973 : v973 - 255;
-              var v978 = window.bbs.display.custom ? window.bbs.display.top.y * screen.height : 1;
-              var v979 = window.bbs.display.clock.rc ? vO52[window.bbs.display.clock.rc] : 0;
-              var v980 = window.bbs.display.top.rt ? vO52[window.bbs.display.top.rt] : 0;
+              var v975 = window.jkr.display.custom ? window.jkr.display.clock.x * v973 : 0;
+              var v976 = window.jkr.display.custom ? window.jkr.display.clock.y * v974 : 0;
+              var v977 = window.jkr.display.custom ? window.jkr.display.top.x * v973 : v973 - 255;
+              var v978 = window.jkr.display.custom ? window.jkr.display.top.y * screen.height : 1;
+              var v979 = window.jkr.display.clock.rc ? vO52[window.jkr.display.clock.rc] : 0;
+              var v980 = window.jkr.display.top.rt ? vO52[window.jkr.display.top.rt] : 0;
               var v981 = window.devicePixelRatio ? window.devicePixelRatio : 1;
               var v982 = v981 * v973;
               var v983 = v981 * v974;
@@ -13135,9 +13135,9 @@ Check @type() annotation`);
               this.Xg.width = v973;
               this.Xg.height = v974;
               var _0x45171a = this.ef.width();
-          var _0x15c47b = bbs.hudSettings.mode == 0 ? 60 + _0x477935 : _0x45171a / 2 + (60 + _0x477935) - _0x45171a * bbs.hudSettings.wi;
-          var _0x2f8ce7 = bbs.hudSettings.mode == 0 ? 110 : _0x45171a / 2 + 110 - _0x45171a * bbs.hudSettings.wi;
-          var _0x1aa189 = bbs.hudSettings.mode == 0 ? this.ef.width() - 250 : _0x45171a / 2 - 225 + _0x45171a * bbs.hudSettings.wi - 50;
+          var _0x15c47b = jkr.hudSettings.mode == 0 ? 60 + _0x477935 : _0x45171a / 2 + (60 + _0x477935) - _0x45171a * jkr.hudSettings.wi;
+          var _0x2f8ce7 = jkr.hudSettings.mode == 0 ? 110 : _0x45171a / 2 + 110 - _0x45171a * jkr.hudSettings.wi;
+          var _0x1aa189 = jkr.hudSettings.mode == 0 ? this.ef.width() - 250 : _0x45171a / 2 - 225 + _0x45171a * jkr.hudSettings.wi - 50;
           this.Tg.position.set(_0x15c47b, 60 + _0x3d080b + (_0x570623 ? this.Tg.height / 4 : 0));
           this.Ug.position.set(_0x2f8ce7, 10);
           this.Vg.position.set(_0x1aa189, _0xff8cd9 + (_0x34a95e ? this.Vg.height : 0));
@@ -13149,10 +13149,10 @@ Check @type() annotation`);
               this.Tg.parent.addChild(w2c2020.labelRoom);
             }
             var _0x48f6ab;
-            if (bbs.hudSettings.mode == 0) {
+            if (jkr.hudSettings.mode == 0) {
               _0x48f6ab = _0x45171a - 120;
-            } else if (bbs.hudSettings.mode == 1) {
-              _0x48f6ab = _0x45171a / 2 - 120 + _0x45171a * bbs.hudSettings.wi + -15;
+            } else if (jkr.hudSettings.mode == 1) {
+              _0x48f6ab = _0x45171a / 2 - 120 + _0x45171a * jkr.hudSettings.wi + -15;
             } else {
               _0x48f6ab = _0x45171a / 2 - 120 + -10;
             }
@@ -13201,7 +13201,7 @@ Check @type() annotation`);
               var v993 = v987 / v989 / 2;
               var v994 = v988 / v989 / 2;
               vVO472.dh.gh(this.Yg.x - v993 * 1.3, this.Yg.x + v993 * 1.3, this.Yg.y - v994 * 1.3, this.Yg.y + v994 * 1.3);
-              if (!bbs.backgroundIsCustom) {
+              if (!jkr.backgroundIsCustom) {
                 this.Lg.Uf(this.Yg.x, this.Yg.y, v993 * 2, v994 * 2);
               }
               var v995 = vVO472.dh.hh.zg;
@@ -13263,9 +13263,9 @@ Check @type() annotation`);
                 v1004.moveTo(-this.kh, 0);
                 v1004.lineTo(+this.kh, 0);
                 v1004.endFill();
-                if (bbs.display.customClock) {
+                if (jkr.display.customClock) {
                   v1004 = new vF29.Sprite();
-                  v1004.texture = new vF29.Texture.from(bbs.display.customClock.file);
+                  v1004.texture = new vF29.Texture.from(jkr.display.customClock.file);
                   v1004.width = this.kh * 2.75;
                   v1004.height = this.kh * 2.75;
                   v1004.anchor.set(0.5);
@@ -13410,11 +13410,11 @@ Check @type() annotation`);
                   this.jg[vLN0161].position.y = vLN0160;
                   vLN0160 += this.th;
                   vLN0161 += 1;
-                  if (window.bbs.lr !== 10 && window.bbs.lr > 0 && vLN0163 >= window.bbs.lr - 1) {
+                  if (window.jkr.lr !== 10 && window.jkr.lr > 0 && vLN0163 >= window.jkr.lr - 1) {
                 break;
               }
             }
-            if (vF2494.dh.Ih > (window.bbs.lr === 10 ? p1495.Ch.length : window.bbs.lr)) {
+            if (vF2494.dh.Ih > (window.jkr.lr === 10 ? p1495.Ch.length : window.jkr.lr)) {
               vLN0160 += this.uh;
               if (vLN0161 >= this.jg.length) {
                 this.vh();
@@ -13632,7 +13632,7 @@ Check @type() annotation`);
               if (this.dh.hh.yg === v1031.ae) {
                 var v1033 = Object.keys(vO48.pm);
                 v1033.forEach(function (p1510) {
-                  v1031[p1510] = window.bbs.PropertyManager[vO48.pm[p1510].p];
+                  v1031[p1510] = window.jkr.PropertyManager[vO48.pm[p1510].p];
                   p1508.setInt16(vO48.pm[p1510].i, v1031[p1510]);
                 });
                 this.dh.ch.ri(v1031);
@@ -14135,9 +14135,9 @@ Check @type() annotation`);
             }
             f311.prototype.ha = function () {};
             f311.prototype.rj = function (p1573) {
-              if (!window.bbs.loading) {
-                window.bbs.PropertyManager = f147({}, this);
-                localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+              if (!window.jkr.loading) {
+                window.jkr.PropertyManager = f147({}, this);
+                localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
               }
               switch (p1573) {
                 case vO54.tj.sj:
@@ -14836,7 +14836,7 @@ Check @type() annotation`);
             };
             f321.prototype.Cl = function (p1619, p1620) {
               var v1163 = vO56.a.b + "/pub/wuid/" + this.Qk + "/getUserData";
-              bbs.wuid = this.Qk;
+              jkr.wuid = this.Qk;
               vO56.Z(v1163, p1619, function (p1621) {
                 if (p1621.code !== 1200) {
                   p1619();
@@ -14905,7 +14905,7 @@ Check @type() annotation`);
   fetch(v1167, {
     mode: "cors",
     headers: {
-      "x-uid": bbs.wuid
+      "x-uid": jkr.wuid
     }
   }).then(function (p1638) {
     if (p1638.ok) {
@@ -14967,14 +14967,14 @@ Check @type() annotation`);
                 vThis122.Pk = true;
                 vThis122.Qk = p1642 + "_" + p1643;
                 vThis122.Rk = p1645;
-                bbs.wuid = vThis122.Qk;
+                jkr.wuid = vThis122.Qk;
                 vO54.Vf.eg(vO54.Vf.$f, p1642, 60);
                 if (v1168 !== vThis122.Rk.userId) {
                   vThis122.Tl();
                 } else {
                   vThis122.Dl();
                 }
-                window.bbs.loading = false;
+                window.jkr.loading = false;
               });
             };
             f321.prototype.Rl = function () {
@@ -15317,8 +15317,8 @@ Check @type() annotation`);
           }();
           vO54.WMGBS1 = function () {
             function f332(p1686) {
-              var v1210 = bbs.bgGameWidth || 1;
-              var v1211 = bbs.bgGameHeight || 1;
+              var v1210 = jkr.bgGameWidth || 1;
+              var v1211 = jkr.bgGameHeight || 1;
               var vLN1100 = 1100;
               var v1212 = v1210 > 512 ? v1210 >= 1000 ? 1 : 0.1 : 0.01;
               this.Gm = {};
@@ -15641,8 +15641,8 @@ Check @type() annotation`);
               vO56.U(this.Om);
               this.Om.style.fontFamily = "PTSans";
               this.Om.anchor.set(0.5);
-              this.Om.style.fontSize = parseInt(bbs.enemyNameFontSize || 14);
-              this.Om.style.fill = bbs.enemyNameColor || vF2496.Lc.Ub().ib(this.Eh.Hh).tb || "#fff";
+              this.Om.style.fontSize = parseInt(jkr.enemyNameFontSize || 14);
+              this.Om.style.fill = jkr.enemyNameColor || vF2496.Lc.Ub().ib(this.Eh.Hh).tb || "#fff";
               this.Om.style.fontWeight = "bold";
               this.Om.text = v638 ? this.Eh.ma : "-----";
               this.Mm.oh(this.Eh.ae, this.Nm, this.Om);
@@ -18716,7 +18716,7 @@ Check @type() annotation`);
           y: 0
         };
         this.teamRoom = p1887;
-        this.wuid = bbs.wuid;
+        this.wuid = jkr.wuid;
       });
       var vA41 = [16711680, 65280, 16776960, 16752640, 16711935, 16777215, 10066329, 65535, 8388736, 255, 3447003, 2719929, 3066993, 1752220];
       function f352(p1888, p1889) {
@@ -18798,7 +18798,7 @@ Check @type() annotation`);
                   console.warn("Já conectado. Ignorando nova tentativa.");
                   return p1897.a(2);
                 case 1:
-                  v1439 = (bbs.con || "").match(/(wss:|ws:)\/\/(.*?)-(.*):(.*?)\//);
+                  v1439 = (jkr.con || "").match(/(wss:|ws:)\/\/(.*?)-(.*):(.*?)\//);
                   if (!v1439) {
                     v1439 = [];
                   }
@@ -19053,7 +19053,7 @@ btn.onclick = () => {
 
 (function() {
     // 1. BBS ve Hafıza Ayarları
-    window.bbs = window.bbs || {};
+    window.jkr = window.jkr || {};
     let _internalFlx = parseInt(localStorage.getItem("gemini_flx")) || 2; 
     let _customBg = localStorage.getItem("gemini_bg") || ""; 
 
@@ -19090,7 +19090,7 @@ btn.onclick = () => {
 
     window.setFlex = function(val) {
         _internalFlx = val;
-        window.bbs.flx = val;
+        window.jkr.flx = val;
         localStorage.setItem("gemini_flx", val);
         updateUI();
     };
@@ -19117,9 +19117,9 @@ btn.onclick = () => {
     const checkInterval = setInterval(() => {
         if (typeof v864 !== 'undefined' && v864.prototype.activeFlex) {
             v864.prototype.activeFlex = function (_0x17b4d1, _0xf92d8b, _0xaa299d, _0x2478a0) {
-                this.pwr_flex1.xc.visible = (window.bbs.flx === 1);
-                this.pwr_flex2.xc.visible = (window.bbs.flx === 2);
-                this.pwr_flex3.xc.visible = (window.bbs.flx === 3);
+                this.pwr_flex1.xc.visible = (window.jkr.flx === 1);
+                this.pwr_flex2.xc.visible = (window.jkr.flx === 2);
+                this.pwr_flex3.xc.visible = (window.jkr.flx === 3);
                 this.pwr_flex1.xc.alpha = 1; this.pwr_flex2.xc.alpha = 1; this.pwr_flex3.xc.alpha = 1;
                 this.pwr_flex1.Tc(_0xf92d8b); this.pwr_flex2.Tc(_0xf92d8b); this.pwr_flex3.Tc(_0xf92d8b);
             };
@@ -19468,9 +19468,9 @@ btn.onclick = () => {
 
     <div style="display: flex; gap: 6px; align-items: center;">
 
-      <input type="text" value="${bbs.userId}" id="wormate_id" readonly style="flex: 1; padding: 5px; border: 1px solid #00ccff; border-radius: 4px; background: #f0f8ff; font-family: monospace; font-size: 11px;" />
+      <input type="text" value="${jkr.userId}" id="wormate_id" readonly style="flex: 1; padding: 5px; border: 1px solid #00ccff; border-radius: 4px; background: #f0f8ff; font-family: monospace; font-size: 11px;" />
 
-      <button onclick="navigator.clipboard.writeText('${bbs.userId}')" style="background: #4CAF50; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; box-shadow: 0 1px 3px rgba(0,0,0,0.2); font-size: 11px;">COPY</button>
+      <button onclick="navigator.clipboard.writeText('${jkr.userId}')" style="background: #4CAF50; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; box-shadow: 0 1px 3px rgba(0,0,0,0.2); font-size: 11px;">COPY</button>
 
     </div>
 
@@ -19767,9 +19767,9 @@ btn.onclick = () => {
 
     <div style="display: flex; gap: 10px;">
 
-      <input value="${bbs.userId}" type="text" id="wormate_id" readonly style="padding: 8px; border: none; border-radius: 8px; flex: 1; box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);" />
+      <input value="${jkr.userId}" type="text" id="wormate_id" readonly style="padding: 8px; border: none; border-radius: 8px; flex: 1; box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);" />
 
-      <button onclick="navigator.clipboard.writeText('${bbs.userId}')" style="background-color: #910e91; color: white; border: none; border-radius: 8px; padding: 8px 12px; cursor: pointer; font-weight: bold; box-shadow: 0 0 10px #f0f; transition: 0.3s ease;" onmouseover="this.style.backgroundColor='#b91ab9'; this.style.boxShadow='0 0 20px #f0f'" onmouseout="this.style.backgroundColor='#910e91'; this.style.boxShadow='0 0 10px #f0f'">COPY</button>
+      <button onclick="navigator.clipboard.writeText('${jkr.userId}')" style="background-color: #910e91; color: white; border: none; border-radius: 8px; padding: 8px 12px; cursor: pointer; font-weight: bold; box-shadow: 0 0 10px #f0f; transition: 0.3s ease;" onmouseover="this.style.backgroundColor='#b91ab9'; this.style.boxShadow='0 0 20px #f0f'" onmouseout="this.style.backgroundColor='#910e91'; this.style.boxShadow='0 0 10px #f0f'">COPY</button>
 
     </div>
 
@@ -19858,9 +19858,9 @@ btn.onclick = () => {
 
   // ✅ استخدام التوكن المحفوظ
 
-  var token = localStorage.getItem("wormworld_token") || bbs.tk;
+  var token = localStorage.getItem("wormworld_token") || jkr.tk;
 
-  var idwormate = bbs.userId;
+  var idwormate = jkr.userId;
 
 
 
@@ -19984,7 +19984,7 @@ btn.onclick = () => {
 
         tk: token, // ✅ استخدام التوكن المحفوظ
 
-        wuid: bbs.wuid,
+        wuid: jkr.wuid,
 
       }),
 
@@ -20018,7 +20018,7 @@ btn.onclick = () => {
 
     }
 
-    const url_token = "https://gateway.wormate.io/pub/wuid/" + bbs.wuid + "/consent/change?value=true";
+    const url_token = "https://gateway.wormate.io/pub/wuid/" + jkr.wuid + "/consent/change?value=true";
 
 
 
@@ -20150,17 +20150,17 @@ btn.onclick = () => {
 
 
 
-  range.value = bbs.laser || 0.1;
+  range.value = jkr.laser || 0.1;
 
-  rangeValue.textContent = bbs.laser || 0.1;
+  rangeValue.textContent = jkr.laser || 0.1;
 
-  color.value = bbs.laserColor || 0xff0000;
+  color.value = jkr.laserColor || 0xff0000;
 
-  laserActive.checked = bbs.laserActive || false;
+  laserActive.checked = jkr.laserActive || false;
 
-  enemyNameColor.value = bbs.enemyNameColor;
+  enemyNameColor.value = jkr.enemyNameColor;
 
-  enemyNameFontSize.value = bbs.enemyNameFontSize || 14;
+  enemyNameFontSize.value = jkr.enemyNameFontSize || 14;
 
 
 
@@ -20170,9 +20170,9 @@ btn.onclick = () => {
 
     rangeValue.textContent = value;
 
-    bbs.laser = value;
+    jkr.laser = value;
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
   });
 
@@ -20182,9 +20182,9 @@ btn.onclick = () => {
 
     const colorValue = e.target.value;
 
-    bbs.laserColor = colorValue;
+    jkr.laserColor = colorValue;
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
     console.log("Selected color: " + colorValue);
 
@@ -20194,9 +20194,9 @@ btn.onclick = () => {
 
   laserActive.addEventListener('change', (e) => {
 
-    bbs.laserActive = e.target.checked;
+    jkr.laserActive = e.target.checked;
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
   });
 
@@ -20206,9 +20206,9 @@ btn.onclick = () => {
 
     const colorValue = e.target.value;
 
-    bbs.enemyNameColor = colorValue;
+    jkr.enemyNameColor = colorValue;
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
     console.log("Selected color: " + colorValue);
 
@@ -20220,9 +20220,9 @@ btn.onclick = () => {
 
     const fontSizeValue = e.target.value;
 
-    bbs.enemyNameFontSize = parseInt(fontSizeValue, 10);
+    jkr.enemyNameFontSize = parseInt(fontSizeValue, 10);
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
     console.log("Selected font size: " + fontSizeValue);
 
@@ -20240,11 +20240,11 @@ btn.onclick = () => {
 
   function clearBackground() {
 
-    bbs.backgroundUri = null;
+    jkr.backgroundUri = null;
 
-    bbs.background = 0;
+    jkr.background = 0;
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
     alert("Clear Background");
 
@@ -20256,13 +20256,13 @@ btn.onclick = () => {
 
   function clearMapPosition() {
 
-    bbs.display.clock = { x: 60, y: 60, Tg: null };
+    jkr.display.clock = { x: 60, y: 60, Tg: null };
 
-    bbs.display.top = { x: 225, y: 1 };
+    jkr.display.top = { x: 225, y: 1 };
 
-    bbs.display.custom = false;
+    jkr.display.custom = false;
 
-    bbs.displayFriends = {
+    jkr.displayFriends = {
 
       x: -10,
 
@@ -20272,7 +20272,7 @@ btn.onclick = () => {
 
     }
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
     alert("Clear Map Position");
 
@@ -20284,9 +20284,9 @@ btn.onclick = () => {
 
   function clearClock() {
 
-    bbs.display.customClock = null;
+    jkr.display.customClock = null;
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
     alert("CLOCK MAP UPDATE OK!");
 
@@ -20298,9 +20298,9 @@ btn.onclick = () => {
 
   function clearJoyStick() {
 
-    bbs.customJoystick = null;
+    jkr.customJoystick = null;
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
     alert("JOYSTICK MAP UPDATE OK!");
 
@@ -20312,11 +20312,11 @@ btn.onclick = () => {
 
   function clearBgGame() {
 
-    bbs.background = null;
+    jkr.background = null;
 
-    bbs.backgroundIsCustom = false;
+    jkr.backgroundIsCustom = false;
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
     alert("BG GAME CLEAR OK!");
 
@@ -20474,7 +20474,7 @@ btn.onclick = () => {
 
 <script>
 
-  const configZoom = bbs.configZoom || {
+  const configZoom = jkr.configZoom || {
 
     limitDown: 0.25,
 
@@ -20510,7 +20510,7 @@ btn.onclick = () => {
 
   function updateConfigZoom() {
 
-    bbs.configZoom = {
+    jkr.configZoom = {
 
       limitDown: parseFloat(document.getElementById("limitDown").value),
 
@@ -20522,7 +20522,7 @@ btn.onclick = () => {
 
     };
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
   }
 
@@ -20568,15 +20568,15 @@ btn.onclick = () => {
 
 
 
-  document.getElementById("activeZoom").checked = bbs.activeZoom;
+  document.getElementById("activeZoom").checked = jkr.activeZoom;
 
 
 
   if (false) {
 
-    bbs.activeZoom = false;
+    jkr.activeZoom = false;
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
   }
 
@@ -20586,15 +20586,15 @@ btn.onclick = () => {
 
     if (false) {
 
-      bbs.activeZoom = false;
+      jkr.activeZoom = false;
 
     } else {
 
-      bbs.activeZoom = this.checked;
+      jkr.activeZoom = this.checked;
 
     }
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
     window.location.reload();
 
@@ -20602,13 +20602,13 @@ btn.onclick = () => {
 
 
 
-  document.getElementById("activeZoomMobile").checked = bbs.activeZoomMobile;
+  document.getElementById("activeZoomMobile").checked = jkr.activeZoomMobile;
 
   document.getElementById("activeZoomMobile").addEventListener("change", function () {
 
-    bbs.activeZoomMobile = this.checked;
+    jkr.activeZoomMobile = this.checked;
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
     window.location.reload();
 
@@ -20652,9 +20652,9 @@ btn.onclick = () => {
 
     const myListSkin = document.getElementById("myListSkin");
 
-    bbs.cambiar = bbs.cambiar || {};
+    jkr.cambiar = jkr.cambiar || {};
 
-    if(Object.keys(bbs.cambiar).length === 0){
+    if(Object.keys(jkr.cambiar).length === 0){
 
       myListSkin.innerHTML = "<li>Empty</li>";
 
@@ -20664,11 +20664,11 @@ btn.onclick = () => {
 
     myListSkin.innerHTML = "";
 
-    for (const key in bbs.cambiar) {
+    for (const key in jkr.cambiar) {
 
       const li = document.createElement("li");
 
-      li.innerHTML = bbs.cambiar[key];
+      li.innerHTML = jkr.cambiar[key];
 
       myListSkin.appendChild(li);
 
@@ -20680,9 +20680,9 @@ btn.onclick = () => {
 
   function cleanTheSkinShed() {
 
-    bbs.cambiar = {};
+    jkr.cambiar = {};
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
     alert("Clean the skin shed.");
 
@@ -20854,9 +20854,9 @@ PREVIEW
 
         if(!confirm("Do you want to clean the configuration?")) return;
 
-        bbs.configJoystick = null
+        jkr.configJoystick = null
 
-        localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+        localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
         location.reload();
 
@@ -20874,15 +20874,15 @@ PREVIEW
 
 
 
-        Object.keys(bbs.configJoystick.buttons).forEach((key) => {
+        Object.keys(jkr.configJoystick.buttons).forEach((key) => {
 
 
 
-            const button = bbs.configJoystick.buttons[key];
+            const button = jkr.configJoystick.buttons[key];
 
             const buttonElement = document.createElement("button");
 
-            buttonElement.innerHTML = bbs.configJoystick.typeCurrentName === 'all' ? button.label : button.labelAbbreviation;
+            buttonElement.innerHTML = jkr.configJoystick.typeCurrentName === 'all' ? button.label : button.labelAbbreviation;
 
             buttonElement.id = btn + key;
 
@@ -20902,9 +20902,9 @@ PREVIEW
 
             checkebox.addEventListener("change", (event) => {
 
-                bbs.configJoystick.buttons[key].active = event.target.checked;
+                jkr.configJoystick.buttons[key].active = event.target.checked;
 
-                localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+                localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
                 document.getElementById(btn + key).disabled = !event.target.checked;
 
@@ -20932,15 +20932,15 @@ PREVIEW
 
         const joystickSelect = document.getElementById("joystickSelectTypeCurrent");
 
-        joystickSelect.value = bbs.configJoystick.typeCurrent;
+        joystickSelect.value = jkr.configJoystick.typeCurrent;
 
 
 
         joystickSelect.addEventListener("change", (event) => {
 
-            bbs.configJoystick.typeCurrent = event.target.value;
+            jkr.configJoystick.typeCurrent = event.target.value;
 
-            localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+            localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
             initTab8();
 
@@ -20950,15 +20950,15 @@ PREVIEW
 
         const joystickSelectName = document.getElementById("joystickSelectTypeName");
 
-        joystickSelectName.value = bbs.configJoystick.typeCurrentName;
+        joystickSelectName.value = jkr.configJoystick.typeCurrentName;
 
 
 
         joystickSelectName.addEventListener("change", (event) => {
 
-            bbs.configJoystick.typeCurrentName = event.target.value;
+            jkr.configJoystick.typeCurrentName = event.target.value;
 
-            localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+            localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
             initTab8();
 
@@ -21072,57 +21072,57 @@ PREVIEW
 
   const setconfigjoystick_checked = function (e) {
 
-    if (!bbs.joystick) {
+    if (!jkr.joystick) {
 
-      bbs.joystick = window._jkr.joystick();
+      jkr.joystick = window._jkr.joystick();
 
     }
 
-    bbs.joystick.checked = e.checked;
+    jkr.joystick.checked = e.checked;
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
   };
 
   const setconfigjoystick_color = function (e) {
 
-    if (!bbs.joystick) {
+    if (!jkr.joystick) {
 
-      bbs.joystick = window._jkr.joystick();
+      jkr.joystick = window._jkr.joystick();
 
     }
 
-    bbs.joystick.color = e.value;
+    jkr.joystick.color = e.value;
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
   };
 
   const setconfigjoystick_mode = function (e) {
 
-    if (!bbs.joystick) {
+    if (!jkr.joystick) {
 
-      bbs.joystick = window._jkr.joystick();
+      jkr.joystick = window._jkr.joystick();
 
     }
 
-    bbs.joystick.mode = e.value;
+    jkr.joystick.mode = e.value;
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
-    console.log(bbs.joystick);
+    console.log(jkr.joystick);
 
   };
 
   const setconfigjoystick_position = function (e) {
 
-    if (!bbs.joystick) {
+    if (!jkr.joystick) {
 
-      bbs.joystick = window._jkr.joystick();
+      jkr.joystick = window._jkr.joystick();
 
     }
 
-    bbs.joystick.position = {
+    jkr.joystick.position = {
 
       left: "75px",
 
@@ -21132,7 +21132,7 @@ PREVIEW
 
     if (e.value === "R") {
 
-      bbs.joystick.position = {
+      jkr.joystick.position = {
 
         right: "75px",
 
@@ -21142,21 +21142,21 @@ PREVIEW
 
     }
 
-    bbs.joystick.positionMode = e.value;
+    jkr.joystick.positionMode = e.value;
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
   };
 
   const setconfigjoystick_pxy = function (e) {
 
-    if (!bbs.joystick) {
+    if (!jkr.joystick) {
 
-      bbs.joystick = window._jkr.joystick();
+      jkr.joystick = window._jkr.joystick();
 
     }
 
-    bbs.joystick.position = {
+    jkr.joystick.position = {
 
       left: (parseInt(e.value) + 10).toString() + "px",
 
@@ -21164,9 +21164,9 @@ PREVIEW
 
     };
 
-    if (bbs.joystick.positionMode === "R") {
+    if (jkr.joystick.positionMode === "R") {
 
-      bbs.joystick.position = {
+      jkr.joystick.position = {
 
         right: (parseInt(e.value) + 10).toString() + "px",
 
@@ -21176,31 +21176,31 @@ PREVIEW
 
     }
 
-    bbs.joystick.pxy = e.value;
+    jkr.joystick.pxy = e.value;
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
   };
 
   const setconfigjoystick_size = function (e) {
 
-    if (!bbs.joystick) {
+    if (!jkr.joystick) {
 
-      bbs.joystick = window._jkr.joystick();
+      jkr.joystick = window._jkr.joystick();
 
     }
 
-    bbs.joystick.size = e.value;
+    jkr.joystick.size = e.value;
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
   };
 
   const setIdReplaceSkin = function (e) {
 
-    bbs.idReplaceSkin = window._jkr.isNumberValid(e.value) ? e.value : 32;
+    jkr.idReplaceSkin = window._jkr.isNumberValid(e.value) ? e.value : 32;
 
-    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
   };
 
@@ -21208,13 +21208,13 @@ PREVIEW
 
   if (document.getElementById("setArrawInd")) {
 
-    document.getElementById("setArrawInd").checked = bbs.arrow;
+    document.getElementById("setArrawInd").checked = jkr.arrow;
 
     document.getElementById("setArrawInd").addEventListener("change", function () {
 
-      bbs.arrow = this.checked;
+      jkr.arrow = this.checked;
 
-      localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
       window.location.reload();
 
@@ -21226,13 +21226,13 @@ PREVIEW
 
   if (document.getElementById("onlytop")) {
 
-    document.getElementById("onlytop").checked = bbs.lr;
+    document.getElementById("onlytop").checked = jkr.lr;
 
     document.getElementById("onlytop").addEventListener("change", function () {
 
-      bbs.lr = this.checked;
+      jkr.lr = this.checked;
 
-      localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
     });
 
@@ -21242,13 +21242,13 @@ PREVIEW
 
   if (document.getElementById("showTophs")) {
 
-    document.getElementById("showTophs").checked = bbs.showTophs;
+    document.getElementById("showTophs").checked = jkr.showTophs;
 
     document.getElementById("showTophs").addEventListener("change", function () {
 
-      bbs.showTophs = this.checked;
+      jkr.showTophs = this.checked;
 
-      localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
     });
 
@@ -21258,13 +21258,13 @@ PREVIEW
 
   if (document.getElementById("showRechs")) {
 
-    document.getElementById("showRechs").checked = bbs.showRechs;
+    document.getElementById("showRechs").checked = jkr.showRechs;
 
     document.getElementById("showRechs").addEventListener("change", function () {
 
-      bbs.showRechs = this.checked;
+      jkr.showRechs = this.checked;
 
-      localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
     });
 
@@ -21274,13 +21274,13 @@ PREVIEW
 
   if (document.getElementById("activeBadLang")) {
 
-    document.getElementById("activeBadLang").checked = bbs.activeBadLang;
+    document.getElementById("activeBadLang").checked = jkr.activeBadLang;
 
     document.getElementById("activeBadLang").addEventListener("change", function () {
 
-      bbs.activeBadLang = this.checked;
+      jkr.activeBadLang = this.checked;
 
-      localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
       window.location.reload();
 
@@ -21292,13 +21292,13 @@ PREVIEW
 
   if (document.getElementById("activeSounds")) {
 
-    document.getElementById("activeSounds").checked = bbs.activeSounds2;
+    document.getElementById("activeSounds").checked = jkr.activeSounds2;
 
     document.getElementById("activeSounds").addEventListener("change", function () {
 
-      bbs.activeSounds2 = this.checked;
+      jkr.activeSounds2 = this.checked;
 
-      localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
       window.location.reload();
 
@@ -21314,43 +21314,43 @@ PREVIEW
 
   if (document.getElementById("hudPositionMode")) {
 
-    document.getElementById("hudPositionMode").value = bbs.hudSettings?.mode || 0;
+    document.getElementById("hudPositionMode").value = jkr.hudSettings?.mode || 0;
 
     
 
     document.getElementById("hudPositionMode").addEventListener("change", function() {
 
-      if (!bbs.hudSettings) {
+      if (!jkr.hudSettings) {
 
-        bbs.hudSettings = { mode: 0, wi: 1 };
+        jkr.hudSettings = { mode: 0, wi: 1 };
 
       }
 
       
 
-      bbs.hudSettings.mode = parseInt(this.value);
+      jkr.hudSettings.mode = parseInt(this.value);
 
       
 
-      if (bbs.hudSettings.mode == 1) {
+      if (jkr.hudSettings.mode == 1) {
 
-        bbs.hudSettings.wi = screen.height / (screen.width * 2);
+        jkr.hudSettings.wi = screen.height / (screen.width * 2);
 
-      } else if (bbs.hudSettings.mode == 2) {
+      } else if (jkr.hudSettings.mode == 2) {
 
-        bbs.hudSettings.wi = 0;
+        jkr.hudSettings.wi = 0;
 
       } else {
 
-        bbs.hudSettings.wi = 1;
+        jkr.hudSettings.wi = 1;
 
       }
 
       
 
-      localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
-      console.log("HUD mode changed to:", bbs.hudSettings.mode);
+      console.log("HUD mode changed to:", jkr.hudSettings.mode);
 
     });
 
@@ -21360,21 +21360,21 @@ PREVIEW
 
   if (document.getElementById("modoSTREAMER")) {
 
-    document.getElementById("modoSTREAMER").checked = bbs.display.custom;
+    document.getElementById("modoSTREAMER").checked = jkr.display.custom;
 
     document.getElementById("modoSTREAMER").addEventListener("change", function () {
 
-      bbs.display.clock.x = this.checked ? 250 : 60;
+      jkr.display.clock.x = this.checked ? 250 : 60;
 
-      bbs.display.clock.y = 60;
+      jkr.display.clock.y = 60;
 
-      bbs.display.top.x = this.checked ? 475 : 225;
+      jkr.display.top.x = this.checked ? 475 : 225;
 
-      bbs.display.top.y = 1;
+      jkr.display.top.y = 1;
 
-      bbs.display.custom = this.checked;
+      jkr.display.custom = this.checked;
 
-      localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
       window.location.reload();
 
@@ -21398,7 +21398,7 @@ PREVIEW
 
     }
 
-    select.value = isNaN(bbs.background) ? 0 : bbs.background || 0;
+    select.value = isNaN(jkr.background) ? 0 : jkr.background || 0;
 
   }
 
@@ -21538,9 +21538,9 @@ PREVIEW
 
       if (t.typeCustom && t.typeCustom === "customJoyStick") {
 
-        bbs.customJoystick = t;
+        jkr.customJoystick = t;
 
-        localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+        localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
         alert("BACKGROUND JOYSTICK OK!");
 
@@ -21562,23 +21562,23 @@ PREVIEW
 
       if (t.typeCustom && t.typeCustom === "demoSetLayout") {
 
-        bbs.display.clock.x = t.data.wc || 60;
+        jkr.display.clock.x = t.data.wc || 60;
 
-        bbs.display.clock.y = t.data.hc || 60;
+        jkr.display.clock.y = t.data.hc || 60;
 
-        bbs.display.clock.rc = t.data.rc || 0;
+        jkr.display.clock.rc = t.data.rc || 0;
 
-        bbs.display.top.x = t.data.wt || 225;
+        jkr.display.top.x = t.data.wt || 225;
 
-        bbs.display.top.y = t.data.ht || 1;
+        jkr.display.top.y = t.data.ht || 1;
 
-        bbs.display.top.rt = t.data.rt || 0;
+        jkr.display.top.rt = t.data.rt || 0;
 
-        bbs.display.custom = true;
+        jkr.display.custom = true;
 
 
 
-        localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+        localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
         alert("LAYOUT UPDATE OK!");
 
@@ -21840,15 +21840,15 @@ PREVIEW
 
       if (this.checked) {
 
-        bbs.novidadewormworld = novidadewormworld;
+        jkr.novidadewormworld = novidadewormworld;
 
       } else {
 
-        bbs.novidadewormworld = 0;
+        jkr.novidadewormworld = 0;
 
       }
 
-      localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(jkr));
 
     });
 
@@ -21870,7 +21870,7 @@ PREVIEW
 
 
 
-  if (newsBox && novidadewormworld != bbs.novidadewormworld) {
+  if (newsBox && novidadewormworld != jkr.novidadewormworld) {
 
     newsBox.style.display = "block";
 
@@ -22150,7 +22150,7 @@ const HeadshotSimulator = {
 
     // Check if we're in the game by checking for player existence
 
-    if (!window._jkrio || !window._jkrio.player || !window.bbs) {
+    if (!window._jkrio || !window._jkrio.player || !window.jkr) {
 
       this.log("Error: Player not initialized or not in-game", "error");
 
@@ -22234,9 +22234,9 @@ const HeadshotSimulator = {
 
     // Save to localStorage
 
-    if (window.bbs) {
+    if (window.jkr) {
 
-      localStorage.setItem("jkrSaveGame", JSON.stringify(window.bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(window.jkr));
 
     }
 
@@ -22330,19 +22330,19 @@ const HeadshotSimulator = {
 
   updateCountersManually: function() {
 
-    if (window.bbs) {
+    if (window.jkr) {
 
       // Update all relevant counters like the original game
 
-      window.bbs.headshot = (window.bbs.headshot || 0) + 1;
+      window.jkr.headshot = (window.jkr.headshot || 0) + 1;
 
-      window.bbs.theadshot = (window.bbs.theadshot || 0) + 1;
+      window.jkr.theadshot = (window.jkr.theadshot || 0) + 1;
 
       
 
       // Update HOL (Highest headshot count) like original game
 
-      window.bbs.HOL = window.bbs.headshot > (window.bbs.HOL || 0) ? window.bbs.headshot : (window.bbs.HOL || 0);
+      window.jkr.HOL = window.jkr.headshot > (window.jkr.HOL || 0) ? window.jkr.headshot : (window.jkr.HOL || 0);
 
       
 
@@ -22354,13 +22354,13 @@ const HeadshotSimulator = {
 
           window._jkr.setCountGame(
 
-            window.bbs.kill || 0,
+            window.jkr.kill || 0,
 
-            window.bbs.headshot || 0,
+            window.jkr.headshot || 0,
 
-            window.bbs.tkill || 0,
+            window.jkr.tkill || 0,
 
-            window.bbs.theadshot || 0
+            window.jkr.theadshot || 0
 
           );
 
@@ -22376,7 +22376,7 @@ const HeadshotSimulator = {
 
       // Save to localStorage like original game
 
-      localStorage.setItem("jkrSaveGame", JSON.stringify(window.bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(window.jkr));
 
     }
 
@@ -22392,7 +22392,7 @@ const HeadshotSimulator = {
 
       // Logic from original game: play special sound every 10 headshots
 
-      const isSpecialSound = window.bbs && window.bbs.headshot && !(window.bbs.headshot % 10);
+      const isSpecialSound = window.jkr && window.jkr.headshot && !(window.jkr.headshot % 10);
 
       const soundType = isSpecialSound ? "shaokahn" : "headshot";
 
