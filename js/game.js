@@ -7527,7 +7527,7 @@ Check @type() annotation`);
       var v543 = true;
       var v544 = true;
       var v545 = false;
-      var vLN18 = 18;
+      var vLN18 = 128;
       window.backgroundArena = [{
         nome: "Default",
         uri: window.URL_CDN + "/backgrounds/bkgnd0.png"
@@ -8968,7 +8968,7 @@ Check @type() annotation`);
             p989.preventDefault();
             var v661 = $(this).attr("data-con") || jkr.con;
             var v662 = $(this).attr("data-type");
-            w2c2020.addRoom($(this).attr("data-room"));
+            jkrStyle.addRoom($(this).attr("data-room"));
             vO47.dh.Zp = function (p990, p991, p992) {
               jkr.con = p992 ? p990 : v661 || p990;
               _jkr.Zp(jkr.con, p991);
@@ -8988,8 +8988,8 @@ Check @type() annotation`);
               }
             }
             jkr.saveGame = this.checked;
-            w2c2020.hsTotal.alpha = this.checked ? 1 : 0;
-            w2c2020.killTotal.alpha = this.checked ? 1 : 0;
+            jkrStyle.hsTotal.alpha = this.checked ? 1 : 0;
+            jkrStyle.killTotal.alpha = this.checked ? 1 : 0;
             localStorage.setItem("jkrSaveGame", this.checked ? JSON.stringify(jkr) : null);
           });
         },
@@ -9028,13 +9028,13 @@ Check @type() annotation`);
         },
         setCountGame: function f203(p999, p1000, p1001, p1002) {
           if (!jkr.saveGame) {
-            w2c2020.hsTotal.alpha = 0;
-            w2c2020.killTotal.alpha = 0;
+            jkrStyle.hsTotal.alpha = 0;
+            jkrStyle.killTotal.alpha = 0;
           }
-          w2c2020.hs.text = p1000;
-          w2c2020.hsTotal.text = p1002;
-          w2c2020.kill.text = p999;
-          w2c2020.killTotal.text = p1001;
+          jkrStyle.hs.text = p1000;
+          jkrStyle.hsTotal.text = p1002;
+          jkrStyle.kill.text = p999;
+          jkrStyle.killTotal.text = p1001;
         },
         ismobile: f222(),
         Zp: undefined
@@ -9668,7 +9668,7 @@ Check @type() annotation`);
                           this.rh[v686] = v688;
                           this.addChild(v688);
                         }
-                        w2c2020.setPtc(this, v686, v687.od);
+                        jkrStyle.setPtc(this, v686, v687.od);
                         v688.sh = v687.od;
                     var _0x3a7239 =  vLN17 || window.innerWidth;
                     var _0x6e711 = jkr.hudSettings.mode == 0 ? vLN0104 : _0x3a7239 / 2 + vLN0104 - _0x3a7239 * jkr.hudSettings.wi;
@@ -9679,24 +9679,24 @@ Check @type() annotation`);
                     }
                   };
                   if (!jkr.display.customClock) {
-                    vO47.og.af.ng.Tg.addChild(w2c2020.clock);
+                    vO47.og.af.ng.Tg.addChild(jkrStyle.clock);
                   }
-                  vO47.og.af.ng.Tg.addChild(w2c2020.containerCountInfo);
-                  vO47.og.af.ng.Tg.addChild(w2c2020.labelRoom);
-                  w2c2020.ptc = {};
+                  vO47.og.af.ng.Tg.addChild(jkrStyle.containerCountInfo);
+                  vO47.og.af.ng.Tg.addChild(jkrStyle.labelRoom);
+                  jkrStyle.ptc = {};
                   v679 = [40, 40, 40, 120, 40, 20, 40];
                   for (v680 = 0; v680 < v679.length; v680++) {
                     v681 = "clock_ad" + v680;
-                    w2c2020.ptc[v681] = new PIXI.Text(v679[v680], w2c2020.fontStyle["tfc" + v680]);
-                    w2c2020.ptc[v681].y = 61;
+                    jkrStyle.ptc[v681] = new PIXI.Text(v679[v680], jkrStyle.fontStyle["tfc" + v680]);
+                    jkrStyle.ptc[v681].y = 61;
                   }
-                  w2c2020.setPtc = function (p1037, p1038, p1039) {
+                  jkrStyle.setPtc = function (p1037, p1038, p1039) {
                     var v690 = v679[p1038] - parseInt((p1039 == 0.99 ? 1 : p1039) * v679[p1038] / 1);
                     var v691 = "clock_ad" + p1038;
-                    p1037.rh[p1038].addChild(w2c2020.ptc[v691]);
-                    if (w2c2020.ptc[v691]) {
-                      w2c2020.ptc[v691].x = v690 >= 100 ? 11 : v690 >= 10 ? 18 : 26;
-                      w2c2020.ptc[v691].text = v690;
+                    p1037.rh[p1038].addChild(jkrStyle.ptc[v691]);
+                    if (jkrStyle.ptc[v691]) {
+                      jkrStyle.ptc[v691].x = v690 >= 100 ? 11 : v690 >= 10 ? 18 : 26;
+                      jkrStyle.ptc[v691].text = v690;
                     }
                   };
                   v682 = vO47.og.af.ng.Eb;
@@ -10109,7 +10109,7 @@ Check @type() annotation`);
         })(navigator.userAgent || navigator.vendor || window.opera);
         return v720;
       }
-      window.w2c2020 = {
+      window.jkrStyle = {
         fontStyle: {
           amarelo: new PIXI.TextStyle({
             align: "center",
@@ -10181,7 +10181,7 @@ Check @type() annotation`);
       var vA26 = ["#FFD500", "#FFC75A", "#00B2ED", "#FF4544", "#0094D7", "#CCCF81", "#ff0999"];
       for (var vLN0105 = 0; vLN0105 < vA26.length; vLN0105++) {
         var v721 = vA26[vLN0105];
-        w2c2020.fontStyle["tfc" + vLN0105] = new PIXI.TextStyle({
+        jkrStyle.fontStyle["tfc" + vLN0105] = new PIXI.TextStyle({
           align: "center",
           fill: v721,
           fontSize: 25,
@@ -10191,114 +10191,114 @@ Check @type() annotation`);
           fontWeight: "bold"
         });
       }
-      w2c2020.zoom = new PIXI.Text("x1", w2c2020.fontStyle.brancoXzoom);
-      w2c2020.zoom.x = 82;
-      w2c2020.zoom.y = 105;
-      w2c2020.conteinerTeam = new PIXI.Container();
-      w2c2020.conteinerTeam.id = "team";
-      w2c2020.friends = new PIXI.Container();
-      w2c2020.friends.background = new PIXI.Graphics();
-      w2c2020.friends.background.beginFill(0, 0.4);
-      w2c2020.friends.background.drawRect(0, 0, 100, 130);
-      w2c2020.friends.background.endFill();
-      w2c2020.friends.addChild(w2c2020.friends.background);
-      w2c2020.friends.position.x = jkr.displayFriends?.x || -10;
-      w2c2020.friends.position.y = jkr.displayFriends?.y || 315;
-      w2c2020.friends.position.rotate = jkr.displayFriends?.rotate || 0;
-      w2c2020.friends.alpha = 0;
-      w2c2020.moveSprite = PIXI.Sprite.from(URLSERV_WORMWORLD + "/img/move-icon.png");
-      w2c2020.moveSprite.width = 20;
-      w2c2020.moveSprite.height = 20;
-      w2c2020.moveSprite.x = 75;
-      w2c2020.moveSprite.y = 130;
-      w2c2020.moveSprite.interactive = true;
-      w2c2020.moveSprite.buttonMode = true;
-      w2c2020.rotation = PIXI.Sprite.from(URLSERV_WORMWORLD + "/img/rotate-icon.png");
-      w2c2020.rotation.width = 25;
-      w2c2020.rotation.height = 25;
-      w2c2020.rotation.x = 45;
-      w2c2020.rotation.y = 130;
-      w2c2020.rotation.interactive = true;
-      w2c2020.rotation.buttonMode = true;
-      w2c2020.friends.addChild(w2c2020.moveSprite);
-      w2c2020.friends.addChild(w2c2020.rotation);
+      jkrStyle.zoom = new PIXI.Text("x1", jkrStyle.fontStyle.brancoXzoom);
+      jkrStyle.zoom.x = 82;
+      jkrStyle.zoom.y = 105;
+      jkrStyle.conteinerTeam = new PIXI.Container();
+      jkrStyle.conteinerTeam.id = "team";
+      jkrStyle.friends = new PIXI.Container();
+      jkrStyle.friends.background = new PIXI.Graphics();
+      jkrStyle.friends.background.beginFill(0, 0.4);
+      jkrStyle.friends.background.drawRect(0, 0, 100, 130);
+      jkrStyle.friends.background.endFill();
+      jkrStyle.friends.addChild(jkrStyle.friends.background);
+      jkrStyle.friends.position.x = jkr.displayFriends?.x || -10;
+      jkrStyle.friends.position.y = jkr.displayFriends?.y || 315;
+      jkrStyle.friends.position.rotate = jkr.displayFriends?.rotate || 0;
+      jkrStyle.friends.alpha = 0;
+      jkrStyle.moveSprite = PIXI.Sprite.from(URLSERV_WORMWORLD + "/img/move-icon.png");
+      jkrStyle.moveSprite.width = 20;
+      jkrStyle.moveSprite.height = 20;
+      jkrStyle.moveSprite.x = 75;
+      jkrStyle.moveSprite.y = 130;
+      jkrStyle.moveSprite.interactive = true;
+      jkrStyle.moveSprite.buttonMode = true;
+      jkrStyle.rotation = PIXI.Sprite.from(URLSERV_WORMWORLD + "/img/rotate-icon.png");
+      jkrStyle.rotation.width = 25;
+      jkrStyle.rotation.height = 25;
+      jkrStyle.rotation.x = 45;
+      jkrStyle.rotation.y = 130;
+      jkrStyle.rotation.interactive = true;
+      jkrStyle.rotation.buttonMode = true;
+      jkrStyle.friends.addChild(jkrStyle.moveSprite);
+      jkrStyle.friends.addChild(jkrStyle.rotation);
       var v722 = false;
       var vO46 = {
         x: 0,
         y: 0
       };
-      w2c2020.rotation.on("pointerdown", function (p1071) {
-        w2c2020.friends.rotation += Math.PI / 2;
+      jkrStyle.rotation.on("pointerdown", function (p1071) {
+        jkrStyle.friends.rotation += Math.PI / 2;
         localStorage.setItem("jkrSaveGame", JSON.stringify(jkr || {}));
       });
-      w2c2020.moveSprite.on("pointerdown", function (p1072) {
+      jkrStyle.moveSprite.on("pointerdown", function (p1072) {
         v722 = true;
-        vO46.x = p1072.data.global.x - w2c2020.friends.x;
-        vO46.y = p1072.data.global.y - w2c2020.friends.y;
+        vO46.x = p1072.data.global.x - jkrStyle.friends.x;
+        vO46.y = p1072.data.global.y - jkrStyle.friends.y;
       });
-      w2c2020.moveSprite.on("pointerup", function () {
+      jkrStyle.moveSprite.on("pointerup", function () {
         v722 = false;
       });
-      w2c2020.moveSprite.on("pointerupoutside", function () {
+      jkrStyle.moveSprite.on("pointerupoutside", function () {
         v722 = false;
       });
-      w2c2020.moveSprite.on("pointermove", function (p1073) {
+      jkrStyle.moveSprite.on("pointermove", function (p1073) {
         if (v722) {
           var v723 = p1073.data.global;
-          w2c2020.friends.x = v723.x - vO46.x;
-          w2c2020.friends.y = v723.y - vO46.y;
-          jkr.displayFriends.x = w2c2020.friends.x;
-          jkr.displayFriends.y = w2c2020.friends.y;
+          jkrStyle.friends.x = v723.x - vO46.x;
+          jkrStyle.friends.y = v723.y - vO46.y;
+          jkr.displayFriends.x = jkrStyle.friends.x;
+          jkr.displayFriends.y = jkrStyle.friends.y;
           localStorage.setItem("jkrSaveGame", JSON.stringify(jkr || {}));
         }
       });
-      w2c2020.moveSprite.visible = false;
-      w2c2020.rotation.visible = false;
+      jkrStyle.moveSprite.visible = false;
+      jkrStyle.rotation.visible = false;
       window.addEventListener("keydown", function (p1074) {
         if (p1074.key === "Escape") {
-          w2c2020.moveSprite.visible = !w2c2020.moveSprite.visible;
-          w2c2020.rotation.visible = !w2c2020.rotation.visible;
+          jkrStyle.moveSprite.visible = !jkrStyle.moveSprite.visible;
+          jkrStyle.rotation.visible = !jkrStyle.rotation.visible;
         }
       });
-      w2c2020.label_hs = new PIXI.Text("HS", w2c2020.fontStyle.b);
-      w2c2020.label_hs.x = 15;
-      w2c2020.label_hs.y = 107;
-      w2c2020.hs = new PIXI.Text("0", w2c2020.fontStyle.b);
-      w2c2020.hs.x = 20;
-      w2c2020.hs.y = 119;
-      w2c2020.hsTotal = new PIXI.Text("0", w2c2020.fontStyle.b);
-      w2c2020.hsTotal.x = 20;
-      w2c2020.hsTotal.y = 132;
-      w2c2020.label_kill = new PIXI.Text("KILL", w2c2020.fontStyle.b);
-      w2c2020.label_kill.x = 50;
-      w2c2020.label_kill.y = 107;
-      w2c2020.kill = new PIXI.Text("0", w2c2020.fontStyle.b);
-      w2c2020.kill.x = 60;
-      w2c2020.kill.y = 120;
-      w2c2020.killTotal = new PIXI.Text("0", w2c2020.fontStyle.b);
-      w2c2020.killTotal.x = 60;
-      w2c2020.killTotal.y = 133;
-      w2c2020.clock = PIXI.Sprite.from("https://timmapwormate.com/images/store/clock.png");
-      w2c2020.clock.width = 100;
-      w2c2020.clock.height = 100;
-      w2c2020.clock.x = -50;
-      w2c2020.clock.y = -50;  
-      w2c2020.containerCountInfo = new PIXI.Container();
-      w2c2020.containerCountInfo.x = -45;
-      w2c2020.containerCountInfo.y = -52;
-      w2c2020.containerCountInfo.addChild(w2c2020.zoom);
-      w2c2020.containerCountInfo.addChild(w2c2020.friends);
-      w2c2020.containerCountInfo.addChild(w2c2020.label_hs);
-      w2c2020.containerCountInfo.addChild(w2c2020.hs);
-      w2c2020.containerCountInfo.addChild(w2c2020.hsTotal);
-      w2c2020.containerCountInfo.addChild(w2c2020.label_kill);
-      w2c2020.containerCountInfo.addChild(w2c2020.kill);
-      w2c2020.containerCountInfo.addChild(w2c2020.killTotal);
-      w2c2020.labelRoom = new PIXI.Text("JKR", w2c2020.fontStyle.amarelo);
-      w2c2020.labelRoom.x = -50;
-      w2c2020.labelRoom.y = -56;
-      w2c2020.addRoom = function (p1078) {
-        w2c2020.labelRoom.text = p1078 || "JKR";
+      jkrStyle.label_hs = new PIXI.Text("HS", jkrStyle.fontStyle.b);
+      jkrStyle.label_hs.x = 15;
+      jkrStyle.label_hs.y = 107;
+      jkrStyle.hs = new PIXI.Text("0", jkrStyle.fontStyle.b);
+      jkrStyle.hs.x = 20;
+      jkrStyle.hs.y = 119;
+      jkrStyle.hsTotal = new PIXI.Text("0", jkrStyle.fontStyle.b);
+      jkrStyle.hsTotal.x = 20;
+      jkrStyle.hsTotal.y = 132;
+      jkrStyle.label_kill = new PIXI.Text("KILL", jkrStyle.fontStyle.b);
+      jkrStyle.label_kill.x = 50;
+      jkrStyle.label_kill.y = 107;
+      jkrStyle.kill = new PIXI.Text("0", jkrStyle.fontStyle.b);
+      jkrStyle.kill.x = 60;
+      jkrStyle.kill.y = 120;
+      jkrStyle.killTotal = new PIXI.Text("0", jkrStyle.fontStyle.b);
+      jkrStyle.killTotal.x = 60;
+      jkrStyle.killTotal.y = 133;
+      jkrStyle.clock = PIXI.Sprite.from("https://timmapwormate.com/images/store/clock.png");
+      jkrStyle.clock.width = 100;
+      jkrStyle.clock.height = 100;
+      jkrStyle.clock.x = -50;
+      jkrStyle.clock.y = -50;  
+      jkrStyle.containerCountInfo = new PIXI.Container();
+      jkrStyle.containerCountInfo.x = -45;
+      jkrStyle.containerCountInfo.y = -52;
+      jkrStyle.containerCountInfo.addChild(jkrStyle.zoom);
+      jkrStyle.containerCountInfo.addChild(jkrStyle.friends);
+      jkrStyle.containerCountInfo.addChild(jkrStyle.label_hs);
+      jkrStyle.containerCountInfo.addChild(jkrStyle.hs);
+      jkrStyle.containerCountInfo.addChild(jkrStyle.hsTotal);
+      jkrStyle.containerCountInfo.addChild(jkrStyle.label_kill);
+      jkrStyle.containerCountInfo.addChild(jkrStyle.kill);
+      jkrStyle.containerCountInfo.addChild(jkrStyle.killTotal);
+      jkrStyle.labelRoom = new PIXI.Text("JKR", jkrStyle.fontStyle.amarelo);
+      jkrStyle.labelRoom.x = -50;
+      jkrStyle.labelRoom.y = -56;
+      jkrStyle.addRoom = function (p1078) {
+        jkrStyle.labelRoom.text = p1078 || "JKR";
       };
       window.addEventListener("keydown", function (p1079) {
         if (p1079.key == "Q" || p1079.key === "q") {
@@ -10644,7 +10644,7 @@ Check @type() annotation`);
         jkr.code = `${vV_0x1877ac || "000"}|${vV_0x1877ac5 || "00"}`;
         function f240(p1127, p1128) {
           var vLS13 = "";
-          vLS13 = p1127.substring(0, vLN18).padEnd(vLN18, "_");
+          vLS13 = p1127.substring(0, vLN18).padEnd(vLN18, "_JKR");
           var v768 = vLS13 + p1128;
           return v768;
         }
@@ -13149,12 +13149,12 @@ Check @type() annotation`);
           this.Tg.position.set(_0x15c47b, 60 + _0x3d080b + (_0x570623 ? this.Tg.height / 4 : 0));
           this.Ug.position.set(_0x2f8ce7, 10);
           this.Vg.position.set(_0x1aa189, _0xff8cd9 + (_0x34a95e ? this.Vg.height : 0));
-          if (w2c2020.labelRoom) {
-            if (w2c2020.labelRoom.parent) {
-              w2c2020.labelRoom.parent.removeChild(w2c2020.labelRoom);
+          if (jkrStyle.labelRoom) {
+            if (jkrStyle.labelRoom.parent) {
+              jkrStyle.labelRoom.parent.removeChild(jkrStyle.labelRoom);
             }
             if (this.Tg.parent) {
-              this.Tg.parent.addChild(w2c2020.labelRoom);
+              this.Tg.parent.addChild(jkrStyle.labelRoom);
             }
             var _0x48f6ab;
             if (jkr.hudSettings.mode == 0) {
@@ -13164,9 +13164,9 @@ Check @type() annotation`);
             } else {
               _0x48f6ab = _0x45171a / 2 - 120 + -10;
             }
-            w2c2020.labelRoom.position.x = _0x48f6ab - 8;
-            w2c2020.labelRoom.position.y = 1;
-            w2c2020.labelRoom.visible = true;
+            jkrStyle.labelRoom.position.x = _0x48f6ab - 8;
+            jkrStyle.labelRoom.position.y = 1;
+            jkrStyle.labelRoom.visible = true;
           }
           this.Tg.rotation = _0x570623;
           this.Vg.rotation = _0x34a95e;
@@ -13288,7 +13288,7 @@ Check @type() annotation`);
                 this.addChild(v1004);
                 this.addChild(this.qh);
                 this.addChild(this.jh);
-                this.addChild(w2c2020.conteinerTeam);
+                this.addChild(jkrStyle.conteinerTeam);
               });
             }();
             var vF35 = function () {
@@ -18748,7 +18748,7 @@ Check @type() annotation`);
           align: "left"
         });
         v1432.position.y = v1429 * 13;
-        w2c2020.friends.addChild(v1432);
+        jkrStyle.friends.addChild(v1432);
         return v1432;
       }
       function f354(p1893, p1894) {
@@ -18767,7 +18767,7 @@ Check @type() annotation`);
         v1435.endFill();
         v1435.position.x = p1894.position.x;
         v1435.position.y = p1894.position.y;
-        w2c2020.conteinerTeam.addChild(v1435);
+        jkrStyle.conteinerTeam.addChild(v1435);
         return v1435;
       }
       var v1436 = new Map();
@@ -18775,11 +18775,11 @@ Check @type() annotation`);
       var v1438 = null;
       var v_0x24979f = function f355() {
         v1436.forEach(function (p1895) {
-          w2c2020.conteinerTeam.removeChild(p1895.playerMap);
-          w2c2020.friends.removeChild(p1895.playerText);
+          jkrStyle.conteinerTeam.removeChild(p1895.playerMap);
+          jkrStyle.friends.removeChild(p1895.playerText);
         });
         v1436.clear();
-        w2c2020.friends.alpha = 0;
+        jkrStyle.friends.alpha = 0;
       };
       var v_0x5c9a73 = function f356() {
         _jkrio.socket = false;
@@ -18832,7 +18832,7 @@ Check @type() annotation`);
                   _jkrio.player.sid = v1438.sessionId;
                   v1442 = function f358() {
                     if (!_jkrio.player.teamRoom || !v1438) {
-                      w2c2020.friends.alpha = 0;
+                      jkrStyle.friends.alpha = 0;
                       return;
                     }
                     v1438.send("team:join", {
@@ -18844,7 +18844,7 @@ Check @type() annotation`);
                       playerMap: null,
                       playerText: vF353
                     });
-                    w2c2020.friends.alpha = 1;
+                    jkrStyle.friends.alpha = 1;
                     console.log("Conectado com Team!", _jkrio.player.teamRoom);
                   };
                   v1438.onMessage("ready", function (p1898) {
@@ -18886,8 +18886,8 @@ Check @type() annotation`);
                     console.log("Saiu do time", p1902);
                     var v1446 = v1436.get(p1902.sid);
                     if (v1446) {
-                      w2c2020.conteinerTeam.removeChild(v1446.playerMap);
-                      w2c2020.friends.removeChild(v1446.playerText);
+                      jkrStyle.conteinerTeam.removeChild(v1446.playerMap);
+                      jkrStyle.friends.removeChild(v1446.playerText);
                       v1436.delete(p1902.sid);
                     }
                   });
