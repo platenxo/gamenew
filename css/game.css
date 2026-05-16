@@ -11,6 +11,21 @@
     font-family: vuonghiep;
 }
 
+.het-han {
+    margin-top: -19px;
+    font-weight: bold;
+    width: 210px;
+    line-height: 1.6;
+    border-radius: 10px;
+    font-size: 13px;
+    text-shadow: 0 0 0 #ff006a, 0 0 0.5em #ff00bc, 0 0 0.4em #ff00d4;
+    text-align: center;
+    /* background: linear-gradient(#8f22ff, #35b3a2); */
+    position: absolute;
+    left: 70px;
+    top: 25px;
+}
+
 .vietnam {
     margin-left: 119px;
 }
