@@ -11913,11 +11913,19 @@ Check @type() annotation`);
             this.Nc.xc.visible = false;
           };
           v864.prototype.activeFlex = function (_0x17b4d1, _0xf92d8b, _0xaa299d, _0x2478a0) {
-            this.pwr_flex3.xc.visible = true;
+            this.pwr_flex1.xc.visible = window.jkr.flx === 1;
+            this.pwr_flex1.xc.alpha = vO56.Q(this.Nc.xc.alpha, _0x17b4d1.Xc ? 1 : 1, _0x2478a0, 1);
+            this.pwr_flex1.Tc(_0xf92d8b);
+            this.pwr_flex2.xc.visible = window.jkr.flx === 2;
+            this.pwr_flex2.xc.alpha = vO56.Q(this.Nc.xc.alpha, _0x17b4d1.Xc ? 0.9 : 0.4, _0x2478a0, 0.0025);
+            this.pwr_flex2.Tc(_0xf92d8b);
+            this.pwr_flex3.xc.visible = window.jkr.flx === 3;
             this.pwr_flex3.xc.alpha = vO56.Q(this.Nc.xc.alpha, _0x17b4d1.Xc ? 0.9 : 0.4, _0x2478a0, 0.0025);
             this.pwr_flex3.Tc(_0xf92d8b);
           };
           v864.prototype.disableFlex = function () {
+            this.pwr_flex1.xc.visible = false;
+            this.pwr_flex2.xc.visible = false;
             this.pwr_flex3.xc.visible = false;
           };
               v864.prototype.WXX = function (p1345, p1346, p1347, p1348) {
