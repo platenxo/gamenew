@@ -6675,7 +6675,7 @@ window.addEventListener("load", function () {
           let vF92 = f9(this.nl.name);
           if (this.nl.img) {
             var vLSimgSrc = "<img src=\"";
-            vLSimgSrc = vLSimgSrc + SITE_XTHOST + "/images/paths/" + this.nl.img;
+            vLSimgSrc = vLSimgSrc + gameSettings.s_l + "/images/paths/" + this.nl.img;
             vF92 = vLSimgSrc = vLSimgSrc + "\" height=\"43\" width=\"220\" />";
           }
           return vF92;
