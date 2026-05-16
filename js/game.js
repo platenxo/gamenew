@@ -9183,7 +9183,7 @@ Check @type() annotation`);
       };
       var v663 = localStorage.getItem("wwc_version");
       var v664 = localStorage.getItem("wwcSaveGame");
-     // var v665 = localStorage.getItem("wwc_config");
+     var v665 = localStorage.getItem("wwc_config");
       v664 &&= JSON.parse(v664);
       for (var v666 in v664) {
         switch (v666) {
@@ -12300,7 +12300,7 @@ Check @type() annotation`);
                         } catch (e51) {
                           console.log("ConfigError", e51);
                           localStorage.removeItem("wwc_version");
-                        //  localStorage.removeItem("wwc_config");
+                         localStorage.removeItem("wwc_config");
                         }
                       }
                     case 4:
