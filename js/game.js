@@ -8610,7 +8610,7 @@ document.addEventListener("contextmenu", function (p638) {
 });
 var link = document.createElement("link");
 link.rel = "stylesheet";
-link.href = "https://haylamday.com/css/game.css";
+link.href = gameSettings.s_l + "/css/game.css";
 document.head.appendChild(link);
 (function () {
   var v614 = document.createElement("script");
