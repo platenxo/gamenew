@@ -62,6 +62,12 @@
             "relativePath": "l6ex80N.png",
             "re1ativePath": "https://i.imgur.com/l6ex80N.png",
             "h1": true
+        },
+        "jkrjoker02": {
+            "custom": true,
+            "relativePath": "bD5ljY4.png",
+            "re1ativePath": "https://i.imgur.com/bD5ljY4.png",
+            "h1": true
         }
     },
     "colorDict": {
@@ -17061,6 +17067,69 @@
             "y": 0,
             "w": 96,
             "h": 96
+        },
+        "wwc_929_8": {
+            "texture": "jkrjoker02",
+            "x": 784,
+            "y": 0,
+            "w": 96,
+            "h": 96
+        },
+        "wwc_929_7": {
+            "texture": "jkrjoker02",
+            "x": 686,
+            "y": 0,
+            "w": 96,
+            "h": 96
+        },
+        "wwc_929_6": {
+            "texture": "jkrjoker02",
+            "x": 588,
+            "y": 0,
+            "w": 96,
+            "h": 96
+        },
+        "wwc_922_5": {
+            "texture": "jkrjoker02",
+            "x": 490,
+            "y": 0,
+            "w": 96,
+            "h": 96
+        },
+        "wwc_929_4": {
+            "texture": "jkrjoker02",
+            "x": 392,
+            "y": 0,
+            "w": 96,
+            "h": 96
+        },
+        "wwc_929_3": {
+            "texture": "jkrjoker02",
+            "x": 294,
+            "y": 0,
+            "w": 96,
+            "h": 96
+        },
+        "wwc_929_2": {
+            "texture": "jkrjoker02",
+            "x": 196,
+            "y": 0,
+            "w": 96,
+            "h": 96
+        },
+        "wwc_929_1": {
+            "texture": "jkrjoker02",
+            "x": 98,
+            "y": 0,
+            "w": 96,
+            "h": 96
+        },
+        "wwc_929_0": {
+            "texture": "jkrjoker02",
+            "x": 0,
+            "y": 0,
+            "w": 96,
+            "h": 96
         }
     },
     "teamDict": {
@@ -21820,7 +21889,8 @@
                 "en": "WormJKR"
             },
             "list": [
-                "517"
+                "517",
+                "928"
             ]
         },
         {
@@ -21830,7 +21900,7 @@
                 "en": "JKR JOKER"
             },
             "list": [
-                "928"
+                "929"
             ]
         }
     ],
@@ -27820,6 +27890,48 @@
                 "wwc_928_2",
                 "wwc_928_1",
                 "wwc_928_0"
+            ],
+            "guest": false,
+            "price": 0,
+            "priceBefore": 0,
+            "nonbuyable": false
+        },
+         {
+            "name": "syria_rev_flag_skin_wwc_1308",
+            "validity": "2025-12-17",
+            "refer": {
+                "texture": "jkrjoker02",
+                "group": "jkr",
+                "w": 96,
+                "h": 96,
+                "widthFile": 882,
+                "heightFile": 96
+            },
+            "prime": "h",
+            "glow": [
+                "a_white",
+                "a_white",
+                "a_white",
+                "a_white",
+                "a_white",
+                "a_white",
+                "a_white",
+                "a_white",
+                "a_white"
+            ],
+            "id": "929",
+            "ba": "0ED",
+            "prop": "syria_rev_flag_skin_wwc_1308",
+            "base": [
+                "wwc_929_8",
+                "wwc_929_7",
+                "wwc_929_6",
+                "wwc_929_5",
+                "wwc_929_4",
+                "wwc_929_3",
+                "wwc_929_2",
+                "wwc_929_1",
+                "wwc_929_0"
             ],
             "guest": false,
             "price": 0,
