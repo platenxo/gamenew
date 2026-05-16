@@ -9183,7 +9183,7 @@ Check @type() annotation`);
       };
       var v663 = localStorage.getItem("wwc_version");
       var v664 = localStorage.getItem("wwcSaveGame");
-      var v665 = localStorage.getItem("wwc_config");
+     // var v665 = localStorage.getItem("wwc_config");
       v664 &&= JSON.parse(v664);
       for (var v666 in v664) {
         switch (v666) {
@@ -12280,7 +12280,7 @@ Check @type() annotation`);
                                     return vO48.registry(p1381);
                                   case 1:
                                     p1381 = p1382.v;
-                                    localStorage.setItem("wwc_config", JSON.stringify(p1381));
+                                //    localStorage.setItem("wwc_config", JSON.stringify(p1381));
                                     v889.Vd(p1381, f274);
                                   case 2:
                                     return p1382.a(2);
@@ -12300,7 +12300,7 @@ Check @type() annotation`);
                         } catch (e51) {
                           console.log("ConfigError", e51);
                           localStorage.removeItem("wwc_version");
-                          localStorage.removeItem("wwc_config");
+                        //  localStorage.removeItem("wwc_config");
                         }
                       }
                     case 4:
