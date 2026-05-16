@@ -16999,63 +16999,63 @@
             "w": 96,
             "h": 96
         },
-        "jkrjoker01_8": {
+        "wwc_928_8": {
             "texture": "jkrjoker01",
             "x": 784,
             "y": 0,
             "w": 96,
             "h": 96
         },
-        "jkrjoker01_7": {
+        "wwc_928_7": {
             "texture": "jkrjoker01",
             "x": 686,
             "y": 0,
             "w": 96,
             "h": 96
         },
-        "jkrjoker01_6": {
+        "wwc_928_6": {
             "texture": "jkrjoker01",
             "x": 588,
             "y": 0,
             "w": 96,
             "h": 96
         },
-        "jkrjoker01_5": {
+        "wwc_928_5": {
             "texture": "jkrjoker01",
             "x": 490,
             "y": 0,
             "w": 96,
             "h": 96
         },
-        "jkrjoker01_4": {
+        "wwc_928_4": {
             "texture": "jkrjoker01",
             "x": 392,
             "y": 0,
             "w": 96,
             "h": 96
         },
-        "jkrjoker01_3": {
+        "wwc_928_3": {
             "texture": "jkrjoker01",
             "x": 294,
             "y": 0,
             "w": 96,
             "h": 96
         },
-        "jkrjoker01_2": {
+        "wwc_928_2": {
             "texture": "jkrjoker01",
             "x": 196,
             "y": 0,
             "w": 96,
             "h": 96
         },
-        "jkrjoker01_1": {
+        "wwc_928_1": {
             "texture": "jkrjoker01",
             "x": 98,
             "y": 0,
             "w": 96,
             "h": 96
         },
-        "jkrjoker01_0": {
+        "wwc_928_0": {
             "texture": "jkrjoker01",
             "x": 0,
             "y": 0,
@@ -27784,8 +27784,8 @@
             "priceBefore": 0,
             "nonbuyable": false
         },
-        {
-            "name": "joker_skin_01",
+          {
+            "name": "syria_rev_flag_skin_wwc_1308",
             "validity": "2025-12-17",
             "refer": {
                 "texture": "jkrjoker01",
@@ -27809,17 +27809,17 @@
             ],
             "id": "928",
             "ba": "0ED",
-            "prop": "joker_skin_01",
+            "prop": "syria_rev_flag_skin_wwc_1308",
             "base": [
-                "jkrjoker01_8",
-                "jkrjoker01_7",
-                "jkrjoker01_6",
-                "jkrjoker01_5",
-                "jkrjoker01_4",
-                "jkrjoker01_3",
-                "jkrjoker01_2",
-                "jkrjoker01_1",
-                "jkrjoker01_0"
+                "wwc_928_8",
+                "wwc_928_7",
+                "wwc_928_6",
+                "wwc_928_5",
+                "wwc_928_4",
+                "wwc_928_3",
+                "wwc_928_2",
+                "wwc_928_1",
+                "wwc_928_0"
             ],
             "guest": false,
             "price": 0,
