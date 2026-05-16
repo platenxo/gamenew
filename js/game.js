@@ -19460,13 +19460,13 @@ btn.onclick = () => {
 
 
 
-<div style="position: relative; padding: 10px; background: linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%); border-radius: 22px;">
+<div style="position: relative; padding: 10px; background: linear-gradient(135deg, #868691ff 0%, #868697ff 100%); border-radius: 22px;">
 
-  <h2 style="text-align: center; color: #00ccff; margin: 0 0 12px 0; font-size: 18px; font-weight: bold; text-shadow: 0 0 8px rgba(0, 200, 255, 0.4);">⚙️</h2>
+  <h2 style="text-align: center; color: #00ccff; margin: 0 0 12px 0; font-size: 18px; font-weight: bold; text-shadow: 0 0 8px rgba(0, 200, 255, 0.4);">🐛 WormXO ⚙️</h2>
 
   <button style="background: linear-gradient(135deg, #ff4444, #cc0000); color: #fff; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; box-shadow: 0 1px 3px rgba(0,0,0,0.2); position: absolute; top: 8px; right: 8px; font-size: 12px;" id="mm-jkr-close">
 
-    ✕
+    ✕ CLOSE
 
   </button>
 
@@ -19497,7 +19497,7 @@ btn.onclick = () => {
       </form>
 
       
-        <div class="page-set-worm-world" style="color: black;">
+        <div class="page-set-worm-world">
 
           <div class="group-tab-button">
 
@@ -19506,6 +19506,8 @@ btn.onclick = () => {
               SET
 
             </div>
+
+            <div id="tab_b3" class="tab-button" onclick="changeTab(2)">Account</div>
 
             <div id="tab_b4" class="tab-button" onclick="changeTab(3)">HELP</div>
 
@@ -19542,7 +19544,15 @@ btn.onclick = () => {
         <select id="backgroundArena"></select>
     </div>
 
-
+    <div style="width: 25%">
+        <label style="display: block; text-align: center; font-weight: bold; color: #00ccff; text-shadow: 0 0 5px rgba(0,204,255,0.5); font-size: 14px; margin-bottom: 3px;">&#128028; ZIGZAG &#128028;</label>
+        <select id="sel_zigzag" style="width: 100%; padding: 4px; border: 1px solid #4a9bff; border-radius: 4px; background: #1a1a2e; color: white; font-size: 12px; box-shadow: 0 0 5px rgba(74,155,255,0.3);">
+            <option value="0">Normal</option>
+            <option value="1">Zigzag 1</option>
+            <option value="2">Zigzag 2</option>
+            <option value="3">Zigzag 3</option>
+        </select>
+    </div>
 
 
 
@@ -19558,27 +19568,47 @@ btn.onclick = () => {
 
 </div>
 
- <div style="display: flex;gap: 10px;justify-content: space-between;align-items: center;">
+<div style="display: grid;
 
-      <div>
+          grid-template-columns: repeat(3, 1fr);
 
-        <label for="sharedLocation">CONNECT IN</label>
+          grid-template-rows: 1fr;
 
-        <input type="text" placeholder="ROOM CODE" id="roomCode" name="roomCode" />
+          grid-column-gap: 0px;
 
-        <div style="display: flex;justify-content: space-between;gap: 5px;margin: 5px 0;">
+          grid-row-gap: 0px;
 
-          <button style="width: 100%;" onclick="setRoomCode(true)">CONNECT</button>
+          margin-top: 10px;">
 
-          <button style="width: 100%;" onclick="setRoomCode(false)">DISCONNECT</button>
+    <div>
 
-        </div>
+        <label>TOP HS ("9")</label>
 
-      </div>
+        <input type="checkbox" id="showTophs" />
+
+    </div>
+
+    <div>
+
+        <label>Record HS ("0")</label>
+
+        <input type="checkbox" id="showRechs" />
+
+    </div>
+
+    <div>
+
+        <label>TOP 3</label>
+
+        <input type="checkbox" id="onlytop" />
+
+    </div>
+
+</div>
 
             <div class="setting-item" style="text-align: right;">
 
-              <span class="setting-label"><i class="fas fa-desktop" style="color: #ffbb00;"></i>Screen:</span>
+              <span class="setting-label"><i class="fas fa-desktop" style="color: #ffbb00;"></i> :</span>
 
               <select id="hudPositionMode">
 
@@ -21792,7 +21822,7 @@ PREVIEW
 
 
 
-  function closejkrSetView() {
+  function closeWwcSetView() {
 
     const element = document.getElementById("jkr-set-view");
 
@@ -21804,7 +21834,7 @@ PREVIEW
 
   if (document.getElementById("mm-jkr-close")) {
 
-    document.getElementById("mm-jkr-close").addEventListener("click", closejkrSetView);
+    document.getElementById("mm-jkr-close").addEventListener("click", closeWwcSetView);
 
   }
 
@@ -21889,8 +21919,7 @@ PREVIEW
       });
 
   }
-
-</script>
+                    
 `;
 
 
