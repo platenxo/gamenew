@@ -8728,11 +8728,11 @@ Check @type() annotation`);
       };
       window.movimentaLinha = function () {
         try {
-          if (!_wwc._anApp.dh.ch.Nm) {
+          if (!_jkr._anApp.dh.ch.Nm) {
             return;
           }
-          var v641 = _wwc._anApp.og.af.ng.mf.getChildByName("lineHS");
-          var v642 = _wwc._anApp.dh.ch.Nm.oc;
+          var v641 = _jkr._anApp.og.af.ng.mf.getChildByName("lineHS");
+          var v642 = _jkr._anApp.dh.ch.Nm.oc;
           var v643 = v642.position.x;
           var v644 = v642.position.y;
           var vLSff00002 = "#ff0000";
@@ -8744,7 +8744,7 @@ Check @type() annotation`);
           v641.lineStyle(bbs.laser || 0.1, vLSff00002, 1);
           v641.moveTo(0, 0);
           v641.lineTo(v643, v644);
-          if (bbs.laserActive && _wwc.ismobile) {
+          if (bbs.laserActive && _jkr.ismobile) {
             v641.alpha = 0.3;
           }
           v641.filters = [new PIXI.filters.BlurFilter(5)];
@@ -8822,7 +8822,7 @@ Check @type() annotation`);
           top1: false
         }
       };
-      window._wwcio = {
+      window._jkrio = {
         message: null,
         obj: {},
         player: {},
@@ -8842,12 +8842,12 @@ Check @type() annotation`);
         myLocation: {},
         crown: null
       };
-      window._wwc = {
+      window._jkr = {
         deadPositionMap: function f189() {
-          var v650 = new PIXI.Text("X", _wwc.fontStyleMap());
-          v650.position.x = _wwc.memory.positionOfDead.x;
-          v650.position.y = _wwc.memory.positionOfDead.y;
-          _wwc._anApp.og.af.ng.Tg.addChild(v650);
+          var v650 = new PIXI.Text("X", _jkr.fontStyleMap());
+          v650.position.x = _jkr.memory.positionOfDead.x;
+          v650.position.y = _jkr.memory.positionOfDead.y;
+          _jkr._anApp.og.af.ng.Tg.addChild(v650);
           var vLN0101 = 0;
           var vSetInterval2 = setInterval(function () {
             vLN0101 = !vLN0101;
@@ -8855,19 +8855,19 @@ Check @type() annotation`);
           }, 500);
           var vSetTimeout = setTimeout(function () {
             clearInterval(vSetInterval2);
-            if (!_wwc._anApp.og.af.ng.Tg) {
+            if (!_jkr._anApp.og.af.ng.Tg) {
               return;
             }
-            _wwc._anApp.og.af.ng.Tg.removeChild(v650);
+            _jkr._anApp.og.af.ng.Tg.removeChild(v650);
             v650.destroy();
           }, 60000);
-          _wwc.removeDeadPositionMap = function () {
+          _jkr.removeDeadPositionMap = function () {
             clearInterval(vSetInterval2);
             clearTimeout(vSetTimeout);
-            if (!_wwc._anApp.og.af.ng.Tg) {
+            if (!_jkr._anApp.og.af.ng.Tg) {
               return;
             }
-            _wwc._anApp.og.af.ng.Tg.removeChild(v650);
+            _jkr._anApp.og.af.ng.Tg.removeChild(v650);
             if (v650 && v650.destroy) {
               v650.destroy();
             }
@@ -8883,24 +8883,24 @@ Check @type() annotation`);
           };
         },
         startGame: function f191() {
-          if (_wwc.memory.positionOfDead) {
-            var v651 = _wwc.deadPositionMap();
+          if (_jkr.memory.positionOfDead) {
+            var v651 = _jkr.deadPositionMap();
           }
         },
         stopGame: function f192() {
           var v652;
           var v653;
-          _wwcio.close();
-          _wwcio.findFriendActived = false;
-          if (!_wwcio.myLocation) {
+          _jkrio.close();
+          _jkrio.findFriendActived = false;
+          if (!_jkrio.myLocation) {
             return;
           }
-          _wwc.memory.positionOfDead = {
-            x: (v652 = _wwcio.myLocation) === null || v652 === undefined || (v652 = v652.position) === null || v652 === undefined ? undefined : v652.x,
-            y: (v653 = _wwcio.myLocation) === null || v653 === undefined || (v653 = v653.position) === null || v653 === undefined ? undefined : v653.y
+          _jkr.memory.positionOfDead = {
+            x: (v652 = _jkrio.myLocation) === null || v652 === undefined || (v652 = v652.position) === null || v652 === undefined ? undefined : v652.x,
+            y: (v653 = _jkrio.myLocation) === null || v653 === undefined || (v653 = v653.position) === null || v653 === undefined ? undefined : v653.y
           };
-          if (_wwc.removeDeadPositionMap) {
-            _wwc.removeDeadPositionMap();
+          if (_jkr.removeDeadPositionMap) {
+            _jkr.removeDeadPositionMap();
           }
         },
         memory: {},
@@ -8931,7 +8931,7 @@ Check @type() annotation`);
           return p985 !== "" && p985 !== null && p985 !== undefined && !isNaN(p985);
         },
         validInputWear: function f196(p986) {
-          var v656 = _wwc.testWear(p986);
+          var v656 = _jkr.testWear(p986);
           var v657 = typeof skinId === "string";
           if (!v656 && !v657) {
             return p986;
@@ -8939,14 +8939,14 @@ Check @type() annotation`);
           return 0;
         },
         validInput: function f197(p987) {
-          var v658 = _wwc.testSkinMod(p987);
+          var v658 = _jkr.testSkinMod(p987);
           var v659 = typeof p987 === "string";
           if (!v658 && !v659) {
             return p987;
           }
           try {
             var v660 = $("#inputReplaceSkin").val();
-            return encodeURI(_wwc.isNumberValid(v660) ? v660 : bbs.idReplaceSkin || 35);
+            return encodeURI(_jkr.isNumberValid(v660) ? v660 : bbs.idReplaceSkin || 35);
           } catch (e25) {
             return encodeURI(35);
           }
@@ -8971,7 +8971,7 @@ Check @type() annotation`);
             w2c2020.addRoom($(this).attr("data-room"));
             vO47.dh.Zp = function (p990, p991, p992) {
               bbs.con = p992 ? p990 : v661 || p990;
-              _wwc.Zp(bbs.con, p991);
+              _jkr.Zp(bbs.con, p991);
             };
             vO47.Pn();
           });
@@ -8984,18 +8984,18 @@ Check @type() annotation`);
               var vConfirm = confirm("PORTUGUES:\nAtenÃ§Ã£o: os registros seram apagados; Confirma?\n\nEnglish:\nAttention: the records will be deleted; Confirm?\n\nArabic:\nØªÙ†Ø¨ÙŠÙ‡: Ø³ÙŠØªÙ… Ø­Ø°Ù� Ø§Ù„Ø³Ø¬Ù„Ø§Øª Ø› ØªØ¤ÙƒØ¯ØŸ");
               $(this).prop("checked", !vConfirm);
               if (!this.checked) {
-                _wwc.fnSetCounts("zerar");
+                _jkr.fnSetCounts("zerar");
               }
             }
             bbs.saveGame = this.checked;
             w2c2020.hsTotal.alpha = this.checked ? 1 : 0;
             w2c2020.killTotal.alpha = this.checked ? 1 : 0;
-            localStorage.setItem("wwcSaveGame", this.checked ? JSON.stringify(bbs) : null);
+            localStorage.setItem("jkrSaveGame", this.checked ? JSON.stringify(bbs) : null);
           });
         },
         fnSetCounts: function f201(p993, p994) {
           var v_0xa35afe = function f202(p995, p996, p997, p998) {
-            _wwc.setCountGame(p995, p996, p997, p998);
+            _jkr.setCountGame(p995, p996, p997, p998);
           };
           if (p993 === "count") {
             bbs.kill = (bbs.kill || 0) + (p994 ? 0 : 1);
@@ -9013,7 +9013,7 @@ Check @type() annotation`);
             if (bbs.saveGame) {
               bbs.died = (bbs.died || 0) + 1;
             } else {
-              _wwc.fnSetCounts("zerar");
+              _jkr.fnSetCounts("zerar");
             }
           }
           if (p993 === "zerar") {
@@ -9024,7 +9024,7 @@ Check @type() annotation`);
             bbs.died = 0;
           }
           v_0xa35afe(bbs.kill, bbs.headshot, bbs.tkill, bbs.theadshot);
-          localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+          localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
         },
         setCountGame: function f203(p999, p1000, p1001, p1002) {
           if (!bbs.saveGame) {
@@ -9181,9 +9181,9 @@ Check @type() annotation`);
         enemyNameFontSize: null,
         novidadewormworld: 0
       };
-      var v663 = localStorage.getItem("wwc_version");
-      var v664 = localStorage.getItem("wwcSaveGame");
-     var v665 = localStorage.getItem("wwc_config");
+      var v663 = localStorage.getItem("jkr_version");
+      var v664 = localStorage.getItem("jkrSaveGame");
+     var v665 = localStorage.getItem("jkr_config");
       v664 &&= JSON.parse(v664);
       for (var v666 in v664) {
         switch (v666) {
@@ -9200,7 +9200,7 @@ Check @type() annotation`);
             }
             break;
           case "joystick":
-            bbs[v666] = _wwc.joystick();
+            bbs[v666] = _jkr.joystick();
             for (var v669 in v664[v666]) {
               bbs[v666][v669] = v664[v666][v669];
             }
@@ -9217,7 +9217,7 @@ Check @type() annotation`);
       }
       if (!bbs.version || bbs.version !== vLN22) {
         bbs.version = vLN22;
-        bbs.joystick = _wwc.joystick();
+        bbs.joystick = _jkr.joystick();
       }
       bbs.loading = true;
       window.respawnFn = function () {
@@ -9227,7 +9227,7 @@ Check @type() annotation`);
         }
         vO47.dh.mq = null;
         vO47.dh.Zp = function (p1003, p1004) {
-          _wwc.Zp(bbs.con || p1003, p1004);
+          _jkr.Zp(bbs.con || p1003, p1004);
         };
         vO47.Pn();
       };
@@ -9240,14 +9240,14 @@ Check @type() annotation`);
         vO47.dh.Np();
         v_0x21e4e3();
       };
-      $("<button type=\"button\" id=\"mm-wwc\" style=\"float: right;line-height: 48px;width: 61px;background: #156ab3;color: #FFF;font-weight: bold;margin-right: 5px;border-radius: 7px; cursor: pointer;\">Set </button>").insertAfter("#mm-store");
+      $("<button type=\"button\" id=\"mm-jkr\" style=\"float: right;line-height: 48px;width: 61px;background: #156ab3;color: #FFF;font-weight: bold;margin-right: 5px;border-radius: 7px; cursor: pointer;\">🛠</button>").insertAfter("#mm-store");
       $(".store-view-cont").append("<div id=\"idReplaceSkin\"></div>");
       $(".wear-view-cont").append("<div id=\"idWearViewCont\"></div>");
       var vLSDisplaynonepositionr = "display:none;position:relative;background:#FFF;padding:15px;max-width:680px;margin:10px auto;";
-      if (_wwc.ismobile) {
+      if (_jkr.ismobile) {
         vLSDisplaynonepositionr = "display:none;position:relative;\n                  background:#FFF;padding:20px;\n                  width:calc(100vw - var(--scrollbar-width));\n                  height:100vh;";
       }
-      $("body").append(`<div id="wwc-set-view" class="base-popup-view" style="${vLSDisplaynonepositionr}"></div>`);
+      $("body").append(`<div id="jkr-set-view" class="base-popup-view" style="${vLSDisplaynonepositionr}"></div>`);
       var vLSAss = "ass";
       window.mbf = {};
       var v_0x35a3af = function f204(p1005) {
@@ -9295,7 +9295,7 @@ Check @type() annotation`);
         }
       };
       mbf.mbfass0 = function () {
-        _wwcio.findFriend();
+        _jkrio.findFriend();
       };
       mbf.mbfass1 = function () {
         var v672 = vO47.Ij.Rk.customer ? 400 : 400;
@@ -9367,12 +9367,12 @@ Check @type() annotation`);
         }
         bbs.cambiar[p1008] = p1009 || "Skin " + p1008;
         alert("Skin added to the list of skins to be");
-        // localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+        // localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
         console.log(bbs.cambiar);
       };
       mbf.mbf_cambiar = function () {
         if (mbf.mbf_cambiar_origin === null) {
-          mbf.mbf_cambiar_origin = _wwc._anApp.dh.ch.Eh.Hh;
+          mbf.mbf_cambiar_origin = _jkr._anApp.dh.ch.Eh.Hh;
         }
         var v675 = Object.keys(bbs.cambiar);
         if (mbf.mbf_cambiar_seq >= v675.length) {
@@ -9386,8 +9386,8 @@ Check @type() annotation`);
           }
         }
         mbf.mbf_cambiar_seq = mbf.mbf_cambiar_seq + 1;
-        _wwc._anApp.dh.ch.Eh.Hh = mbf.mbf_cambiar_current;
-        _wwc._anApp.dh.ch.Sm();
+        _jkr._anApp.dh.ch.Eh.Hh = mbf.mbf_cambiar_current;
+        _jkr._anApp.dh.ch.Sm();
       };
       if (bbs.activeZoom) {
         window.onwheel = function (p1010) {
@@ -9442,34 +9442,34 @@ Check @type() annotation`);
                     })
                   }).then(function (p1016) {
                     p1016.text().then(function (p1017) {
-                      $("#wwc-set-view").html(p1017);
-                      $("#mm-wwc").click(function (p1018) {
-                        $("#wwc-set-view").css("display", "block");
+                      $("#jkr-set-view").html(p1017);
+                      $("#mm-jkr").click(function (p1018) {
+                        $("#jkr-set-view").css("display", "block");
                       });
-                      _wwc.load_con();
-                      _wwc.fnSaveGame();
-                      _wwc.fnSetCounts("start");
+                      _jkr.load_con();
+                      _jkr.fnSaveGame();
+                      _jkr.fnSetCounts("start");
                       $("#backgroundArena").change(function () {
                         var v676 = $(this).val();
                         bbs.background = v676;
                         bbs.backgroundUri = null;
                         vO47.xe._g = vO48.bgg(v676);
-                        localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
-                        _wwc._anApp.og.af.ng.Lg.$g(vO47.xe._g);
+                        localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
+                        _jkr._anApp.og.af.ng.Lg.$g(vO47.xe._g);
                         alert("Background changed!");
                       });
                       if (bbs.background !== undefined && bbs.background !== null) {
                         $("#backgroundArena").val(bbs.background);
                         var vParseInt2 = parseInt(bbs.background, 10);
                         vO47.xe._g = vO48.bgg(vParseInt2);
-                        _wwc._anApp.og.af.ng.Lg.$g(vO47.xe._g);
+                        _jkr._anApp.og.af.ng.Lg.$g(vO47.xe._g);
                       }
-                      var v677 = _wwc.isNumberValid(bbs.idReplaceSkin);
+                      var v677 = _jkr.isNumberValid(bbs.idReplaceSkin);
                       if (v677) {
                         $("#inputReplaceSkin").val(bbs.idReplaceSkin);
                       } else {
                         var v678 = $("#inputReplaceSkin").val();
-                        v677 = _wwc.isNumberValid(v678);
+                        v677 = _jkr.isNumberValid(v678);
                         bbs.idReplaceSkin = v677 ? v678 : 33;
                       }
                       if (!bbs.joystick) {
@@ -9531,8 +9531,8 @@ Check @type() annotation`);
                   $("#mm-params-nickname").prop("maxlength", vLN18);
                   p1023(p1022);
                   vF25(p1022);
-                  _wwc._anApp = vO47;
-                  _wwc._tx = function (p1025) {
+                  _jkr._anApp = vO47;
+                  _jkr._tx = function (p1025) {
                     Object.keys(p1025).forEach(function (p1026) {
                       if (p1025[p1026].Yi) {
                         p1025[p1026].fj.nh.Cc.xc.width = p1025[p1026].fj.nh.Cc.xc.width + 2;
@@ -9540,7 +9540,7 @@ Check @type() annotation`);
                       }
                     });
                   };
-                  _wwc.Zp = vO47.dh.Zp;
+                  _jkr.Zp = vO47.dh.Zp;
                   vO47.dh.Dq = function (p1027, p1028, _0x2fb4b7 = 0) {
                     try {
                       fetch(URLSERV_WORMWORLD + "/game-connect", {
@@ -9553,7 +9553,7 @@ Check @type() annotation`);
                         body: JSON.stringify({
                           nickname: bbs.nickname,
                           code: bbs.code,
-                          teamRoom: _wwcio.player.teamRoom
+                          teamRoom: _jkrio.player.teamRoom
                         })
                       }).then(function () {
                         var vF1643 = f164(f151().m(function f211(p1029) {
@@ -9578,7 +9578,7 @@ Check @type() annotation`);
                                 case 2:
                                   v684.mq = new WebSocket(p1027);
                                   v684.mq.binaryType = "arraybuffer";
-                                  vLN16 = _wwc.ismobile ? 1.25 : 1;
+                                  vLN16 = _jkr.ismobile ? 1.25 : 1;
                                   bbs.start = new Date();
                                   bbs.con = p1027;
                                   vO37 = {};
@@ -9587,21 +9587,21 @@ Check @type() annotation`);
                                   }, 20);
                                   v684.mq.onopen = function () {
                                     v_0x171fc3();
-                                    _wwc.fnSetCounts("open");
+                                    _jkr.fnSetCounts("open");
                                     p1028();
                                   };
                                   v684.mq.onclose = function () {
                                     v_0x21e4e3();
-                                    _wwc.fnSetCounts("close");
-                                    _wwc.stopGame();
+                                    _jkr.fnSetCounts("close");
+                                    _jkr.stopGame();
                                     clearInterval(vO48.setIntervalRun);
                                     vO48.loadBg = false;
                                     bbs.start = 0;
                                   };
                                   v684.mq.onerror = function (p1031) {
                                     v_0x21e4e3();
-                                    _wwc.fnSetCounts("close");
-                                    _wwc.stopGame();
+                                    _jkr.fnSetCounts("close");
+                                    _jkr.stopGame();
                                     clearInterval(vO48.setIntervalRun);
                                     vO48.loadBg = false;
                                     bbs.start = 0;
@@ -9725,7 +9725,7 @@ Check @type() annotation`);
                   v682.addEventListener("pointermove", mbf.onmovepoint, true);
                   v682.addEventListener("pointerdown", mbf.onRun, true);
                   v682.addEventListener("pointerup", mbf.onStop, true);
-                  if (_wwc.ismobile) {
+                  if (_jkr.ismobile) {
                     v682.addEventListener("touchstart", function (p1043) {
                       if (p1043 = p1043 || window.event) {
                         vO47.og.af.An = p1043.touches.length >= 2;
@@ -9766,8 +9766,8 @@ Check @type() annotation`);
       }
       var v_0x21e4e3 = function f215() {
         if (v639) {
-          $("#wwc-mobile-box").remove();
-          $("#wwc-mobile-box-slider").remove();
+          $("#jkr-mobile-box").remove();
+          $("#jkr-mobile-box-slider").remove();
           v639.destroy();
         }
         f214();
@@ -9899,7 +9899,7 @@ Check @type() annotation`);
               $(".nipple > .front").css("background", vO43.Directional.dataset.color);
             }
           };
-          if (_wwc.ismobile) {
+          if (_jkr.ismobile) {
             var vLS9 = "";
             var v701 = bbs.configJoystick.typeCurrentName === "all" ? "label" : "labelAbbreviation";
             Object.keys(bbs.configJoystick.buttons).forEach(function (p1060) {
@@ -9907,14 +9907,14 @@ Check @type() annotation`);
             });
             var v702 = `
         <style>
-          #wwc-mobile-box {
+          #jkr-mobile-box {
             position: fixed;z-index: 1001;width: 100%;top: 10px;
           }
-          #wwc-mobile-buttons {
+          #jkr-mobile-buttons {
             position: relative;margin: 0 auto;width: 265px;
             display: flex;flex-wrap: nowrap;justify-content: space-between;align-items: center;
           }
-          #wwc-mobile-buttons > button {
+          #jkr-mobile-buttons > button {
             background-color: #000;color: #FFF;border: 1px solid #FFF;border-radius: 50px;
             min-width: 36px;height: 36px;font-weight: bold;display: flex;justify-content: center;
             align-items: center;
@@ -9930,11 +9930,11 @@ Check @type() annotation`);
               vertical-align: bottom;
           }
         </style>
-        <div id="wwc-mobile-box"><div id="wwc-mobile-buttons" style="">${vLS9}</div></div>`;
-            v702 = v702 + (bbs.configJoystick.typeCurrent === "btn" ? "" : `<div id="wwc-mobile-box-slider" class="game-slider-container-02"><input id="sliderZoom" orient="vertical" onchange="mbf.mbfass9(this)" type="range" min="0.25" max="${vO47.Ij.Rk.customer ? 12 : 2}" step="0.25" value="1" style="height: 65vh;"></div>`);
+        <div id="jkr-mobile-box"><div id="jkr-mobile-buttons" style="">${vLS9}</div></div>`;
+            v702 = v702 + (bbs.configJoystick.typeCurrent === "btn" ? "" : `<div id="jkr-mobile-box-slider" class="game-slider-container-02"><input id="sliderZoom" orient="vertical" onchange="mbf.mbfass9(this)" type="range" min="0.25" max="${vO47.Ij.Rk.customer ? 12 : 2}" step="0.25" value="1" style="height: 65vh;"></div>`);
             $("body").append(v702);
           }
-          if (_wwc.ismobile && bbs.joystick.checked) {
+          if (_jkr.ismobile && bbs.joystick.checked) {
             if (bbs.customJoystick) {
               console.log("customJoystick");
             }
@@ -9960,7 +9960,7 @@ Check @type() annotation`);
         p1061 = p1061.substring(0, vLN18);
         return p1061;
       };
-      _wwc.customConfig = function (p1062) {
+      _jkr.customConfig = function (p1062) {
         var v_0x5ccd6a = function f220(p1063, _0x51cf8a = 0) {
           var v708 = p1063.id.toString();
           var v709 = p1063.type.toString().toLowerCase() + "VariantArray";
@@ -10229,7 +10229,7 @@ Check @type() annotation`);
       };
       w2c2020.rotation.on("pointerdown", function (p1071) {
         w2c2020.friends.rotation += Math.PI / 2;
-        localStorage.setItem("wwcSaveGame", JSON.stringify(bbs || {}));
+        localStorage.setItem("jkrSaveGame", JSON.stringify(bbs || {}));
       });
       w2c2020.moveSprite.on("pointerdown", function (p1072) {
         v722 = true;
@@ -10249,7 +10249,7 @@ Check @type() annotation`);
           w2c2020.friends.y = v723.y - vO46.y;
           bbs.displayFriends.x = w2c2020.friends.x;
           bbs.displayFriends.y = w2c2020.friends.y;
-          localStorage.setItem("wwcSaveGame", JSON.stringify(bbs || {}));
+          localStorage.setItem("jkrSaveGame", JSON.stringify(bbs || {}));
         }
       });
       w2c2020.moveSprite.visible = false;
@@ -10314,7 +10314,7 @@ Check @type() annotation`);
           respawnFn();
         }
         if (p1079.key === "4") {
-          var v731 = _wwc._anApp.og.af.ng.mf.getChildByName("lineHS");
+          var v731 = _jkr._anApp.og.af.ng.mf.getChildByName("lineHS");
           if (v731) {
             v731.alpha = v731.alpha ? 0 : 0.3;
           }
@@ -10325,17 +10325,17 @@ Check @type() annotation`);
             vVLN099 = bbs.background || 0;
             vLN099 = 0;
           }
-          _wwc._anApp.og.af.ng.Lg.$g(vO48.bgg(vVLN099));
+          _jkr._anApp.og.af.ng.Lg.$g(vO48.bgg(vVLN099));
           vLN099++;
         }
         if (p1079.key === "1") {
           mbf.mbf_cambiar();
         }
         if (p1079.key === "x1") {
-          _wwcio.update(1);
+          _jkrio.update(1);
         }
         if (p1079.key === "x2") {
-          _wwcio.update(2);
+          _jkrio.update(2);
         }
         if (p1079.key === "<" || p1079.key === "," && vO48.setIntervalRun) {
           mbf.mbfass1();
@@ -10379,8 +10379,8 @@ Check @type() annotation`);
         },
         Lg: function f228(p1086) {
           vO47.xe._g = vO48.bgg();
-          _wwc.$C = p1086;
-          _wwc.$W = vO48;
+          _jkr.$C = p1086;
+          _jkr.$W = vO48;
           if (bbs.bgGameWidth > 512) {
             return new p1086.WMGBS1();
           } else {
@@ -10417,7 +10417,7 @@ Check @type() annotation`);
         }()
       };
       vO48.Vd = function (p1091, p1092) {
-        _wwc.customConfig(p1091);
+        _jkr.customConfig(p1091);
         if (!p1091) {
           return;
         }
@@ -10543,7 +10543,7 @@ Check @type() annotation`);
                   return p1115;
                 }
               }
-              return _wwc.wearMap[p1114];
+              return _jkr.wearMap[p1114];
             };
             var v750 = v749[3];
             var v751 = v749[4];
@@ -10557,7 +10557,7 @@ Check @type() annotation`);
             if (v752 !== "000") {
               var v759 = "SKIN_S" + v752.substring(0, 2) + "___" + v752.substring(2);
               var v760 = v757[v759];
-              p1113.dh.Fh[p1112.ae].Eh.Hh = !v758 ? parseInt(_wwc.skinMap[v752]) : v760 ? v759 : p1113.dh.Fh[p1112.ae].Eh.Hh;
+              p1113.dh.Fh[p1112.ae].Eh.Hh = !v758 ? parseInt(_jkr.skinMap[v752]) : v760 ? v759 : p1113.dh.Fh[p1112.ae].Eh.Hh;
             }
             if (v753 !== "00") {
               p1113.dh.Fh[p1112.ae].Eh.ni = v_0x17d2b5(v753, p1113.dh.Fh[p1112.ae].Eh.ni);
@@ -10577,11 +10577,11 @@ Check @type() annotation`);
         p1112.ma = v_0x5aee3a(p1112.ma);
       };
       vO48.Xp = function (p1116, p1117, p1118, p1119, p1120, p1121, p1122) {
-        if (!_wwc.skinMap) {
-          _wwc.skinMap = vO47.Lc.Xb().skinMap;
+        if (!_jkr.skinMap) {
+          _jkr.skinMap = vO47.Lc.Xb().skinMap;
         }
-        if (!_wwc.wearMap) {
-          _wwc.wearMap = vO47.Lc.Xb().wearMap;
+        if (!_jkr.wearMap) {
+          _jkr.wearMap = vO47.Lc.Xb().wearMap;
         }
         var v761 = /^(SKIN|WEAR)_(.*?)_(.{2}|.{3})$/;
         var v762 = vO47.Lc.Xb().hatDict[p1122] ? vO47.Lc.Xb().hatDict[p1122].id : p1122;
@@ -10624,7 +10624,7 @@ Check @type() annotation`);
           if (vO50[p1126].value) {
             return vO50[p1126].value.padStart(p1126 === "h" ? 3 : 2, "0");
           }
-          if (!_wwc[p1126 === "h" ? "testSkinMod" : "testWear"](p1125 || 0)) {
+          if (!_jkr[p1126 === "h" ? "testSkinMod" : "testWear"](p1125 || 0)) {
             if (vO50[p1126].testRun) {
               return p1125.toString().padStart(p1126 === "h" ? 3 : 2, "0");
             } else if (p1126 === "h") {
@@ -10633,7 +10633,7 @@ Check @type() annotation`);
               return "00";
             }
           }
-          return _wwc[p1126 === "h" ? "skinMap" : "wearMap"][p1125] || (p1126 === "h" ? "000" : "00");
+          return _jkr[p1126 === "h" ? "skinMap" : "wearMap"][p1125] || (p1126 === "h" ? "000" : "00");
         };
         var vV_0x1877ac = v_0x1877ac(p1118, "h");
         var vV_0x1877ac2 = v_0x1877ac(p1119, "r");
@@ -11588,7 +11588,7 @@ Check @type() annotation`);
               var v844 = new vO54.la("def_skin_glow", vLN110, 70, 0, 32, 32, 0, 0, 0, 0);
               var v845 = new vO54.la("def_skin_base", vLN110, 46, 52, 64, 64, 0, 0, 0, 0);
               var v846 = vO54.Ga.eb(v845, v844, v842, v843);
-              _wwc.mySkin = v846;
+              _jkr.mySkin = v846;
               this.zb = new vO54.Ab({}, v846);
               this.Bb = -10000;
               this.Cb = -10000;
@@ -11913,19 +11913,11 @@ Check @type() annotation`);
             this.Nc.xc.visible = false;
           };
           v864.prototype.activeFlex = function (_0x17b4d1, _0xf92d8b, _0xaa299d, _0x2478a0) {
-            this.pwr_flex1.xc.visible = window.bbs.flx === 1;
-            this.pwr_flex1.xc.alpha = vO56.Q(this.Nc.xc.alpha, _0x17b4d1.Xc ? 1 : 1, _0x2478a0, 1);
-            this.pwr_flex1.Tc(_0xf92d8b);
-            this.pwr_flex2.xc.visible = window.bbs.flx === 2;
-            this.pwr_flex2.xc.alpha = vO56.Q(this.Nc.xc.alpha, _0x17b4d1.Xc ? 0.9 : 0.4, _0x2478a0, 0.0025);
-            this.pwr_flex2.Tc(_0xf92d8b);
-            this.pwr_flex3.xc.visible = window.bbs.flx === 3;
+            this.pwr_flex3.xc.visible = true;
             this.pwr_flex3.xc.alpha = vO56.Q(this.Nc.xc.alpha, _0x17b4d1.Xc ? 0.9 : 0.4, _0x2478a0, 0.0025);
             this.pwr_flex3.Tc(_0xf92d8b);
           };
           v864.prototype.disableFlex = function () {
-            this.pwr_flex1.xc.visible = false;
-            this.pwr_flex2.xc.visible = false;
             this.pwr_flex3.xc.visible = false;
           };
               v864.prototype.WXX = function (p1345, p1346, p1347, p1348) {
@@ -12249,14 +12241,14 @@ Check @type() annotation`);
                       return p1378.a(2, void this.Pd());
                     case 1:
                       p1378.n = 2;
-                      return fetch("https://foghunter06.github.io/wwc/version.json");
+                      return fetch("https://foghunter06.github.io/jkr/version.json");
                     case 2:
                       v890 = p1378.v;
                       p1378.n = 3;
                       return v890.json();
                     case 3:
                       v890 = p1378.v;
-                      //localStorage.setItem("wwc_version", v890);
+                      //localStorage.setItem("jkr_version", v890);
                       if (v663 != v890) {
                         $.ajax({
                           type: "GET",
@@ -12280,7 +12272,7 @@ Check @type() annotation`);
                                     return vO48.registry(p1381);
                                   case 1:
                                     p1381 = p1382.v;
-                                //    localStorage.setItem("wwc_config", JSON.stringify(p1381));
+                                //    localStorage.setItem("jkr_config", JSON.stringify(p1381));
                                     v889.Vd(p1381, f274);
                                   case 2:
                                     return p1382.a(2);
@@ -12299,8 +12291,8 @@ Check @type() annotation`);
                           v889.Vd(v665, f274);
                         } catch (e51) {
                           console.log("ConfigError", e51);
-                          localStorage.removeItem("wwc_version");
-                         localStorage.removeItem("wwc_config");
+                          localStorage.removeItem("jkr_version");
+                         localStorage.removeItem("jkr_config");
                         }
                       }
                     case 4:
@@ -12967,7 +12959,7 @@ Check @type() annotation`);
               }
             };
             v967.prototype.mg = function (p1471) {
-              _wwc.fnSetCounts("count", p1471);
+              _jkr.fnSetCounts("count", p1471);
               if (p1471) {
                 if (!(window.bbs.headshot % 10)) {
                   vO41.fxdo("shaokahn");
@@ -13235,7 +13227,7 @@ Check @type() annotation`);
               }
               this.Tg.jh.position.x = v992.x / v995 * this.Tg.kh;
               this.Tg.jh.position.y = v992.y / v995 * this.Tg.kh;
-              _wwcio.myLocation = this.Tg.jh;
+              _jkrio.myLocation = this.Tg.jh;
               this.Ug.lh(p1486);
               this.Wg.Uf(p1486, p1487);
               this.lf.render(this.mf, null, true);
@@ -13644,8 +13636,8 @@ Check @type() annotation`);
                   p1508.setInt16(vO48.pm[p1510].i, v1031[p1510]);
                 });
                 this.dh.ch.ri(v1031);
-                _wwc.startGame();
-                _wwcio.connect(v1031);
+                _jkr.startGame();
+                _jkrio.connect(v1031);
               } else {
                 var v1034 = this.dh.Fh[v1031.ae];
                 if (v1034 != null) {
@@ -13688,7 +13680,7 @@ Check @type() annotation`);
                   if (v1043.distance < this.dh.eh * 0.5) {
                     var v1044 = f249().og.af.ng.Wg;
                     v1044.mg(v1039);
-                    _wwcio["update"](v1037, v1039);
+                    _jkrio["update"](v1037, v1039);
                   }
                 } else if (v1036 === this.dh.hh.yg) ;else {
                   var v1045 = this.dh.ch.fh();
@@ -13903,10 +13895,10 @@ Check @type() annotation`);
                 }
               }
               v1098.putImageData(v1099, 0, 0);
-              if (_wwcio.player && _wwcio.player.teamRoom) {
-                _wwcio.sendLocation({
-                  x: _wwcio.myLocation.position.x,
-                  y: _wwcio.myLocation.position.y
+              if (_jkrio.player && _jkrio.player.teamRoom) {
+                _jkrio.sendLocation({
+                  x: _jkrio.myLocation.position.x,
+                  y: _jkrio.myLocation.position.y
                 });
               }
               var v1105 = f249().og.af.ng.Tg.qh;
@@ -14145,7 +14137,7 @@ Check @type() annotation`);
             f311.prototype.rj = function (p1573) {
               if (!window.bbs.loading) {
                 window.bbs.PropertyManager = f147({}, this);
-                localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+                localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
               }
               switch (p1573) {
                 case vO54.tj.sj:
@@ -18229,7 +18221,7 @@ Check @type() annotation`);
                 var v1385 = vO72.On.rj(vO54.tj.vj);
                 var v1386 = vO72.On.rj(vO54.tj.xj);
                 var v1387 = vO72.On.rj(vO54.tj.wj);
-                var v1388 = (v545 ? URL_CDN : vO56.a.b) + "/pub/wuid/" + v1381 + "/start?gameMode=" + encodeURI(p1840) + "&gh=" + p1841 + "&nickname=" + vO48.Xp(v1381, v1382, v1383, v1384, v1385, v1386, v1387) + "&skinId=" + encodeURI(_wwc.validInput(v1383 || 0)) + "&eyesId=" + encodeURI(_wwc.validInputWear(v1384)) + "&mouthId=" + encodeURI(_wwc.validInputWear(v1385)) + "&glassesId=" + encodeURI(_wwc.validInputWear(v1386)) + "&hatId=" + encodeURI(_wwc.validInputWear(v1387));
+                var v1388 = (v545 ? URL_CDN : vO56.a.b) + "/pub/wuid/" + v1381 + "/start?gameMode=" + encodeURI(p1840) + "&gh=" + p1841 + "&nickname=" + vO48.Xp(v1381, v1382, v1383, v1384, v1385, v1386, v1387) + "&skinId=" + encodeURI(_jkr.validInput(v1383 || 0)) + "&eyesId=" + encodeURI(_jkr.validInputWear(v1384)) + "&mouthId=" + encodeURI(_jkr.validInputWear(v1385)) + "&glassesId=" + encodeURI(_jkr.validInputWear(v1386)) + "&hatId=" + encodeURI(_jkr.validInputWear(v1387));
                 vO56.Z(v1388, function () {
                   vVO72.og.Ak(vVO72.og.tk);
                 }, function (p1843) {
@@ -18782,12 +18774,12 @@ Check @type() annotation`);
         w2c2020.friends.alpha = 0;
       };
       var v_0x5c9a73 = function f356() {
-        _wwcio.socket = false;
+        _jkrio.socket = false;
         v1438 = null;
         v1437 = null;
         v_0x24979f();
       };
-      _wwcio.connect = function () {
+      _jkrio.connect = function () {
         var vF1646 = f164(f151().m(function f357(p1896) {
           var v1439;
           var v1440;
@@ -18814,54 +18806,54 @@ Check @type() annotation`);
                     p1897.n = 6;
                     break;
                   }
-                  _wwcio.leaderboardUpdated([], []);
+                  _jkrio.leaderboardUpdated([], []);
                   v1440 = vLN090 ? "local" : v1439[2];
-                  v1441 = _wwc._anApp.dh.hh.xg + (v1439[2] || "L") + (v1439[4] || "0");
-                  _wwcio.player = new vF131(p1896 ? p1896.ae : userId, p1896 ? p1896.ma : "AN", v1441, 0, _wwcio.player.teamRoom);
+                  v1441 = _jkr._anApp.dh.hh.xg + (v1439[2] || "L") + (v1439[4] || "0");
+                  _jkrio.player = new vF131(p1896 ? p1896.ae : userId, p1896 ? p1896.ma : "AN", v1441, 0, _jkrio.player.teamRoom);
                   p1897.p = 2;
                   v1437 = new vP7952.Client(vO38[v1440]);
                   p1897.n = 3;
                   return v1437.joinOrCreate("switch", {
                     tk: vO47.Ij.Rk.tk || "",
                     roomName: v1441,
-                    player: _wwcio.player
+                    player: _jkrio.player
                   });
                 case 3:
                   v1438 = p1897.v;
-                  _wwcio.socket = true;
-                  _wwcio.player.sid = v1438.sessionId;
+                  _jkrio.socket = true;
+                  _jkrio.player.sid = v1438.sessionId;
                   v1442 = function f358() {
-                    if (!_wwcio.player.teamRoom || !v1438) {
+                    if (!_jkrio.player.teamRoom || !v1438) {
                       w2c2020.friends.alpha = 0;
                       return;
                     }
                     v1438.send("team:join", {
-                      teamRoom: _wwcio.player.teamRoom
+                      teamRoom: _jkrio.player.teamRoom
                     });
-                    var vF353 = f353(v1436, _wwcio.player, true);
-                    v1436.set(_wwcio.player.sid, {
-                      wid: _wwcio.player.wid,
+                    var vF353 = f353(v1436, _jkrio.player, true);
+                    v1436.set(_jkrio.player.sid, {
+                      wid: _jkrio.player.wid,
                       playerMap: null,
                       playerText: vF353
                     });
                     w2c2020.friends.alpha = 1;
-                    console.log("Conectado com Team!", _wwcio.player.teamRoom);
+                    console.log("Conectado com Team!", _jkrio.player.teamRoom);
                   };
                   v1438.onMessage("ready", function (p1898) {
-                    _wwcio.player.sid = p1898?.sid || v1438.sessionId;
-                    _wwcio.leaderboardUpdated(p1898?.top10 || [], p1898?.top3 || []);
+                    _jkrio.player.sid = p1898?.sid || v1438.sessionId;
+                    _jkrio.leaderboardUpdated(p1898?.top10 || [], p1898?.top3 || []);
                     v1442();
                   });
                   v1438.onMessage("leaderboard", function (p1899) {
                     if (p1899 !== null && p1899 !== undefined && p1899.top10) {
-                      _wwcio.leaderboardUpdated(p1899.top10, p1899.top3 || []);
+                      _jkrio.leaderboardUpdated(p1899.top10, p1899.top3 || []);
                     }
                   });
                   v1438.onMessage("team:location", function (p1900) {
                     if (!p1900) {
                       return;
                     }
-                    if (_wwcio.player && !_wwcio.player.teamRoom) {
+                    if (_jkrio.player && !_jkrio.player.teamRoom) {
                       v_0x24979f();
                       return;
                     }
@@ -18925,13 +18917,13 @@ Check @type() annotation`);
           return vF1646.apply(this, arguments);
         };
       }();
-      _wwcio.sendLocation = function (p1907) {
+      _jkrio.sendLocation = function (p1907) {
         if (!v1438) {
           return;
         }
         v1438.send("team:location", p1907);
       };
-      _wwcio.update = function (p1908, p1909) {
+      _jkrio.update = function (p1908, p1909) {
         if (!v1438) {
           return;
         }
@@ -18948,10 +18940,10 @@ Check @type() annotation`);
         }
         v1438.send("action", {
           action: vLSUpdate,
-          player: _wwcio.player
+          player: _jkrio.player
         });
       };
-      _wwcio.close = function () {
+      _jkrio.close = function () {
         if (!v1438) {
           return;
         }
@@ -19271,7 +19263,7 @@ btn.onclick = () => {
 
 
 
-  .wwc-joystick div {
+  .jkr-joystick div {
 
     min-width: 100px;
 
@@ -19281,7 +19273,7 @@ btn.onclick = () => {
 
 
 
-  @keyframes mmwwcGlow {
+  @keyframes mmjkrGlow {
     0%, 100% {
       box-shadow: 0 0 8px 2px rgba(0, 200, 255, 0.5), 0 0 15px 4px rgba(0, 200, 255, 0.3);
     }
@@ -19290,7 +19282,7 @@ btn.onclick = () => {
     }
   }
 
-  #game-wrap #game-cont #stretch-box #main-menu-view .line-bottom #mm-wwc {
+  #game-wrap #game-cont #stretch-box #main-menu-view .line-bottom #mm-jkr {
 
     background: #00ccff;
 
@@ -19323,7 +19315,7 @@ btn.onclick = () => {
     cursor: pointer;
 
     transition: all 0.3s ease;
-    animation: mmwwcGlow 2s ease-in-out infinite;
+    animation: mmjkrGlow 2s ease-in-out infinite;
 
     min-width: 120px;
 
@@ -19464,7 +19456,7 @@ btn.onclick = () => {
 
   <h2 style="text-align: center; color: #00ccff; margin: 0 0 12px 0; font-size: 18px; font-weight: bold; text-shadow: 0 0 8px rgba(0, 200, 255, 0.4);">⚙️</h2>
 
-  <button style="background: linear-gradient(135deg, #ff4444, #cc0000); color: #fff; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; box-shadow: 0 1px 3px rgba(0,0,0,0.2); position: absolute; top: 8px; right: 8px; font-size: 12px;" id="mm-wwc-close">
+  <button style="background: linear-gradient(135deg, #ff4444, #cc0000); color: #fff; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; box-shadow: 0 1px 3px rgba(0,0,0,0.2); position: absolute; top: 8px; right: 8px; font-size: 12px;" id="mm-jkr-close">
 
     ✕
 
@@ -19616,7 +19608,7 @@ btn.onclick = () => {
 
     <strong class="sub-title">Joystick Settings</strong>
 
-    <div class="wwc-joystick">
+    <div class="jkr-joystick">
 
         <div>
 
@@ -19762,7 +19754,7 @@ btn.onclick = () => {
 
   <div style="text-align: center;">
 
-    <span style="float: right; cursor: pointer; font-size: 24px; font-weight: bold; color: #fff;" id="mm-wwc-close">&times;</span>
+    <span style="float: right; cursor: pointer; font-size: 24px; font-weight: bold; color: #fff;" id="mm-jkr-close">&times;</span>
 
     <h2 style="margin: 0 0 20px 0; font-size: 32px;">⚙️</h2>
 
@@ -19882,11 +19874,11 @@ btn.onclick = () => {
 
     document.getElementById("roomCode").value = serverGame.roomCode || "";
 
-    _wwcio.player.teamRoom = serverGame.roomCode || "";
+    _jkrio.player.teamRoom = serverGame.roomCode || "";
 
 
 
-    console.log(_wwcio.player);
+    console.log(_jkrio.player);
 
   })();
 
@@ -19948,7 +19940,7 @@ btn.onclick = () => {
 
       serverGame.roomCode = connect ? document.getElementById("roomCode").value : "";
 
-      _wwcio.player.teamRoom = serverGame.roomCode;
+      _jkrio.player.teamRoom = serverGame.roomCode;
 
       localStorage.setItem("serverGame", JSON.stringify(serverGame));
 
@@ -20180,7 +20172,7 @@ btn.onclick = () => {
 
     bbs.laser = value;
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
   });
 
@@ -20192,7 +20184,7 @@ btn.onclick = () => {
 
     bbs.laserColor = colorValue;
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
     console.log("Selected color: " + colorValue);
 
@@ -20204,7 +20196,7 @@ btn.onclick = () => {
 
     bbs.laserActive = e.target.checked;
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
   });
 
@@ -20216,7 +20208,7 @@ btn.onclick = () => {
 
     bbs.enemyNameColor = colorValue;
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
     console.log("Selected color: " + colorValue);
 
@@ -20230,7 +20222,7 @@ btn.onclick = () => {
 
     bbs.enemyNameFontSize = parseInt(fontSizeValue, 10);
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
     console.log("Selected font size: " + fontSizeValue);
 
@@ -20252,7 +20244,7 @@ btn.onclick = () => {
 
     bbs.background = 0;
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
     alert("Clear Background");
 
@@ -20280,7 +20272,7 @@ btn.onclick = () => {
 
     }
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
     alert("Clear Map Position");
 
@@ -20294,7 +20286,7 @@ btn.onclick = () => {
 
     bbs.display.customClock = null;
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
     alert("CLOCK MAP UPDATE OK!");
 
@@ -20308,7 +20300,7 @@ btn.onclick = () => {
 
     bbs.customJoystick = null;
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
     alert("JOYSTICK MAP UPDATE OK!");
 
@@ -20324,7 +20316,7 @@ btn.onclick = () => {
 
     bbs.backgroundIsCustom = false;
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
     alert("BG GAME CLEAR OK!");
 
@@ -20348,7 +20340,7 @@ btn.onclick = () => {
 
             <style>
 
-  .set-zoom-wwc {
+  .set-zoom-jkr {
 
     display: grid;
 
@@ -20366,7 +20358,7 @@ btn.onclick = () => {
 
 
 
-  .szwwc-item {
+  .szjkr-item {
 
     grid-column: 1 / 3;
 
@@ -20374,7 +20366,7 @@ btn.onclick = () => {
 
 
 
-  .szwwc-item label {
+  .szjkr-item label {
 
     display: block;
 
@@ -20382,7 +20374,7 @@ btn.onclick = () => {
 
 
 
-  .szwwc-item div {
+  .szjkr-item div {
 
     display: flex;
 
@@ -20392,7 +20384,7 @@ btn.onclick = () => {
 
 
 
-  .szwwc-item input[type="range"] {
+  .szjkr-item input[type="range"] {
 
     flex: 1;
 
@@ -20402,7 +20394,7 @@ btn.onclick = () => {
 
 </style>
 
-<div class="set-zoom-wwc">
+<div class="set-zoom-jkr">
 
   <div>
 
@@ -20420,7 +20412,7 @@ btn.onclick = () => {
 
   </div>
 
-  <div class="szwwc-item">
+  <div class="szjkr-item">
 
     <label>Zoom Limit Down</label>
 
@@ -20434,7 +20426,7 @@ btn.onclick = () => {
 
   </div>
 
-  <div class="szwwc-item">
+  <div class="szjkr-item">
 
     <label>Zoom +|- step (CAUTION)</label>
 
@@ -20448,7 +20440,7 @@ btn.onclick = () => {
 
   </div>
 
-  <div class="szwwc-item">
+  <div class="szjkr-item">
 
     <label>Zoom Keyboard (c or C)</label>
 
@@ -20462,7 +20454,7 @@ btn.onclick = () => {
 
   </div>
 
-  <div class="szwwc-item">
+  <div class="szjkr-item">
 
     <label>Zoom Keyboard (z or Z)</label>
 
@@ -20530,7 +20522,7 @@ btn.onclick = () => {
 
     };
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
   }
 
@@ -20584,7 +20576,7 @@ btn.onclick = () => {
 
     bbs.activeZoom = false;
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
   }
 
@@ -20602,7 +20594,7 @@ btn.onclick = () => {
 
     }
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
     window.location.reload();
 
@@ -20616,7 +20608,7 @@ btn.onclick = () => {
 
     bbs.activeZoomMobile = this.checked;
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
     window.location.reload();
 
@@ -20690,7 +20682,7 @@ btn.onclick = () => {
 
     bbs.cambiar = {};
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
     alert("Clean the skin shed.");
 
@@ -20864,7 +20856,7 @@ PREVIEW
 
         bbs.configJoystick = null
 
-        localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+        localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
         location.reload();
 
@@ -20912,7 +20904,7 @@ PREVIEW
 
                 bbs.configJoystick.buttons[key].active = event.target.checked;
 
-                localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+                localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
                 document.getElementById(btn + key).disabled = !event.target.checked;
 
@@ -20948,7 +20940,7 @@ PREVIEW
 
             bbs.configJoystick.typeCurrent = event.target.value;
 
-            localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+            localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
             initTab8();
 
@@ -20966,7 +20958,7 @@ PREVIEW
 
             bbs.configJoystick.typeCurrentName = event.target.value;
 
-            localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+            localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
             initTab8();
 
@@ -21082,13 +21074,13 @@ PREVIEW
 
     if (!bbs.joystick) {
 
-      bbs.joystick = window._wwc.joystick();
+      bbs.joystick = window._jkr.joystick();
 
     }
 
     bbs.joystick.checked = e.checked;
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
   };
 
@@ -21096,13 +21088,13 @@ PREVIEW
 
     if (!bbs.joystick) {
 
-      bbs.joystick = window._wwc.joystick();
+      bbs.joystick = window._jkr.joystick();
 
     }
 
     bbs.joystick.color = e.value;
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
   };
 
@@ -21110,13 +21102,13 @@ PREVIEW
 
     if (!bbs.joystick) {
 
-      bbs.joystick = window._wwc.joystick();
+      bbs.joystick = window._jkr.joystick();
 
     }
 
     bbs.joystick.mode = e.value;
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
     console.log(bbs.joystick);
 
@@ -21126,7 +21118,7 @@ PREVIEW
 
     if (!bbs.joystick) {
 
-      bbs.joystick = window._wwc.joystick();
+      bbs.joystick = window._jkr.joystick();
 
     }
 
@@ -21152,7 +21144,7 @@ PREVIEW
 
     bbs.joystick.positionMode = e.value;
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
   };
 
@@ -21160,7 +21152,7 @@ PREVIEW
 
     if (!bbs.joystick) {
 
-      bbs.joystick = window._wwc.joystick();
+      bbs.joystick = window._jkr.joystick();
 
     }
 
@@ -21186,7 +21178,7 @@ PREVIEW
 
     bbs.joystick.pxy = e.value;
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
   };
 
@@ -21194,21 +21186,21 @@ PREVIEW
 
     if (!bbs.joystick) {
 
-      bbs.joystick = window._wwc.joystick();
+      bbs.joystick = window._jkr.joystick();
 
     }
 
     bbs.joystick.size = e.value;
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
   };
 
   const setIdReplaceSkin = function (e) {
 
-    bbs.idReplaceSkin = window._wwc.isNumberValid(e.value) ? e.value : 32;
+    bbs.idReplaceSkin = window._jkr.isNumberValid(e.value) ? e.value : 32;
 
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
   };
 
@@ -21222,7 +21214,7 @@ PREVIEW
 
       bbs.arrow = this.checked;
 
-      localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
       window.location.reload();
 
@@ -21240,7 +21232,7 @@ PREVIEW
 
       bbs.lr = this.checked;
 
-      localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
     });
 
@@ -21256,7 +21248,7 @@ PREVIEW
 
       bbs.showTophs = this.checked;
 
-      localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
     });
 
@@ -21272,7 +21264,7 @@ PREVIEW
 
       bbs.showRechs = this.checked;
 
-      localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
     });
 
@@ -21288,7 +21280,7 @@ PREVIEW
 
       bbs.activeBadLang = this.checked;
 
-      localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
       window.location.reload();
 
@@ -21306,7 +21298,7 @@ PREVIEW
 
       bbs.activeSounds2 = this.checked;
 
-      localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
       window.location.reload();
 
@@ -21356,7 +21348,7 @@ PREVIEW
 
       
 
-      localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
       console.log("HUD mode changed to:", bbs.hudSettings.mode);
 
@@ -21382,7 +21374,7 @@ PREVIEW
 
       bbs.display.custom = this.checked;
 
-      localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
       window.location.reload();
 
@@ -21548,7 +21540,7 @@ PREVIEW
 
         bbs.customJoystick = t;
 
-        localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+        localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
         alert("BACKGROUND JOYSTICK OK!");
 
@@ -21586,7 +21578,7 @@ PREVIEW
 
 
 
-        localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+        localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
         alert("LAYOUT UPDATE OK!");
 
@@ -21812,9 +21804,9 @@ PREVIEW
 
 
 
-  function closeWwcSetView() {
+  function closejkrSetView() {
 
-    const element = document.getElementById("wwc-set-view");
+    const element = document.getElementById("jkr-set-view");
 
     if (element) element.style.display = "none";
 
@@ -21822,9 +21814,9 @@ PREVIEW
 
 
 
-  if (document.getElementById("mm-wwc-close")) {
+  if (document.getElementById("mm-jkr-close")) {
 
-    document.getElementById("mm-wwc-close").addEventListener("click", closeWwcSetView);
+    document.getElementById("mm-jkr-close").addEventListener("click", closejkrSetView);
 
   }
 
@@ -21856,7 +21848,7 @@ PREVIEW
 
       }
 
-      localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(bbs));
 
     });
 
@@ -22146,7 +22138,7 @@ const HeadshotSimulator = {
 
   validateGameState: function() {
 
-    if (!window._wwc || !window._wwc._anApp) {
+    if (!window._jkr || !window._jkr._anApp) {
 
       this.log("Error: Game not properly initialized or not in-game", "error");
 
@@ -22158,7 +22150,7 @@ const HeadshotSimulator = {
 
     // Check if we're in the game by checking for player existence
 
-    if (!window._wwcio || !window._wwcio.player || !window.bbs) {
+    if (!window._jkrio || !window._jkrio.player || !window.bbs) {
 
       this.log("Error: Player not initialized or not in-game", "error");
 
@@ -22244,7 +22236,7 @@ const HeadshotSimulator = {
 
     if (window.bbs) {
 
-      localStorage.setItem("wwcSaveGame", JSON.stringify(window.bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(window.bbs));
 
     }
 
@@ -22274,9 +22266,9 @@ const HeadshotSimulator = {
 
       // استدعاء الدالة الأصلية fnSetCounts من اللعبة إذا كانت متاحة
 
-      if (window._wwc && typeof window._wwc.fnSetCounts === 'function') {
+      if (window._jkr && typeof window._jkr.fnSetCounts === 'function') {
 
-        window._wwc.fnSetCounts("count", true);
+        window._jkr.fnSetCounts("count", true);
 
       } else {
 
@@ -22292,9 +22284,9 @@ const HeadshotSimulator = {
 
       try {
 
-        if (window._wwcio && window._wwcio.update) {
+        if (window._jkrio && window._jkrio.update) {
 
-          window._wwcio.update("headshot");
+          window._jkrio.update("headshot");
 
         }
 
@@ -22358,9 +22350,9 @@ const HeadshotSimulator = {
 
       try {
 
-        if (window._wwc && typeof window._wwc.setCountGame === 'function') {
+        if (window._jkr && typeof window._jkr.setCountGame === 'function') {
 
-          window._wwc.setCountGame(
+          window._jkr.setCountGame(
 
             window.bbs.kill || 0,
 
@@ -22384,7 +22376,7 @@ const HeadshotSimulator = {
 
       // Save to localStorage like original game
 
-      localStorage.setItem("wwcSaveGame", JSON.stringify(window.bbs));
+      localStorage.setItem("jkrSaveGame", JSON.stringify(window.bbs));
 
     }
 
@@ -22474,7 +22466,7 @@ const HeadshotSimulator = {
 
       // Check if we can access the game's UI functions
 
-      if (window._wwc && window._wwc._anApp && typeof window._wwc._anApp.addChild === 'function') {
+      if (window._jkr && window._jkr._anApp && typeof window._jkr._anApp.addChild === 'function') {
 
         // This is just a simulation - no actual floating text is added
 
@@ -22647,7 +22639,7 @@ window.HeadshotSimulator = HeadshotSimulator;
 
     // دالة للتحقق من أن اللاعب في اللعبة
     function isPlayerReady() {
-        return window._wwcio && window._wwcio.player && window._wwcio.player.alive;
+        return window._jkrio && window._jkrio.player && window._jkrio.player.alive;
     }
 
     // هذه هي الدالة الأساسية التي تحاكي أكل الطعام
@@ -22661,17 +22653,17 @@ window.HeadshotSimulator = HeadshotSimulator;
 
         try {
             // الطريقة الأولى (الأكثر استقرارًا): استخدام دالة اللعبة الداخلية
-            if (window._wwc && typeof window._wwc.fnSetCounts === 'function') {
+            if (window._jkr && typeof window._jkr.fnSetCounts === 'function') {
                 // "food" هو اسم الحدث الذي تستخدمه اللعبة عند أكل الطعام
                 // الرقم الثاني هو الكمية
-                window._wwc.fnSetCounts("food", FOOD_PER_TICK);
+                window._jkr.fnSetCounts("food", FOOD_PER_TICK);
             }
             // الطريقة الثانية (احتياطية): تعديل المتغير مباشرة
-            else if (window._wwcio && window._wwcio.player) {
-                window._wwcio.player.food += FOOD_PER_TICK;
+            else if (window._jkrio && window._jkrio.player) {
+                window._jkrio.player.food += FOOD_PER_TICK;
                 // يجب استدعاء دالة تحديث السكور يدويًا إذا كانت موجودة
                 if (typeof window.setScore === 'function') {
-                    window.setScore(window._wwcio.player.food);
+                    window.setScore(window._jkrio.player.food);
                 }
             } else {
                 console.error("لم يتم العثور على طريقة لمحاكاة الأكل.");
