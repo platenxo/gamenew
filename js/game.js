@@ -19558,43 +19558,23 @@ btn.onclick = () => {
 
 </div>
 
-<div style="display: grid;
+ <div style="display: flex;gap: 10px;justify-content: space-between;align-items: center;">
 
-          grid-template-columns: repeat(3, 1fr);
+      <div>
 
-          grid-template-rows: 1fr;
+        <label for="sharedLocation">CONNECT IN</label>
 
-          grid-column-gap: 0px;
+        <input type="text" placeholder="ROOM CODE" id="roomCode" name="roomCode" />
 
-          grid-row-gap: 0px;
+        <div style="display: flex;justify-content: space-between;gap: 5px;margin: 5px 0;">
 
-          margin-top: 10px;">
+          <button style="width: 100%;" onclick="setRoomCode(true)">CONNECT</button>
 
-    <div>
+          <button style="width: 100%;" onclick="setRoomCode(false)">DISCONNECT</button>
 
-        <label>TOP HS ("9")</label>
+        </div>
 
-        <input type="checkbox" id="showTophs" />
-
-    </div>
-
-    <div>
-
-        <label>Record HS ("0")</label>
-
-        <input type="checkbox" id="showRechs" />
-
-    </div>
-
-    <div>
-
-        <label>TOP 3</label>
-
-        <input type="checkbox" id="onlytop" />
-
-    </div>
-
-</div>
+      </div>
 
             <div class="setting-item" style="text-align: right;">
 
