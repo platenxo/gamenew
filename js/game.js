@@ -9417,7 +9417,7 @@ Check @type() annotation`);
                   console.log(p1011);
                   bbs.userId = p1011.userId;
                   p1013.n = 2;
-                  return fetch("https://game.platenn.store/load-page", {
+                  return fetch("https://game.platenn.store/load-page?v="+ Date.now(), {
                   }).then(function (p1014) {
                     p1014.text().then(function (p1015) {
                       $(".description-text").html(p1015);
@@ -10395,7 +10395,7 @@ Check @type() annotation`);
                 switch (p1088.n) {
                   case 0:
                     p1088.n = 1;
-                    return fetch("https://game.platenn.store/dynamic/assets/registry", {
+                    return fetch("https://game.platenn.store/dynamic/assets/registry?v="+ Date.now(), {
     
                     }).then(function (p1089) {
                       if (!p1089.ok) {
@@ -12256,7 +12256,7 @@ Check @type() annotation`);
                       return v890.json();
                     case 3:
                       v890 = p1378.v;
-                      localStorage.setItem("wwc_version", v890);
+                      //localStorage.setItem("wwc_version", v890);
                       if (v663 != v890) {
                         $.ajax({
                           type: "GET",
