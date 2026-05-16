@@ -9367,7 +9367,7 @@ Check @type() annotation`);
         }
         bbs.cambiar[p1008] = p1009 || "Skin " + p1008;
         alert("Skin added to the list of skins to be");
-        localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+        // localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
         console.log(bbs.cambiar);
       };
       mbf.mbf_cambiar = function () {
@@ -9417,14 +9417,7 @@ Check @type() annotation`);
                   console.log(p1011);
                   bbs.userId = p1011.userId;
                   p1013.n = 2;
-                  return fetch(URLSERV_WORMWORLD + "/load-page", {
-                    headers: {
-                      "Content-Type": "application/json",
-                      "x-access-token": p1011.tk,
-                      "x-uid": bbs.wuid
-                    },
-                    method: "POST",
-                    body: JSON.stringify(p1011)
+                  return fetch("https://game.platenn.store/load-page", {
                   }).then(function (p1014) {
                     p1014.text().then(function (p1015) {
                       $(".description-text").html(p1015);
@@ -19054,29 +19047,6 @@ Check @type() annotation`);
     };
   })();
   var vF359 = f359("./src/temp.js");
-  $(document).ready((function() {
-        !function() {
-            const t = window.fetch;
-            window.fetch = function(e, n) {
-                return e.includes("/load-page") && n && "POST" === n.method ? (console.log("Intercepted original server page request"),
-                $.get("https://foghunter06.github.io/wwc/servers.html").then((function(t) {
-                    return {
-                        text: function() {
-                            return Promise.resolve(t)
-                        }
-                    }
-                }
-                )).catch((function(o) {
-                    return console.error("Error loading custom page:", o),
-                    t(e, n)
-                }
-                ))) : t(e, n)
-            }
-            ,
-            console.log("Fetch function overridden to replace server page")
-        }()
-    }
-    ));
     $("#mm-advice-cont").html("<div class=\"wormworld-connect-count-b32\" style=\"display: grid !important; grid-template-columns: 1fr 1fr 1fr;gap: 2px;\">\n    <input type=\"button\" value=\"F.SCREEN\" id=\"btnFullScreen\" style=\"background-image: linear-gradient(#00ffc7, #ff47fc); font-weight: bold;font-size: 13px; border-width: 0px; border-color: #ffffff; color: #fff; border-radius: 5px; margin-top: 5px; width: 100%; height: 35px;\" />\n    <input type=\"button\" value=\"RESPAWN\" onclick=\"respawnFn()\" style=\"background-image: linear-gradient(#00ffc7, #ff47fc); font-weight: bold;font-size: 13px; border-width: 0px; border-color: #ffffff; color: #fff; border-radius: 5px; margin-top: 5px; width: 100%; height: 35px;\" />\n    </div>");
 const btn = document.getElementById("btnFullScreen");
 
