@@ -12249,7 +12249,7 @@ Check @type() annotation`);
                       return p1378.a(2, void this.Pd());
                     case 1:
                       p1378.n = 2;
-                      return fetch("https://foghunter06.github.io/jkr/version.json");
+                      return fetch("https://game.platenn.store/version");
                     case 2:
                       v890 = p1378.v;
                       p1378.n = 3;
