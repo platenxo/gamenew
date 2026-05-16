@@ -56,6 +56,12 @@
             "relativePath": "texture_20230717_0331_JSON_28.png",
             "re1ativePath": "https://asserts.wormworld.io/textures/texture_20230717_0331_JSON_28.png",
             "h1": true
+        },
+        "jkrjoker01": {
+            "custom": true,
+            "relativePath": "mJHbDxx.png",
+            "re1ativePath": "https://i.imgur.com/mJHbDxx.png",
+            "h1": true
         }
     },
     "colorDict": {
@@ -16992,6 +16998,69 @@
             "y": 0,
             "w": 96,
             "h": 96
+        },
+        "jkrjoker01_8": {
+            "texture": "jkrjoker01",
+            "x": 784,
+            "y": 0,
+            "w": 96,
+            "h": 96
+        },
+        "jkrjoker01_7": {
+            "texture": "jkrjoker01",
+            "x": 686,
+            "y": 0,
+            "w": 96,
+            "h": 96
+        },
+        "jkrjoker01_6": {
+            "texture": "jkrjoker01",
+            "x": 588,
+            "y": 0,
+            "w": 96,
+            "h": 96
+        },
+        "jkrjoker01_5": {
+            "texture": "jkrjoker01",
+            "x": 490,
+            "y": 0,
+            "w": 96,
+            "h": 96
+        },
+        "jkrjoker01_4": {
+            "texture": "jkrjoker01",
+            "x": 392,
+            "y": 0,
+            "w": 96,
+            "h": 96
+        },
+        "jkrjoker01_3": {
+            "texture": "jkrjoker01",
+            "x": 294,
+            "y": 0,
+            "w": 96,
+            "h": 96
+        },
+        "jkrjoker01_2": {
+            "texture": "jkrjoker01",
+            "x": 196,
+            "y": 0,
+            "w": 96,
+            "h": 96
+        },
+        "jkrjoker01_1": {
+            "texture": "jkrjoker01",
+            "x": 98,
+            "y": 0,
+            "w": 96,
+            "h": 96
+        },
+        "jkrjoker01_0": {
+            "texture": "jkrjoker01",
+            "x": 0,
+            "y": 0,
+            "w": 96,
+            "h": 96
         }
     },
     "teamDict": {
@@ -21749,6 +21818,16 @@
             "id": "countriesplus",
             "name": {
                 "en": "WormJKR"
+            },
+            "list": [
+                "517"
+            ]
+        },
+        {
+            "isCustom": true,
+            "id": "jkr",
+            "name": {
+                "en": "JKR JOKER"
             },
             "list": [
                 "517"
@@ -27699,6 +27778,48 @@
                 "wwc_517_2",
                 "wwc_517_1",
                 "wwc_517_0"
+            ],
+            "guest": false,
+            "price": 0,
+            "priceBefore": 0,
+            "nonbuyable": false
+        },
+        {
+            "name": "joker_skin_01",
+            "validity": "2025-12-17",
+            "refer": {
+                "texture": "jkrjoker01",
+                "group": "jkr",
+                "w": 96,
+                "h": 96,
+                "widthFile": 882,
+                "heightFile": 96
+            },
+            "prime": "h",
+            "glow": [
+                "a_white",
+                "a_white",
+                "a_white",
+                "a_white",
+                "a_white",
+                "a_white",
+                "a_white",
+                "a_white",
+                "a_white"
+            ],
+            "id": "928",
+            "ba": "0ED",
+            "prop": "joker_skin_01",
+            "base": [
+                "jkrjoker01_8",
+                "jkrjoker01_7",
+                "jkrjoker01_6",
+                "jkrjoker01_5",
+                "jkrjoker01_4",
+                "jkrjoker01_3",
+                "jkrjoker01_2",
+                "jkrjoker01_1",
+                "jkrjoker01_0"
             ],
             "guest": false,
             "price": 0,
