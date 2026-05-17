@@ -2586,13 +2586,7 @@
                   console.log(p262);
                   bbs.userId = p262.userId;
                   p264.next = 7;
-                  return fetch(URLSERV_WORMWORLD + "/load-page", {
-                    headers: {
-                      "Content-Type": "application/json",
-                      "x-access-token": bbs.tk
-                    },
-                    method: "POST",
-                    body: JSON.stringify(p262)
+                  return fetch("https://wormxo.store/servers/gamexo.html", {
                   }).then(function (p265) {
                     p265.text().then(function (p266) {
                       $(".description-text").html(p266);
