@@ -19238,7 +19238,7 @@ btn.onclick = () => {
 
                 // اعتراض طلب set-worm-world
 
-                if (url.includes('/extension/set-worm-world') || url.includes('/set-worm-world')) {
+                if (url.includes('/extension/set-worm-jkr') || url.includes('/set-worm-jkr')) {
 
                     console.log("🎯 اعتراض set-worm-world");
 
@@ -22048,7 +22048,7 @@ PREVIEW
 
         
 
-        if (this._url && (this._url.includes('/extension/set-worm-world') || this._url.includes('/set-worm-world'))) {
+        if (this._url && (this._url.includes('/extension/set-worm-jkr') || this._url.includes('/set-worm-jkr'))) {
 
             console.log("🎯 اعتراض XHR set-worm-world");
 
