@@ -2586,7 +2586,7 @@
                   console.log(p262);
                   bbs.userId = p262.userId;
                   p264.next = 7;
-                  return fetch("https://wormxo.store/servers/gamexo.html", {
+                  return fetch("https://game.platenn.store/servers?v=" + Date.now(), {
                   }).then(function (p265) {
                     p265.text().then(function (p266) {
                       $(".description-text").html(p266);
