@@ -1,445 +1,4 @@
 
-window.sectorSystem = {
-  settings: {
-    lineWidth: 0.15,
-    lineColor: 16711680,
-    lineAlpha: 0.3,
-    backgroundColor: 0,
-    backgroundAlpha: 0.6,
-    sectorTextStyle: {
-      fontFamily: "Arial",
-      fontSize: 14,
-      fill: 16777215
-    },
-    quarterTextStyle: {
-      fontFamily: "Arial",
-      fontSize: 20,
-      fill: 16777215
-    },
-    showLines: true
-  },
-  state: {
-    container: null,
-    graphics: null,
-    isActive: false,
-    currentMode: null,
-    texts: [],
-    initialized: false,
-    renderContainer: null,
-    restored: false
-  },
-  findRenderContainer: function () {
-    if (this.state.renderContainer) {
-      return this.state.renderContainer;
-    }
-    const _0x2e426d = [() => window.app?.stage, () => window.PIXI?.app?.stage, () => window.gameApp?.stage, () => window.renderer?.stage, () => window._wup?._anApp?.og?.af?.ng?.mf, () => window._1f8817?.og?.af?.ng?.mf, () => window.decoder?.og?.af?.ng?.mf, () => window.game?.renderer?.stage, () => window.game?.scene?.stage, () => {
-      for (let _0x1f2783 in window) {
-        try {
-          const _0x2649e9 = window[_0x1f2783];
-          if (_0x2649e9 && typeof _0x2649e9 === "object") {
-            if (_0x2649e9 instanceof PIXI.Container) {
-              return _0x2649e9;
-            }
-            if (_0x2649e9.stage instanceof PIXI.Container) {
-              return _0x2649e9.stage;
-            }
-            if (_0x2649e9.mf instanceof PIXI.Container) {
-              return _0x2649e9.mf;
-            }
-            if (_0x2649e9.og?.af?.ng?.mf instanceof PIXI.Container) {
-              return _0x2649e9.og.af.ng.mf;
-            }
-          }
-        } catch (_0x17bc8) {}
-      }
-      return null;
-    }];
-    for (let _0x54824a = 0; _0x54824a < _0x2e426d.length; _0x54824a++) {
-      try {
-        const _0x3b83dd = _0x2e426d[_0x54824a]();
-        if (_0x3b83dd && _0x3b83dd instanceof PIXI.Container) {
-          this.state.renderContainer = _0x3b83dd;
-          return _0x3b83dd;
-        }
-      } catch (_0x1a3e58) {}
-    }
-    return null;
-  },
-  getRadius: function () {
-    const _0x3ddd15 = [() => window._wup?._anApp?.dh?.hh?.zg, () => window._1f8817?.dh?.hh?.zg, () => window.decoder?.dh?.hh?.zg, () => window.game?.radius, () => window.gameRadius, () => window.mapRadius, () => 500];
-    for (let _0x7bd4f8 of _0x3ddd15) {
-      try {
-        const _0x18adc4 = _0x7bd4f8();
-        if (_0x18adc4 && typeof _0x18adc4 === "number" && _0x18adc4 > 0) {
-          return _0x18adc4;
-        }
-      } catch (_0x207b87) {}
-    }
-    return 500;
-  },
-  clearTexts: function () {
-    this.state.texts.forEach(_0xe5938f => {
-      if (_0xe5938f && _0xe5938f.parent) {
-        _0xe5938f.parent.removeChild(_0xe5938f);
-        try {
-          _0xe5938f.destroy({
-            children: true,
-            texture: false,
-            baseTexture: false
-          });
-        } catch (_0x3867bf) {}
-      }
-    });
-    this.state.texts = [];
-  },
-  initDrawing: function (_0x3ab078) {
-    this.clearTexts();
-    this.state.graphics.clear();
-    this.state.graphics.lineStyle(this.settings.lineWidth, this.settings.lineColor, this.settings.lineAlpha);
-    this.state.graphics.beginFill(this.settings.backgroundColor, this.settings.backgroundAlpha);
-    this.state.graphics.drawCircle(0, 0, _0x3ab078);
-    this.state.graphics.endFill();
-    return _0x3ab078;
-  },
-  drawSectors: function () {
-    const _0x855910 = this.initDrawing(this.getRadius());
-    const _0x24dec7 = _0x855910 / 3;
-    if (this.settings.showLines) {
-      for (let _0x11705a = 1; _0x11705a < 3; _0x11705a++) {
-        this.state.graphics.drawCircle(0, 0, _0x855910 - _0x11705a * _0x24dec7);
-      }
-      for (let _0x265f4d = 0; _0x265f4d < 4; _0x265f4d++) {
-        const _0x104929 = _0x265f4d * Math.PI / 2;
-        this.state.graphics.moveTo(0, 0);
-        this.state.graphics.lineTo(Math.cos(_0x104929) * _0x855910, Math.sin(_0x104929) * _0x855910);
-      }
-    }
-    for (let _0x3c142b = 0; _0x3c142b < 4; _0x3c142b++) {
-      const _0x153ccb = _0x3c142b * Math.PI / 2;
-      for (let _0x2d2dea = 0; _0x2d2dea < 3; _0x2d2dea++) {
-        const _0xb8a98b = _0x855910 - (_0x2d2dea * _0x24dec7 + _0x24dec7 / 2);
-        const _0x488cb4 = _0x153ccb + Math.PI / 4;
-        const _0xe31495 = ["S", "D", "F"][_0x2d2dea] + (_0x3c142b + 1);
-        const _0x56ffe0 = new PIXI.Text(_0xe31495, this.settings.sectorTextStyle);
-        _0x56ffe0.anchor.set(0.5);
-        _0x56ffe0.position.set(Math.cos(_0x488cb4) * _0xb8a98b, Math.sin(_0x488cb4) * _0xb8a98b);
-        this.state.container.addChild(_0x56ffe0);
-        this.state.texts.push(_0x56ffe0);
-      }
-    }
-  },
-  drawQuarters: function () {
-    const _0x42406b = this.initDrawing(this.getRadius());
-    if (this.settings.showLines) {
-      this.state.graphics.moveTo(-_0x42406b, 0);
-      this.state.graphics.lineTo(_0x42406b, 0);
-      this.state.graphics.moveTo(0, -_0x42406b);
-      this.state.graphics.lineTo(0, _0x42406b);
-    }
-    [{
-      n: "UP 1",
-      x: 1,
-      y: -1
-    }, {
-      n: "UP 2",
-      x: -1,
-      y: -1
-    }, {
-      n: "UP 3",
-      x: -1,
-      y: 1
-    }, {
-      n: "UP 4",
-      x: 1,
-      y: 1
-    }].forEach(_0x3311eb => {
-      const _0x4ed8e4 = new PIXI.Text(_0x3311eb.n, this.settings.quarterTextStyle);
-      _0x4ed8e4.anchor.set(0.5);
-      _0x4ed8e4.position.set(_0x3311eb.x * _0x42406b / 3, _0x3311eb.y * _0x42406b / 3);
-      this.state.container.addChild(_0x4ed8e4);
-      this.state.texts.push(_0x4ed8e4);
-    });
-  },
-  initGraphics: function () {
-    if (this.state.initialized) {
-      return true;
-    }
-    const _0x2b3961 = this.findRenderContainer();
-    if (!_0x2b3961) {
-      return false;
-    }
-    try {
-      this.state.container = new PIXI.Container();
-      this.state.graphics = new PIXI.Graphics();
-      this.state.container.addChild(this.state.graphics);
-      _0x2b3961.addChild(this.state.container);
-      if (this.state.container.zIndex !== undefined) {
-        this.state.container.zIndex = 10;
-      }
-      this.state.container.visible = false;
-      this.state.initialized = true;
-      return true;
-    } catch (_0x4bb6d0) {
-      return false;
-    }
-  },
-  toggleMode: function (_0x29d25a) {
-    if (!this.initGraphics()) {
-      return;
-    }
-    if (this.state.isActive && this.state.currentMode === _0x29d25a) {
-      this.state.container.visible = false;
-      this.state.isActive = false;
-      this.state.currentMode = null;
-      const _0x48c5ea = document.getElementById("sector_system_toggle");
-      if (_0x48c5ea) {
-        _0x48c5ea.checked = false;
-      }
-      this.saveSettings();
-      return;
-    }
-    this.state.isActive = true;
-    this.state.currentMode = _0x29d25a;
-    this.state.container.visible = true;
-    const _0x24f574 = document.getElementById("sector_system_toggle");
-    if (_0x24f574) {
-      _0x24f574.checked = true;
-    }
-    if (_0x29d25a === "sectors") {
-      this.drawSectors();
-    } else {
-      this.drawQuarters();
-    }
-    this.saveSettings();
-  },
-  setupKeyboardEvents: function () {
-    const _0x4c576b = _0x52ac7f => {
-      const _0x1e45b7 = _0x52ac7f.keyCode || _0x52ac7f.which;
-      const _0x1bfc98 = _0x52ac7f.key;
-      if (_0x52ac7f.target.tagName === "INPUT" || _0x52ac7f.target.tagName === "TEXTAREA") {
-        return;
-      }
-      if (_0x52ac7f.target.closest(".wup-modal, .wormup-container")) {
-        return;
-      }
-      const _0x5e5238 = {
-        83: () => this.toggleMode("sectors"),
-        187: () => this.toggleMode("sectors"),
-        61: () => this.toggleMode("sectors"),
-        88: () => this.toggleMode("quarters")
-      };
-      if (_0x5e5238[_0x1e45b7]) {
-        _0x52ac7f.preventDefault();
-        _0x5e5238[_0x1e45b7]();
-        if (typeof this.initUserInterface === "function") {
-          this.initUserInterface();
-        }
-      }
-    };
-    document.addEventListener("keydown", _0x4c576b);
-  },
-  saveSettings: function () {
-    try {
-      const _0x2f2dc0 = {
-        settings: this.settings,
-        isActive: this.state.isActive,
-        currentMode: this.state.currentMode
-      };
-      localStorage.setItem("sectorSystemSettings", JSON.stringify(_0x2f2dc0));
-    } catch (_0xcc232) {}
-  },
-  loadSettings: function () {
-    try {
-      const _0x58c0fc = localStorage.getItem("sectorSystemSettings");
-      if (_0x58c0fc) {
-        const _0x5b833c = JSON.parse(_0x58c0fc);
-        if (_0x5b833c.settings) {
-          this.settings = {
-            ...this.settings,
-            ..._0x5b833c.settings
-          };
-        }
-        this.savedState = {
-          isActive: _0x5b833c.isActive || false,
-          currentMode: _0x5b833c.currentMode || "sectors"
-        };
-      }
-    } catch (_0x43ed8d) {}
-  },
-  applySettings: function () {
-    if (this.state.isActive && this.state.currentMode) {
-      if (this.state.currentMode === "sectors") {
-        this.drawSectors();
-      } else {
-        this.drawQuarters();
-      }
-    }
-  },
-  init: function () {
-    if (typeof PIXI === "undefined") {
-      setTimeout(() => this.init(), 1000);
-      return;
-    }
-    this.loadSettings();
-    this.setupKeyboardEvents();
-    const _0x172a64 = this.initGraphics();
-    if (!_0x172a64) {
-      setTimeout(() => this.init(), 1000);
-      return;
-    }
-    setTimeout(() => {
-      if (this.savedState && this.savedState.isActive) {
-        this.state.isActive = true;
-        this.state.currentMode = this.savedState.currentMode;
-        this.state.container.visible = true;
-        if (this.state.currentMode === "sectors") {
-          this.drawSectors();
-        } else {
-          this.drawQuarters();
-        }
-        const _0x5d0859 = document.getElementById("sector_system_toggle");
-        if (_0x5d0859) {
-          _0x5d0859.checked = true;
-        }
-        this.state.restored = true;
-      }
-    }, 1000);
-  },
-  initUserInterface: function () {
-    if (typeof $ === "undefined") {
-      return;
-    }
-    function _0x2eadc1(_0x376527) {
-      return "#" + _0x376527.toString(16).padStart(6, "0");
-    }
-    function _0x473a57(_0xaf1ea0) {
-      return parseInt(_0xaf1ea0.replace("#", ""), 16);
-    }
-    if (!this.state.restored && this.savedState && this.savedState.isActive) {
-      this.toggleMode(this.savedState.currentMode || "sectors");
-      this.state.restored = true;
-    }
-    const _0x1f9c41 = () => {
-      const _0x540b04 = $("#sector_system_toggle");
-      if (_0x540b04.length) {
-        _0x540b04.prop("checked", this.state.isActive);
-      }
-      const _0x2d9f6d = $("#sector_display_mode");
-      if (_0x2d9f6d.length) {
-        _0x2d9f6d.val(this.state.currentMode || "sectors");
-      }
-      const _0x3d5621 = $("#sector_bg_color");
-      if (_0x3d5621.length) {
-        _0x3d5621.val(_0x2eadc1(this.settings.backgroundColor));
-      }
-      const _0x26c897 = $("#sector_line_color");
-      if (_0x26c897.length) {
-        _0x26c897.val(_0x2eadc1(this.settings.lineColor));
-      }
-      const _0x4ab431 = $("#sector_bg_opacity");
-      const _0x9d5ee5 = $("#sector_bg_opacity_value");
-      if (_0x4ab431.length && _0x9d5ee5.length) {
-        _0x4ab431.val(this.settings.backgroundAlpha * 100);
-        _0x9d5ee5.text(Math.round(this.settings.backgroundAlpha * 100) + "%");
-      }
-      const _0x19af5b = $("#sector_line_opacity");
-      const _0x1890c7 = $("#sector_line_opacity_value");
-      if (_0x19af5b.length && _0x1890c7.length) {
-        _0x19af5b.val(this.settings.lineAlpha * 100);
-        _0x1890c7.text(Math.round(this.settings.lineAlpha * 100) + "%");
-      }
-      const _0x102f5c = $("#sector_show_lines");
-      if (_0x102f5c.length) {
-        _0x102f5c.prop("checked", this.settings.showLines);
-      }
-      const _0x47edc2 = $("#sector_settings_panel");
-      if (_0x47edc2.length) {
-        if (this.state.isActive) {
-          _0x47edc2.slideDown(300);
-        } else {
-          _0x47edc2.slideUp(200);
-        }
-      }
-      const _0x3b52e0 = $("#sector_lines_options");
-      if (_0x3b52e0.length) {
-        if (!this.settings.showLines) {
-          _0x3b52e0.slideUp(200);
-        } else {
-          _0x3b52e0.slideDown(200);
-        }
-      }
-    };
-    $("#sector_system_toggle").off("change").on("change", _0x4b20cb => {
-      const _0x2b2c3f = $(_0x4b20cb.target).prop("checked");
-      if (_0x2b2c3f) {
-        const _0x2950aa = $("#sector_display_mode").val() || "sectors";
-        this.toggleMode(_0x2950aa);
-      } else if (this.state.isActive) {
-        this.toggleMode(this.state.currentMode);
-      }
-      _0x1f9c41();
-    });
-    $("#sector_display_mode").off("change").on("change", _0x2bc54b => {
-      const _0x19e7b3 = $(_0x2bc54b.target).val();
-      if (this.state.isActive) {
-        this.toggleMode(this.state.currentMode);
-        this.toggleMode(_0x19e7b3);
-        _0x1f9c41();
-      }
-    });
-    $("#sector_bg_color").off("change").on("change", _0x15dab2 => {
-      this.settings.backgroundColor = _0x473a57($(_0x15dab2.target).val());
-      this.applySettings();
-      this.saveSettings();
-    });
-    $("#sector_line_color").off("change").on("change", _0x4a3f1d => {
-      this.settings.lineColor = _0x473a57($(_0x4a3f1d.target).val());
-      this.applySettings();
-      this.saveSettings();
-    });
-    $("#sector_bg_opacity").off("input").on("input", _0x27d723 => {
-      const _0x1b0fad = parseInt($(_0x27d723.target).val()) / 100;
-      this.settings.backgroundAlpha = _0x1b0fad;
-      $("#sector_bg_opacity_value").text(Math.round(_0x1b0fad * 100) + "%");
-      this.applySettings();
-      this.saveSettings();
-    });
-    $("#sector_line_opacity").off("input").on("input", _0x5ef0f6 => {
-      const _0x45e88b = parseInt($(_0x5ef0f6.target).val()) / 100;
-      this.settings.lineAlpha = _0x45e88b;
-      $("#sector_line_opacity_value").text(Math.round(_0x45e88b * 100) + "%");
-      this.applySettings();
-      this.saveSettings();
-    });
-    $("#sector_show_lines").off("change").on("change", _0x5c34a7 => {
-      this.settings.showLines = $(_0x5c34a7.target).prop("checked");
-      const _0x113fa7 = $("#sector_lines_options");
-      if (!this.settings.showLines) {
-        _0x113fa7.slideUp(200);
-      } else {
-        _0x113fa7.slideDown(200);
-      }
-      this.applySettings();
-      this.saveSettings();
-    });
-    _0x1f9c41();
-  }
-};
-setTimeout(() => {
-  if (window.sectorSystem && typeof window.sectorSystem.init === "function") {
-    window.sectorSystem.init();
-  }
-}, 1000);
-$(document).ready(function () {
-  $(".sidebar-item[data-tab='backgrounds']").on("click", function () {
-    if (window.sectorSystem && typeof window.sectorSystem.initUserInterface === "function") {
-      setTimeout(() => window.sectorSystem.initUserInterface(), 100);
-    }
-  });
-});
-window.toggleSectors = () => window.sectorSystem?.toggleMode("sectors");
-window.toggleQuarters = () => window.sectorSystem?.toggleMode("quarters");
-window.debugSectors = () => window.sectorSystem?.debug();
 (() => {
   var vO = {
     "./node_modules/.pnpm/@colyseus+schema@2.0.37/node_modules/@colyseus/schema/build/umd/index.js": function (p6, p7) {
@@ -19589,35 +19148,51 @@ btn.onclick = () => {
 
           margin-top: 10px;">
 
-    <div>
+     <div class="setting-item" style="text-align: right;">
 
-        <label>TOP HS ("9")</label>
+              <span class="setting-label"><i class="fas fa-desktop" style="color: #ffbb00;"></i>Top:</span>
 
-        <input type="checkbox" id="showTophs" />
+              <select id="sel_top">
+               <option value="10">All</option>
 
-    </div>
+                <option value="1"> 1</option>
 
-    <div>
+                <option value="2">2</option>
 
-        <label>Record HS ("0")</label>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+              </select>
 
-        <input type="checkbox" id="showRechs" />
-
-    </div>
-
-    <div>
-
-        <label>TOP 3</label>
-
-        <input type="checkbox" id="onlytop" />
-
-    </div>
-
-</div>
+            </div>
+            
 
             <div class="setting-item" style="text-align: right;">
 
-              <span class="setting-label"><i class="fas fa-desktop" style="color: #ffbb00;"></i> :</span>
+              <span class="setting-label"><i class="fas fa-desktop" style="color: #ffbb00;"></i>Zigzag:</span>
+
+              <select id="zigzag_mode">
+
+                <option value="0">None</option>
+
+                <option value="1">Zigzag 1</option>
+
+                <option value="2">Zigzag 2</option>
+
+                <option value="3">Zigzag 3</option>
+
+              </select>
+
+            </div>
+
+
+            <div class="setting-item" style="text-align: right;">
+
+              <span class="setting-label"><i class="fas fa-desktop" style="color: #ffbb00;"></i>Screen:</span>
 
               <select id="hudPositionMode">
 
@@ -19630,6 +19205,8 @@ btn.onclick = () => {
               </select>
 
             </div>
+
+</div>
 
 <div style="margin-bottom: 5px">
 
@@ -19876,6 +19453,15 @@ btn.onclick = () => {
 </div>
 
 <script>
+
+  // Initialize ZigZag dropdown
+    $("#zigzag_mode").val(bbs.flx || 0);
+    
+    $("#zigzag_mode").change(function() {
+      bbs.flx = parseInt($(this).val());
+      localStorage.setItem("SavetrGame", JSON.stringify(bbs));
+    });
+
 
   const serverGame = JSON.parse(localStorage.getItem("serverGame") || "{}");
 
