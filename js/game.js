@@ -189,6 +189,14 @@
       }
       return p34;
     }
+    function f21(p37) {
+      var vF222 = f22(p37, "string");
+      if (f39(vF222) == "symbol") {
+        return vF222;
+      } else {
+        return vF222 + "";
+      }
+    }
     function f22(p38, p39) {
       if (f39(p38) != "object" || !p38) {
         return p38;
