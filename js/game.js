@@ -2189,39 +2189,113 @@ btn.onclick = () => {
     document.exitFullscreen();
   }
 };
-// Önce mevcut tıklama olaylarını temizle
+// Buton ve panel
 $("#op_jkr").off("click").remove();
 
-// Yeni buton oluştur
-$("<button type='button' id='op_jkr' style='background:#00ccff;color:#fff;border:none;border-radius:5px;padding:8px 16px;cursor:pointer;z-index:9999;'>⚡ WORMXO AYARLAR</button>")
+$("<button type='button' id='op_jkr' style='background:#00ccff;color:#fff;border:none;border-radius:5px;padding:8px 16px;cursor:pointer;z-index:9999;font-weight:bold;'>⚡ AYARLAR</button>")
     .insertAfter("#mm-store")
     .click(function(e) {
         e.preventDefault();
         e.stopPropagation();
         
-        // Kendi panelimizi oluştur/göster
         if($("#custom-wormx-panel").length === 0) {
             $("body").append(`
-                <div id="custom-wormx-panel" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:99999;display:flex;align-items:center;justify-content:center;">
-                    <div style="background:#0a0f1e;width:90%;max-width:500px;border-radius:20px;padding:20px;border:1px solid #0ff;">
-                        <h2 style="color:#0ff;text-align:center;">WORMXO PANEL</h2>
-                        <div style="margin:15px 0;">
-                            <label>ID:</label>
-                            <input type="text" id="wx-id" value="${bbs.userId}" readonly style="width:100%;padding:8px;margin:5px 0;">
-                            <button id="wx-copy" style="background:#2a9d8f;padding:5px;width:100%;">Kopyala</button>
+                <div id="custom-wormx-panel" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:99999;display:flex;align-items:center;justify-content:center;overflow:auto;">
+                    <div style="background:#0a0f1e;width:95%;max-width:600px;border-radius:20px;padding:25px;border:1px solid #0ff;max-height:90%;overflow-y:auto;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                            <h2 style="color:#0ff;margin:0;">⚡ WORMXO PANEL</h2>
+                            <button id="wx-close" style="background:#ff3366;border:none;color:white;padding:8px 16px;border-radius:10px;cursor:pointer;">✕ KAPAT</button>
                         </div>
-                        <div style="margin:15px 0;">
-                            <label>Save Kill:</label>
-                            <input type="checkbox" id="wx-savegame">
+                        
+                        <!-- ID -->
+                        <div style="margin:15px 0;background:#1a1f2e;padding:15px;border-radius:12px;">
+                            <label style="color:#0ff;">📋 HESAP ID</label>
+                            <div style="display:flex;gap:10px;margin-top:5px;">
+                                <input type="text" id="wx-id" value="${bbs.userId}" readonly style="flex:1;padding:8px;border-radius:8px;border:1px solid #0ff;background:#0a0f1e;color:white;">
+                                <button id="wx-copy" style="background:#2a9d8f;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;">KOPYALA</button>
+                            </div>
                         </div>
-                        <div style="margin:15px 0;">
-                            <label>Background:</label>
-                            <select id="wx-bg"></select>
+                        
+                        <!-- Genel Ayarlar -->
+                        <div style="margin:15px 0;background:#1a1f2e;padding:15px;border-radius:12px;">
+                            <label style="color:#0ff;">🎮 GENEL AYARLAR</label>
+                            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px;">
+                                <div><input type="checkbox" id="wx-savegame"> <label>Save Kill</label></div>
+                                <div><input type="checkbox" id="wx-tophs"> <label>TOP HS (9)</label></div>
+                                <div><input type="checkbox" id="wx-rechs"> <label>Record HS (0)</label></div>
+                                <div><input type="checkbox" id="wx-onlytop"> <label>3 TOP SKOR</label></div>
+                                <div><input type="checkbox" id="wx-sounds"> <label>Sesler</label></div>
+                                <div><input type="checkbox" id="wx-badlang"> <label>Küfür Engel</label></div>
+                            </div>
                         </div>
-                        <button id="wx-close" style="background:#ff3366;padding:10px;width:100%;margin-top:10px;">Kapat</button>
+                        
+                        <!-- Arkaplan ve Zigzag -->
+                        <div style="margin:15px 0;background:#1a1f2e;padding:15px;border-radius:12px;">
+                            <label style="color:#0ff;">🌍 ARKAPLAN</label>
+                            <select id="wx-bg" style="width:100%;padding:8px;margin-top:5px;border-radius:8px;"></select>
+                            
+                            <label style="color:#0ff;margin-top:15px;">🐍 ZIGZAG MOD</label>
+                            <select id="wx-zigzag" style="width:100%;padding:8px;margin-top:5px;border-radius:8px;">
+                                <option value="0">None</option><option value="1">Zigzag 1</option>
+                                <option value="2">Zigzag 2</option><option value="3">Zigzag 3</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Skin Replace -->
+                        <div style="margin:15px 0;background:#1a1f2e;padding:15px;border-radius:12px;">
+                            <label style="color:#0ff;">🔄 SKIN REPLACE ID</label>
+                            <input type="number" id="wx-replaceskin" style="width:100%;padding:8px;margin-top:5px;border-radius:8px;" value="${bbs.idReplaceSkin || 35}">
+                        </div>
+                        
+                        <!-- Joystick -->
+                        <div style="margin:15px 0;background:#1a1f2e;padding:15px;border-radius:12px;">
+                            <label style="color:#0ff;">🕹️ JOYSTICK</label>
+                            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px;">
+                                <div><input type="checkbox" id="wx-js-active"> <label>Aktif</label></div>
+                                <div>
+                                    <select id="wx-js-color" style="padding:5px;">
+                                        <option value="red">Kırmızı</option><option value="blue">Mavi</option>
+                                        <option value="white">Beyaz</option><option value="black">Siyah</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <select id="wx-js-position" style="padding:5px;">
+                                        <option value="L">Sol</option><option value="R">Sağ</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <select id="wx-js-size" style="padding:5px;">
+                                        <option value="80">80px</option><option value="100">100px</option>
+                                        <option value="120">120px</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Skin Yükle -->
+                        <div style="margin:15px 0;background:#1a1f2e;padding:15px;border-radius:12px;">
+                            <label style="color:#0ff;">📁 SKIN YÜKLE (.json)</label>
+                            <input type="file" id="wx-skinfile" accept=".json" style="width:100%;margin-top:5px;">
+                        </div>
+                        
+                        <button id="wx-reset" style="background:#ff9900;border:none;padding:10px;width:100%;margin-top:10px;border-radius:8px;cursor:pointer;">🔄 TÜM AYARLARI SIFFIRLA</button>
                     </div>
                 </div>
             `);
+            
+            // Değerleri yükle
+            $("#wx-savegame").prop("checked", bbs.saveGame || false);
+            $("#wx-tophs").prop("checked", bbs.showTophs || false);
+            $("#wx-rechs").prop("checked", bbs.showRechs || false);
+            $("#wx-onlytop").prop("checked", bbs.lr || false);
+            $("#wx-sounds").prop("checked", bbs.activeSounds2 || false);
+            $("#wx-badlang").prop("checked", bbs.activeBadLang || false);
+            $("#wx-zigzag").val(bbs.flx || 0);
+            $("#wx-replaceskin").val(bbs.idReplaceSkin || 35);
+            $("#wx-js-active").prop("checked", bbs.joystick?.checked !== false);
+            $("#wx-js-color").val(bbs.joystick?.color || "red");
+            $("#wx-js-position").val(bbs.joystick?.positionMode || "L");
+            $("#wx-js-size").val(bbs.joystick?.size || 100);
             
             // Background doldur
             if(window.backgroundArena) {
@@ -2231,19 +2305,52 @@ $("<button type='button' id='op_jkr' style='background:#00ccff;color:#fff;border
                 $("#wx-bg").val(bbs.background || 0);
             }
             
-            // Checkbox
-            $("#wx-savegame").prop("checked", bbs.saveGame || false);
-            
             // Eventler
-            $("#wx-copy").click(() => { navigator.clipboard.writeText(bbs.userId); alert("Kopyalandı!"); });
+            $("#wx-copy").click(() => { navigator.clipboard.writeText(bbs.userId); alert("ID Kopyalandı!"); });
             $("#wx-close").click(() => $("#custom-wormx-panel").remove());
-            $("#wx-savegame").change(function() { bbs.saveGame = $(this).prop("checked"); localStorage.setItem("wwcSaveGame", JSON.stringify(bbs)); });
-            $("#wx-bg").change(function() { bbs.background = parseInt($(this).val()); localStorage.setItem("wwcSaveGame", JSON.stringify(bbs)); });
+            
+            $("#wx-savegame").change(function() { bbs.saveGame = $(this).prop("checked"); saveWX(); });
+            $("#wx-tophs").change(function() { bbs.showTophs = $(this).prop("checked"); saveWX(); });
+            $("#wx-rechs").change(function() { bbs.showRechs = $(this).prop("checked"); saveWX(); });
+            $("#wx-onlytop").change(function() { bbs.lr = $(this).prop("checked"); saveWX(); });
+            $("#wx-sounds").change(function() { bbs.activeSounds2 = $(this).prop("checked"); saveWX(); });
+            $("#wx-badlang").change(function() { bbs.activeBadLang = $(this).prop("checked"); saveWX(); });
+            $("#wx-bg").change(function() { bbs.background = parseInt($(this).val()); bbs.backgroundUri = null; saveWX(); });
+            $("#wx-zigzag").change(function() { bbs.flx = parseInt($(this).val()); saveWX(); });
+            $("#wx-replaceskin").change(function() { bbs.idReplaceSkin = parseInt($(this).val()); saveWX(); });
+            $("#wx-js-active").change(function() { if(!bbs.joystick) bbs.joystick = {}; bbs.joystick.checked = $(this).prop("checked"); saveWX(); });
+            $("#wx-js-color").change(function() { if(!bbs.joystick) bbs.joystick = {}; bbs.joystick.color = $(this).val(); saveWX(); });
+            $("#wx-js-position").change(function() { if(!bbs.joystick) bbs.joystick = {}; bbs.joystick.positionMode = $(this).val(); saveWX(); });
+            $("#wx-js-size").change(function() { if(!bbs.joystick) bbs.joystick = {}; bbs.joystick.size = $(this).val(); saveWX(); });
+            
+            $("#wx-skinfile").change(function(e) {
+                var reader = new FileReader();
+                reader.onload = function(ev) {
+                    try {
+                        var t = JSON.parse(ev.target.result);
+                        if(t.wear) { localStorage.setItem("custom_wormworld_wear", ev.target.result); alert("WEAR yüklendi!"); location.reload(); }
+                        else if(t.skin) { localStorage.setItem("custom_wormworld_skin", ev.target.result); alert("SKIN yüklendi!"); location.reload(); }
+                        else alert("Geçersiz dosya!");
+                    } catch(e) { alert("Hatalı JSON!"); }
+                };
+                reader.readAsText(e.target.files[0]);
+            });
+            
+            $("#wx-reset").click(function() {
+                if(confirm("Tüm ayarlar sıfırlansın?")) {
+                    localStorage.removeItem("wwcSaveGame");
+                    location.reload();
+                }
+            });
+            
+            function saveWX() {
+                localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+            }
         } else {
             $("#custom-wormx-panel").show();
         }
-    });
-      $(".store-view-cont").append("<div id=\"idReplaceSkin\"></div>");
+    });  
+    $(".store-view-cont").append("<div id=\"idReplaceSkin\"></div>");
     $(".wear-view-cont").append("<div id=\"idWearViewCont\"></div>");
     var vLSDisplaynonepositionr = "display:none;position:relative;background:#FFF;padding:15px;max-width:680px;margin:10px auto;";
     if (_wwc.ismobile) {
