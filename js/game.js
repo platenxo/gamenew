@@ -11740,19 +11740,31 @@ this.pwr_flex1 = new vO37.sc();
     }, 4500);
     $(".description-text").css("height", "268px");
     $("#stretch-box").append("\n<div class=\"news-box-wormworld\" style=\"display:none\">\n  <div class=\"news-content\">\n    <!-- Content will be dynamically loaded here -->\n  </div>\n  <div class=\"news-button\">\n    <input type=\"checkbox\" id=\"news-checkbox\" style=\"cursor: pointer;\">\n    <label for=\"news-checkbox\" style=\"font-size: 12px; color: #555; cursor: pointer;\">\n      Do not show again\n    </label>\n    <button id=\"close-news-button\" class=\"close-button\">\n      Close\n    </button>\n  </div>\n</div>\n");
-    var vLS001f3f = "#001f3f";
-    var vF2222 = function f222(p1095) {
-      var v931 = `${URL_CDN}/images/background_0210250002.png`;
-      document.body.style.backgroundColor = vLS001f3f;
-      document.body.style.backgroundImage = `url('${p1095 || v931}')`;
-      document.body.style.backgroundRepeat = "no-repeat";
-      document.body.style.backgroundSize = "cover";
-      var v932 = document.getElementById("background-canvas");
-      var v933 = document.getElementById("game-wrap");
-      v932.style.backgroundColor = vLS001f3f;
-      v932.style.opacity = "0.65";
-      v933.style.backgroundColor = "transparent";
-    };
+  var _0x54d112 = "#000";
+  function _0x3f1975() {
+    var _0x5e708b = ["https://game.platenn.store/images/background/bg1.png","https://game.platenn.store/images/background/bg2.png"];
+    var _0x35fe97 = localStorage.getItem("lastBackground");
+    var _0x419b2c = _0x5e708b.filter(_0x41fdd8 => _0x41fdd8 !== _0x35fe97);
+    if (_0x419b2c.length === 0) {
+      _0x419b2c = _0x5e708b;
+    }
+    var _0x181e47 = _0x419b2c[Math.floor(Math.random() * _0x419b2c.length)];
+    localStorage.setItem("lastBackground", _0x181e47);
+    document.body.style.backgroundColor = _0x54d112;
+    document.body.style.backgroundImage = "url('" + _0x181e47 + "')";
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundSize = "cover";
+    var _0xf0554a = document.getElementById("background-canvas");
+    var _0x570177 = document.getElementById("game-wrap");
+    if (_0xf0554a) {
+      _0xf0554a.style.backgroundColor = _0x54d112;
+      _0xf0554a.style.opacity = "0.60";
+    }
+    if (_0x570177) {
+      _0x570177.style.backgroundColor = "transparent";
+    }
+  }
+  _0x3f1975();
     if (v211) {
       v211 = JSON.parse(v211);
       if (v211.background) {
