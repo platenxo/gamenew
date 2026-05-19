@@ -2381,103 +2381,7 @@ btn.onclick = () => {
                 }).catch(function () {
                   $(".description-text").html("Bağlantı sorunu.");
                 });
-              case 2:
-                p226.n = 3;
-                return fetch("https://game.platenn.store/settings", {
-                }).then(function (p229) {
-                  p229.text().then(function (p230) {
-                    $("#wwc-set-view").html(p230);
-                                 // ========== TÜM FONKSİYONLARI YENİDEN TANIMLA ==========
-            
-            // 1. Tab değiştirme fonksiyonu
-            window.changeTab = function(tabIndex) {
-                var tabButtons = document.querySelectorAll("#wwc-set-view .tab-button");
-                for (var i = 0; i < tabButtons.length; i++) {
-                    tabButtons[i].classList.remove("active");
-                }
-                var selectedButton = document.getElementById("tab_b" + (tabIndex + 1));
-                if (selectedButton) selectedButton.classList.add("active");
-                
-                var tabContents = document.querySelectorAll("#wwc-set-view .tab-content");
-                for (var i = 0; i < tabContents.length; i++) {
-                    tabContents[i].classList.remove("active-tab");
-                }
-                var selectedTab = document.getElementById("tab" + (tabIndex + 1));
-                if (selectedTab) selectedTab.classList.add("active-tab");
-            };
-            
-            // 2. Tab butonlarına event listener ekle
-            for (var i = 0; i <= 7; i++) {
-                var tabBtn = document.getElementById("tab_b" + (i + 1));
-                if (tabBtn) {
-                    tabBtn.onclick = (function(index) {
-                        return function() { changeTab(index); };
-                    })(i);
-                }
-            }
-            
-            // 3. ID alanını doldur
-            setTimeout(function() {
-                var idInput = document.getElementById("wormate_id");
-                if (idInput && bbs.userId) {
-                    idInput.value = bbs.userId;
-                }
-                
-                // COPY butonu
-                var copyBtn = document.querySelector("#wwc-set-view button[onclick*='clipboard']");
-                if (copyBtn) {
-                    copyBtn.onclick = function() {
-                        var idVal = document.getElementById("wormate_id").value;
-                        if (idVal) navigator.clipboard.writeText(idVal);
-                    };
-                }
-            }, 50);
-                    $("#op_jkr").click(function (p231) {
-                      $("#wwc-set-view").css("display", "block");
-                    });
-                    _wwc.load_con();
-                    _wwc.fnSaveGame();
-                    _wwc.fnSetCounts("start");
-                    $("#backgroundArena").change(function () {
-                      var v181 = $(this).val();
-                      bbs.background = v181;
-                      bbs.backgroundUri = null;
-                      vO30.xe._g = vO31.bgg(v181);
-                      localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
-                      _wwc._anApp.og.af.ng.Lg.$g(vO30.xe._g);
-                      alert("Background changed!");
-                    });
-                    if (bbs.background !== undefined && bbs.background !== null) {
-                      $("#backgroundArena").val(bbs.background);
-                      var vParseInt = parseInt(bbs.background, 10);
-                      vO30.xe._g = vO31.bgg(vParseInt);
-                      _wwc._anApp.og.af.ng.Lg.$g(vO30.xe._g);
-                    }
-                    var v182 = _wwc.isNumberValid(bbs.idReplaceSkin);
-                    if (v182) {
-                      $("#inputReplaceSkin").val(bbs.idReplaceSkin);
-                    } else {
-                      var v183 = $("#inputReplaceSkin").val();
-                      v182 = _wwc.isNumberValid(v183);
-                      bbs.idReplaceSkin = v182 ? v183 : 33;
-                    }
-                    if (!bbs.joystick) {
-                      $("#joystick_checked").val(true);
-                      $("#joystick_color").val("red");
-                      $("#joystick_mode").val("dynamic");
-                      $("#joystick_position").val("L");
-                      $("#joystick_size").val(100);
-                      $("#joystick_pxy").val(100);
-                    } else {
-                      $("#joystick_checked").prop("checked", bbs.joystick.checked);
-                      $("#joystick_color").val(bbs.joystick.color);
-                      $("#joystick_mode").val(bbs.joystick.mode);
-                      $("#joystick_position").val(bbs.joystick.positionMode);
-                      $("#joystick_size").val(bbs.joystick.size);
-                      $("#joystick_pxy").val(bbs.joystick.pxy);
-                    }
-                  });
-                });
+              case 2:{};
               case 3:
                 return p226.a(2);
             }
@@ -2488,6 +2392,271 @@ btn.onclick = () => {
         return vF36.apply(this, arguments);
       };
     }();
+    // game.js - İçine eklenecek panel kodu
+
+// Panel açma butonu için (isteğe bağlı)
+function openWormJKRSettings() {
+    if($("#wwc-set-view").length === 0) {
+        $("body").append('<div id="wwc-set-view" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;background:rgba(0,0,0,0.8);display:none;"></div>');
+    }
+    
+    var panelHTML = `
+    <div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:90%;max-width:1100px;height:85%;background:linear-gradient(145deg,#0a0f1e,#0c1222);border-radius:24px;z-index:10000;display:flex;flex-direction:column;box-shadow:0 0 40px rgba(0,255,255,0.3);border:1px solid rgba(0,255,255,0.3);">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:15px 25px;background:rgba(0,0,0,0.5);border-bottom:1px solid #0ff;border-radius:24px 24px 0 0;">
+            <h2 style="color:#0ff;margin:0;font-size:24px;">⚡ WormJKR PANEL</h2>
+            <button id="closeWormPanel" style="background:#ff3366;border:none;color:white;padding:8px 20px;border-radius:30px;cursor:pointer;font-weight:bold;">✕ KAPAT</button>
+        </div>
+        <div style="display:flex;flex:1;overflow:hidden;">
+            <!-- SIDEBAR -->
+            <div style="width:260px;background:rgba(15,20,34,0.8);border-right:1px solid #0ff33;padding:20px 10px;">
+                <button class="wx-tab-btn active" data-tab="general" style="width:100%;padding:12px 15px;margin:5px 0;background:#1a1f2e;border:none;color:#fff;border-radius:12px;cursor:pointer;text-align:left;font-size:14px;">⚙️ GENEL AYARLAR</button>
+                <button class="wx-tab-btn" data-tab="account" style="width:100%;padding:12px 15px;margin:5px 0;background:#1a1f2e;border:none;color:#fff;border-radius:12px;cursor:pointer;text-align:left;font-size:14px;">👤 HESAP & SKIN</button>
+                <button class="wx-tab-btn" data-tab="joystick" style="width:100%;padding:12px 15px;margin:5px 0;background:#1a1f2e;border:none;color:#fff;border-radius:12px;cursor:pointer;text-align:left;font-size:14px;">🕹️ JOYSTICK</button>
+                <button class="wx-tab-btn" data-tab="zoom" style="width:100%;padding:12px 15px;margin:5px 0;background:#1a1f2e;border:none;color:#fff;border-radius:12px;cursor:pointer;text-align:left;font-size:14px;">🔍 ZOOM AYARLARI</button>
+                <button class="wx-tab-btn" data-tab="custom" style="width:100%;padding:12px 15px;margin:5px 0;background:#1a1f2e;border:none;color:#fff;border-radius:12px;cursor:pointer;text-align:left;font-size:14px;">🎨 ÖZELLEŞTİR</button>
+                <button class="wx-tab-btn" data-tab="skinswap" style="width:100%;padding:12px 15px;margin:5px 0;background:#1a1f2e;border:none;color:#fff;border-radius:12px;cursor:pointer;text-align:left;font-size:14px;">🔄 SKIN SWAP</button>
+                <button class="wx-tab-btn" data-tab="help" style="width:100%;padding:12px 15px;margin:5px 0;background:#1a1f2e;border:none;color:#fff;border-radius:12px;cursor:pointer;text-align:left;font-size:14px;">❓ YARDIM</button>
+            </div>
+            <!-- İÇERİK -->
+            <div style="flex:1;padding:20px;overflow-y:auto;background:rgba(10,15,30,0.4);">
+                
+                <!-- GENEL TAB -->
+                <div id="wx-tab-general" class="wx-tab-content" style="display:block;">
+                    <div style="background:rgba(0,0,0,0.3);border-radius:16px;padding:20px;margin-bottom:20px;">
+                        <h3 style="color:#0ff;margin-bottom:15px;">🎮 Oyun Ayarları</h3>
+                        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;">
+                            <div><label>💾 Save Kill:</label> <input type="checkbox" id="saveGame"></div>
+                            <div><label>🏆 TOP HS (9):</label> <input type="checkbox" id="showTophs"></div>
+                            <div><label>📊 Record HS (0):</label> <input type="checkbox" id="showRechs"></div>
+                            <div><label>🥇 3 TOP SKOR:</label> <input type="checkbox" id="onlytop"></div>
+                            <div><label>🌍 Arkaplan:</label> <select id="backgroundArena"></select></div>
+                            <div><label>🐍 Zigzag Mod:</label> <select id="zigzag_mode"><option value="0">None</option><option value="1">Zigzag 1</option><option value="2">Zigzag 2</option><option value="3">Zigzag 3</option></select></div>
+                            <div><label>📺 Ekran Modu:</label> <select id="hudPositionMode"><option value="0">%100</option><option value="1">%75</option><option value="2">Center</option></select></div>
+                            <div><label>🔊 Sesler:</label> <input type="checkbox" id="activeSounds"></div>
+                            <div><label>🚫 Küfür Engelle:</label> <input type="checkbox" id="activeBadLang"></div>
+                            <div><label>🔄 Replace Skin ID:</label> <input type="number" id="inputReplaceSkin" value="35" style="width:80px;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- HESAP TAB -->
+                <div id="wx-tab-account" class="wx-tab-content" style="display:none;">
+                    <div style="background:rgba(0,0,0,0.3);border-radius:16px;padding:20px;">
+                        <h3 style="color:#0ff;">👤 Hesap Bilgisi</h3>
+                        <div style="display:flex;gap:10px;margin:15px 0;">
+                            <input type="text" id="wormate_id" readonly style="flex:1;padding:10px;border-radius:10px;background:#1a1f2e;border:1px solid #0ff;color:white;">
+                            <button id="copyIdBtn" style="background:#2a9d8f;padding:10px 20px;border:none;border-radius:10px;cursor:pointer;">📋 KOPYALA</button>
+                        </div>
+                        <hr style="border-color:#0ff33;">
+                        <h3 style="color:#0ff;margin-top:20px;">📁 Skin Yükle (.json)</h3>
+                        <input type="file" id="fileSkin" accept=".json" style="margin:10px 0;">
+                        <button id="shareRankBtn" style="background:#00ccff;padding:10px 20px;border:none;border-radius:10px;cursor:pointer;margin-top:10px;">📊 Rank Paylaşımını Aç</button>
+                        <button id="openAccountBtn" style="background:#54fd36;padding:10px 20px;border:none;border-radius:10px;cursor:pointer;margin-top:10px;">🔓 Web Hesap Aç</button>
+                    </div>
+                </div>
+                
+                <!-- JOYSTICK TAB -->
+                <div id="wx-tab-joystick" class="wx-tab-content" style="display:none;">
+                    <div style="background:rgba(0,0,0,0.3);border-radius:16px;padding:20px;">
+                        <h3 style="color:#0ff;">🕹️ Joystick Ayarları</h3>
+                        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;">
+                            <div><label>Aktif:</label> <input type="checkbox" id="joystick_checked"></div>
+                            <div><label>Renk:</label> <select id="joystick_color"><option value="red">KIRMIZI</option><option value="blue">MAVİ</option><option value="white">BEYAZ</option></select></div>
+                            <div><label>Mod:</label> <select id="joystick_mode"><option value="dynamic">Dynamic</option><option value="static">Static</option></select></div>
+                            <div><label>Pozisyon:</label> <select id="joystick_position"><option value="L">Sol</option><option value="R">Sağ</option></select></div>
+                            <div><label>Boyut:</label> <select id="joystick_size"><option value="80">80px</option><option value="100">100px</option><option value="120">120px</option></select></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ZOOM TAB -->
+                <div id="wx-tab-zoom" class="wx-tab-content" style="display:none;">
+                    <div style="background:rgba(0,0,0,0.3);border-radius:16px;padding:20px;">
+                        <h3 style="color:#0ff;">🔍 Zoom Ayarları</h3>
+                        <div style="display:grid;gap:15px;">
+                            <div><label>Zoom PC Aktif:</label> <input type="checkbox" id="activeZoom"></div>
+                            <div><label>Zoom Mobil Aktif:</label> <input type="checkbox" id="activeZoomMobile"></div>
+                            <div><label>Min Zoom Limiti:</label> <input type="range" id="limitDown" min="0.25" max="2" step="0.25"> <span id="limitDownValue"></span></div>
+                            <div><label>Zoom Adımı:</label> <input type="range" id="step" min="0.25" max="2" step="0.25"> <span id="stepValue"></span></div>
+                            <div><label>C tuşu (Close-Up):</label> <input type="range" id="closeUp" min="0.25" max="2" step="0.25"> <span id="closeUpValue"></span></div>
+                            <div><label>Z tuşu (Normal):</label> <input type="range" id="closeDown" min="0.25" max="2" step="0.25"> <span id="closeDownValue"></span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ÖZELLEŞTİR TAB -->
+                <div id="wx-tab-custom" class="wx-tab-content" style="display:none;">
+                    <div style="background:rgba(0,0,0,0.3);border-radius:16px;padding:20px;">
+                        <h3 style="color:#0ff;">🎨 Lazer ve Renkler</h3>
+                        <div><label>Lazer Aktif:</label> <input type="checkbox" id="laser"></div>
+                        <div><label>Lazer Rengi:</label> <input type="color" id="laserColor"></div>
+                        <div><label>Düşman İsmi Rengi:</label> <input type="color" id="enemyNameColor"></div>
+                        <h3 style="color:#0ff;margin-top:20px;">🧹 Temizleme Butonları</h3>
+                        <button id="clearBackgroundBtn" style="margin:5px;padding:8px 15px;">Duvar Kağıdını Temizle</button>
+                        <button id="clearPositionBtn" style="margin:5px;padding:8px 15px;">Map Pozisyon Sıfırla</button>
+                        <button id="clearJoyStickBtn" style="margin:5px;padding:8px 15px;">Joystick Sıfırla</button>
+                        <button id="testAudioBtn" style="margin:5px;padding:8px 15px;">🔊 Test Ses</button>
+                    </div>
+                </div>
+                
+                <!-- SKIN SWAP TAB -->
+                <div id="wx-tab-skinswap" class="wx-tab-content" style="display:none;">
+                    <div style="background:rgba(0,0,0,0.3);border-radius:16px;padding:20px;">
+                        <h3 style="color:#0ff;">🔄 Aktif Skin Değişimleri</h3>
+                        <ul id="skinSwapList" style="margin:15px 0;"></ul>
+                        <button id="cleanSkinSwapBtn" style="background:#ff4444;padding:8px 15px;border:none;border-radius:8px;cursor:pointer;">Tüm Skin Swap'ları Temizle</button>
+                        <button id="reloadSkinSwapBtn" style="background:#00ccff;padding:8px 15px;border:none;border-radius:8px;cursor:pointer;">Yenile Liste</button>
+                    </div>
+                </div>
+                
+                <!-- YARDIM TAB -->
+                <div id="wx-tab-help" class="wx-tab-content" style="display:none;">
+                    <div style="background:rgba(0,0,0,0.3);border-radius:16px;padding:20px;">
+                        <h3 style="color:#0ff;">⌨️ Klavye Kısayolları</h3>
+                        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;">
+                            <div>0 - HS Kaydı</div><div>1 - Skin Replace</div>
+                            <div>9 - TOP HS</div><div>8 - Otomatik Döngü</div>
+                            <div>7 - Otomatik Spiral</div><div>5 - Respawn</div>
+                            <div>4 - Lazer</div><div>3 - Arkaplan</div>
+                            <div>, / . - Zoom +/-</div><div>Z - Zoom Normal</div>
+                            <div>C - Close-Up</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    `;
+    
+    $("#wwc-set-view").html(panelHTML).fadeIn(200);
+    
+    // ============ TÜM EVENTLER ============
+    
+    // Tab geçişleri
+    $(".wx-tab-btn").click(function() {
+        var tab = $(this).data("tab");
+        $(".wx-tab-btn").removeClass("active");
+        $(this).addClass("active");
+        $(".wx-tab-content").hide();
+        $("#wx-tab-" + tab).show();
+    });
+    
+    // Kapat
+    $("#closeWormPanel, #wwc-set-view").click(function(e) {
+        if(e.target.id === "wwc-set-view" || e.target.id === "closeWormPanel") {
+            $("#wwc-set-view").fadeOut(200);
+        }
+    });
+    
+    // ID Doldur
+    if(bbs && bbs.userId) $("#wormate_id").val(bbs.userId);
+    $("#copyIdBtn").click(() => { navigator.clipboard.writeText($("#wormate_id").val()); alert("ID Kopyalandı!"); });
+    
+    // Checkbox'lar
+    var checkItems = {saveGame:"saveGame", showTophs:"showTophs", showRechs:"showRechs", onlytop:"lr", activeSounds:"activeSounds2", activeBadLang:"activeBadLang"};
+    for(var key in checkItems) {
+        $("#" + key).prop("checked", bbs[checkItems[key]] || false).change(function(k) {
+            return function() { bbs[checkItems[k]] = $(this).prop("checked"); saveBBS(); };
+        }(key));
+    }
+    
+    // Background
+    if(window.backgroundArena) {
+        for(var i=0; i<backgroundArena.length; i++) $("#backgroundArena").append('<option value="'+i+'">'+backgroundArena[i].nome+'</option>');
+        $("#backgroundArena").val(bbs.background || 0).change(function() {
+            bbs.background = parseInt($(this).val());
+            bbs.backgroundUri = null;
+            if(vO30 && vO30.xe) vO30.xe._g = vO31.bgg(bbs.background);
+            saveBBS();
+            alert("Arkaplan değişti!");
+        });
+    }
+    
+    // Zigzag
+    $("#zigzag_mode").val(bbs.flx || 0).change(function() { bbs.flx = parseInt($(this).val()); saveBBS(); });
+    
+    // HUD
+    $("#hudPositionMode").val(bbs.hudSettings?.mode || 0).change(function() {
+        if(!bbs.hudSettings) bbs.hudSettings = {};
+        bbs.hudSettings.mode = parseInt($(this).val());
+        saveBBS();
+    });
+    
+    // Replace Skin
+    $("#inputReplaceSkin").val(bbs.idReplaceSkin || 35).change(function() { bbs.idReplaceSkin = parseInt($(this).val()); saveBBS(); });
+    
+    // Joystick
+    if(!bbs.joystick) bbs.joystick = {};
+    $("#joystick_checked").prop("checked", bbs.joystick.checked !== false).change(function() { bbs.joystick.checked = $(this).prop("checked"); saveBBS(); });
+    $("#joystick_color").val(bbs.joystick.color || "red").change(function() { bbs.joystick.color = $(this).val(); saveBBS(); });
+    $("#joystick_mode").val(bbs.joystick.mode || "dynamic").change(function() { bbs.joystick.mode = $(this).val(); saveBBS(); });
+    $("#joystick_position").val(bbs.joystick.positionMode || "L").change(function() { bbs.joystick.positionMode = $(this).val(); saveBBS(); });
+    $("#joystick_size").val(bbs.joystick.size || 100).change(function() { bbs.joystick.size = $(this).val(); saveBBS(); });
+    
+    // Zoom
+    if(!bbs.configZoom) bbs.configZoom = {};
+    $("#activeZoom").prop("checked", bbs.activeZoom || false).change(function() { bbs.activeZoom = $(this).prop("checked"); saveBBS(); });
+    $("#activeZoomMobile").prop("checked", bbs.activeZoomMobile || false).change(function() { bbs.activeZoomMobile = $(this).prop("checked"); saveBBS(); });
+    
+    var zoomRanges = ["limitDown","step","closeUp","closeDown"];
+    zoomRanges.forEach(function(r) {
+        $("#" + r).val(bbs.configZoom[r] || (r==="limitDown"?0.25: r==="step"?0.25: r==="closeUp"?0.5:1)).on("input", function() {
+            bbs.configZoom[r] = parseFloat($(this).val());
+            $("#" + r + "Value").text(bbs.configZoom[r]);
+            saveBBS();
+        });
+        $("#" + r + "Value").text(bbs.configZoom[r] || (r==="limitDown"?0.25: r==="step"?0.25: r==="closeUp"?0.5:1));
+    });
+    
+    // Custom ayarlar
+    $("#laser").prop("checked", bbs.laserActive || false).change(function() { bbs.laserActive = $(this).prop("checked"); saveBBS(); });
+    $("#laserColor").val(bbs.laserColor || "#ff0000").change(function() { bbs.laserColor = $(this).val(); saveBBS(); });
+    $("#enemyNameColor").val(bbs.enemyNameColor || "#ff0000").change(function() { bbs.enemyNameColor = $(this).val(); saveBBS(); });
+    
+    // Temizleme butonları
+    $("#clearBackgroundBtn").click(() => { bbs.backgroundUri = null; bbs.background=0; saveBBS(); alert("Arkaplan temizlendi!"); });
+    $("#clearPositionBtn").click(() => { if(bbs.display) bbs.display.custom=false; saveBBS(); alert("Pozisyon sıfırlandı!"); });
+    $("#clearJoyStickBtn").click(() => { bbs.customJoystick = null; saveBBS(); alert("Joystick sıfırlandı!"); });
+    $("#testAudioBtn").click(() => { if(_wwc && _wwc.testAudio) _wwc.testAudio(); else alert("Ses testi hazır değil"); });
+    
+    // Skin swap
+    function updateSkinList() {
+        var list = $("#skinSwapList").empty();
+        if(!bbs.cambiar || Object.keys(bbs.cambiar).length === 0) list.html("<li>Hiç skin swap yok</li>");
+        else for(var id in bbs.cambiar) list.append("<li>" + bbs.cambiar[id] + "</li>");
+    }
+    updateSkinList();
+    $("#cleanSkinSwapBtn").click(() => { bbs.cambiar = {}; saveBBS(); updateSkinList(); alert("Skin swap'lar temizlendi!"); });
+    $("#reloadSkinSwapBtn").click(updateSkinList);
+    
+    // File upload
+    $("#fileSkin").change(function(e) {
+        var reader = new FileReader();
+        reader.onload = function(ev) {
+            try {
+                var t = JSON.parse(ev.target.result);
+                if(t.wear) { localStorage.setItem("custom_wormworld_wear", ev.target.result); alert("WEAR yüklendi!"); location.reload(); }
+                else if(t.skin) { localStorage.setItem("custom_wormworld_skin", ev.target.result); alert("SKIN yüklendi!"); location.reload(); }
+                else alert("Geçersiz dosya!");
+            } catch(e) { alert("Hatalı JSON!"); }
+        };
+        reader.readAsText(e.target.files[0]);
+    });
+    
+    $("#shareRankBtn").click(() => { if(confirm("Rank paylaşımını aç?")) fetch("https://gateway.wormate.io/pub/wuid/" + bbs.wuid + "/consent/change?value=true").then(() => alert("Açıldı!")); });
+    $("#openAccountBtn").click(() => { window.open("https://wormworld.io/admin?page=login&token=" + (bbs.tk || ""), "_blank"); });
+    
+    function saveBBS() { localStorage.setItem("wwcSaveGame", JSON.stringify(bbs)); }
+}
+
+// Buton ile açmak için (isteğe bağlı)
+$(document).ready(function() {
+    // Ana menüye buton ekle
+    if($("#mm-wwc").length === 0 && $("#main-menu-view").length) {
+        $("#main-menu-view .line-bottom").append('<button id="mm-wwc" style="background:#00ccff;color:#fff;border:none;border-radius:5px;padding:10px 20px;margin:5px;cursor:pointer;">⚡ WormJKR</button>');
+    }
+    $("#mm-wwc").off().click(openWormJKRSettings);
+});
     var vF81 = function f81(p234) {
       if (bbs.PropertyManager) {
         if (bbs.PropertyManager.lj) {
