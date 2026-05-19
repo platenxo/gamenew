@@ -2179,7 +2179,7 @@
       vO30.dh.Np();
       vF87();
     };
-$("#mm-advice-cont").html("<div class=\"wormworld-connect-count-b32\" style=\"display: grid !important; grid-template-columns: 1fr 1fr 1fr;gap: 2px;\">\n    <input type=\"button\" value=\"F.SCREEN\" id=\"btnFullScreen\"/>\n    <input type=\"button\" value=\"RESPAWN\" id=\"btnRePlay\"   onclick=\"respawnFn()\"  />\n </div>");
+$("#mm-advice-cont").html("<div class=\"wormworld-connect-count-b32\" style=\"display: grid !important;grid-template-columns: 1fr 2fr;gap: 11px;margin-left: 107px;height: 41px;\">\n    <input type=\"button\" value=\"F.SCREEN\" id=\"btnFullScreen\"/>\n    <input type=\"button\" value=\"RESPAWN\" id=\"btnRePlay\"   onclick=\"respawnFn()\"  />\n </div>");
 const btn = document.getElementById("btnFullScreen");
 
 btn.onclick = () => {
@@ -2190,7 +2190,7 @@ btn.onclick = () => {
   }
 };
 
-    $("<button type=\"button\" id=\"mm-wwc\" style=\"float: right;line-height: 48px;width: 61px;background: #156ab3;color: #FFF;font-weight: bold;margin-right: 5px;border-radius: 7px; cursor: pointer;\">🛠️</button>").insertAfter("#mm-store");
+    $("<button type=\"button\" id=\"op_jkr\">Settings</button>").insertAfter("#mm-store");
     $(".store-view-cont").append("<div id=\"idReplaceSkin\"></div>");
     $(".wear-view-cont").append("<div id=\"idWearViewCont\"></div>");
     var vLSDisplaynonepositionr = "display:none;position:relative;background:#FFF;padding:15px;max-width:680px;margin:10px auto;";
@@ -6469,7 +6469,7 @@ this.pwr_flex1 = new vO37.sc();
             }
             if (vF1214.dh.Ih > (window.bbs.lr === 10 ? p708.Ch.length : window.bbs.lr)) {
               vLN077 += this.uh;
-              if (_0xfbc669 >= this.jg.length) {
+              if (vLN078 >= this.jg.length) {
                 this.vh();
               }
                 this.jg[vLN078].wh(1, "white");
@@ -21715,3 +21715,92 @@ PREVIEW
         }
     })();
 })();
+function convertToIcons() {
+  if (!document.querySelector("link[href*=\"font-awesome\"]")) {
+    const _0x359fe7 = document.createElement("link");
+    _0x359fe7.rel = "stylesheet";
+    _0x359fe7.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css";
+    document.head.appendChild(_0x359fe7);
+  }
+  setTimeout(() => {
+    const _0x8e6948 = {
+      "#op_jkr": {
+        icon: "fas fa-tools",
+        text: "Settings"
+      },
+      "#mm-store": {
+        icon: "fas fa-store",
+        text: "Store"
+      },
+      "#mm-leaders": {
+        icon: "fas fa-trophy",
+        text: "Leaders"
+      },
+      "#mm-settings": {
+        icon: "fas fa-cog",
+        text: "Settings"
+      }
+    };
+    Object.entries(_0x8e6948).forEach(([_0x4c7435, _0x2ee32a]) => {
+      const _0x2569d9 = document.querySelector(_0x4c7435);
+      if (_0x2569d9) {
+        _0x2569d9.innerHTML = "<i class=\"" + _0x2ee32a.icon + "\"></i><span class=\"btn-text\">" + _0x2ee32a.text + "</span>";
+      }
+    });
+    setTimeout(() => {
+      Object.entries(_0x8e6948).forEach(([_0x31ed25, _0x56a51a]) => {
+        const _0x1ebf08 = document.querySelector(_0x31ed25);
+        if (_0x1ebf08 && !_0x1ebf08.querySelector("i")) {
+          _0x1ebf08.innerHTML = "<i class=\"" + _0x56a51a.icon + "\"></i><span class=\"btn-text\">" + _0x56a51a.text + "</span>";
+        }
+      });
+    }, 1000);
+  }, 2000);
+}
+function safeConvertToIcons() {
+  const _0x17a229 = document.querySelectorAll("[style*=\"display: block\"], .modal.show, .popup.show");
+  if (_0x17a229.length === 0) {
+    convertToIcons();
+  } else {
+    setTimeout(safeConvertToIcons, 2000);
+  }
+}
+document.addEventListener("DOMContentLoaded", safeConvertToIcons);
+if (window.jQuery) {
+  $(document).ready(safeConvertToIcons);
+}
+const observer = new MutationObserver(function (_0x5d719e) {
+  _0x5d719e.forEach(function (_0x1db7d3) {
+    if (_0x1db7d3.type === "childList") {
+      setTimeout(() => {
+        const _0x24e62d = ["#op_jkr", "#mm-store", "#mm-leaders", "#mm-settings"];
+        _0x24e62d.forEach(_0x42ad7c => {
+          const _0xe8a7ef = document.querySelector(_0x42ad7c);
+          if (_0xe8a7ef && !_0xe8a7ef.querySelector("i") && _0xe8a7ef.textContent.trim()) {
+            const _0x1c9dd4 = {
+              "#op_jkr": {
+                icon: "fas fa-tools",
+                text: "Settings"
+              },
+              "#mm-store": {
+                icon: "fas fa-store",
+                text: "Store"
+              },
+              "#mm-leaders": {
+                icon: "fas fa-trophy",
+                text: "Leaders"
+              },
+              "#mm-settings": {
+                icon: "fas fa-cog",
+                text: "Settings"
+              }
+            };
+            if (_0x1c9dd4[_0x42ad7c]) {
+              _0xe8a7ef.innerHTML = "<i class=\"" + _0x1c9dd4[_0x42ad7c].icon + "\"></i><span class=\"btn-text\">" + _0x1c9dd4[_0x42ad7c].text + "</span>";
+            }
+          }
+        });
+      }, 500);
+    }
+  });
+});
