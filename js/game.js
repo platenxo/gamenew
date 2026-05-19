@@ -2179,7 +2179,7 @@
       vO30.dh.Np();
       vF87();
     };
-$("#mm-advice-cont").html("<div class=\"wormworld-connect-count-b32\" style=\"display: grid !important; grid-template-columns: 1fr 1fr 1fr;gap: 2px;\">\n    <input type=\"button\" value=\"F.SCREEN\" id=\"btnFullScreen\" style=\"background-color #FFF; font-weight: bold; border-width: 0px;  color: #000000; border-radius: 0px; margin-top: 5px; width: 100%; height: 35px;\" />\n    <input type=\"button\" value=\"RANK\" onclick=\"respawnFn()\" style=\"background-color: #f7941d; font-weight: bold; border-width: 0px;  color: #fff; border-radius: 0px; margin-top: 5px; width: 100%; height: 35px;\" />\n   <input type=\"button\" value=\"SKINLAB\" id=\"btnskinlabxo\" style=\"background-color #FFF; font-weight: bold; border-width: 0px;  color: #000000; border-radius: 0px; margin-top: 5px; width: 100%; height: 35px;\" />\n </div>");
+$("#mm-advice-cont").html("<div class=\"div_FullScreen\">\n    <input type=\"button\" value=\"RESPAWN\" id=\"btnRePlay\" onclick=\"respawnFn()\" />\n    <input type=\"button\" value=\"FullScreen\" id=\"btnFullScreen\" />\n    \n    </div>");
 const btn = document.getElementById("btnFullScreen");
 
 btn.onclick = () => {
@@ -6470,7 +6470,7 @@ this.pwr_flex1 = new vO37.sc();
               }
             }
             if (vF1214.dh.Ih > (window.bbs.lr === 10 ? p708.Ch.length : window.bbs.lr)) {
-              _0x54f8cb += this.uh;
+              vLN077 += this.uh;
               if (_0xfbc669 >= this.jg.length) {
                 this.vh();
               }
