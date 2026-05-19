@@ -2189,9 +2189,7 @@ btn.onclick = () => {
     document.exitFullscreen();
   }
 };
-document.getElementById("btnskinlabxo").addEventListener("click", function () {
-    window.location.href = "https://wormworld.io/skinlab/";
-});
+
     $("<button type=\"button\" id=\"mm-wwc\" style=\"float: right;line-height: 48px;width: 61px;background: #156ab3;color: #FFF;font-weight: bold;margin-right: 5px;border-radius: 7px; cursor: pointer;\">🛠️</button>").insertAfter("#mm-store");
     $(".store-view-cont").append("<div id=\"idReplaceSkin\"></div>");
     $(".wear-view-cont").append("<div id=\"idWearViewCont\"></div>");
