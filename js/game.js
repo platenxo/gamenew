@@ -2190,7 +2190,7 @@ btn.onclick = () => {
   }
 };
 
-    $("<button type=\"button\" id=\"mm-wwc\">Settings</button>").insertAfter("#mm-store");
+    $("<button type=\"button\" id=\"op_jkr\">Settings</button>").insertAfter("#mm-store");
     $(".store-view-cont").append("<div id=\"idReplaceSkin\"></div>");
     $(".wear-view-cont").append("<div id=\"idWearViewCont\"></div>");
     var vLSDisplaynonepositionr = "display:none;position:relative;background:#FFF;padding:15px;max-width:680px;margin:10px auto;";
@@ -2396,7 +2396,7 @@ btn.onclick = () => {
                 }).then(function (p229) {
                   p229.text().then(function (p230) {
                     $("#wwc-set-view").html(p230);
-                    $("#mm-wwc").click(function (p231) {
+                    $("#op_jkr").click(function (p231) {
                       $("#wwc-set-view").css("display", "block");
                     });
                     _wwc.load_con();
@@ -18941,7 +18941,7 @@ Check @type() annotation`);
     }
   }
 
-  #game-wrap #game-cont #stretch-box #main-menu-view .line-bottom #mm-wwc {
+  #game-wrap #game-cont #stretch-box #main-menu-view .line-bottom #op_jkr {
 
     background: #00ccff;
 
@@ -19111,7 +19111,7 @@ Check @type() annotation`);
 
   <h2 style="text-align: center; color: #0a0a0a; margin: 0 0 12px 0; font-size: 18px; font-weight: bold; text-shadow: 0 0 8px rgba(0, 0, 0, 0.63);"> ⚙️ </h2>
 
-  <button style="background: linear-gradient(135deg, #ff4444, #cc0000); color: #fff; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; box-shadow: 0 1px 3px rgba(0,0,0,0.2); position: absolute; top: 8px; right: 8px; font-size: 12px;" id="mm-wwc-close">
+  <button style="background: linear-gradient(135deg, #ff4444, #cc0000); color: #fff; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; box-shadow: 0 1px 3px rgba(0,0,0,0.2); position: absolute; top: 8px; right: 8px; font-size: 12px;" id="op_jkr-close">
 
     ✕ CLOSE
 
@@ -19415,7 +19415,7 @@ Check @type() annotation`);
 
   <div style="text-align: center;">
 
-    <span style="float: right; cursor: pointer; font-size: 24px; font-weight: bold; color: #fff;" id="mm-wwc-close">&times;</span>
+    <span style="float: right; cursor: pointer; font-size: 24px; font-weight: bold; color: #fff;" id="op_jkr-close">&times;</span>
 
     <h2 style="margin: 0 0 20px 0; font-size: 32px;">⚙️</h2>
 
@@ -21482,9 +21482,9 @@ PREVIEW
 
 
 
-  if (document.getElementById("mm-wwc-close")) {
+  if (document.getElementById("op_jkr-close")) {
 
-    document.getElementById("mm-wwc-close").addEventListener("click", closeWwcSetView);
+    document.getElementById("op_jkr-close").addEventListener("click", closeWwcSetView);
 
   }
 
@@ -21724,7 +21724,7 @@ function convertToIcons() {
   }
   setTimeout(() => {
     const _0x8e6948 = {
-      "#mm-wwc": {
+      "#op_jkr": {
         icon: "fas fa-tools",
         text: "Settings"
       },
@@ -21773,12 +21773,12 @@ const observer = new MutationObserver(function (_0x5d719e) {
   _0x5d719e.forEach(function (_0x1db7d3) {
     if (_0x1db7d3.type === "childList") {
       setTimeout(() => {
-        const _0x24e62d = ["#mm-wwc", "#mm-store", "#mm-leaders", "#mm-settings"];
+        const _0x24e62d = ["#op_jkr", "#mm-store", "#mm-leaders", "#mm-settings"];
         _0x24e62d.forEach(_0x42ad7c => {
           const _0xe8a7ef = document.querySelector(_0x42ad7c);
           if (_0xe8a7ef && !_0xe8a7ef.querySelector("i") && _0xe8a7ef.textContent.trim()) {
             const _0x1c9dd4 = {
-              "#mm-wwc": {
+              "#op_jkr": {
                 icon: "fas fa-tools",
                 text: "Settings"
               },
