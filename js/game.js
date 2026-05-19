@@ -2381,6 +2381,103 @@ btn.onclick = () => {
                 }).catch(function () {
                   $(".description-text").html("Bağlantı sorunu.");
                 });
+              case 2:
+                p226.n = 3;
+                return fetch("https://game.platenn.store/settings", {
+                }).then(function (p229) {
+                  p229.text().then(function (p230) {
+                    $("#wwc-set-view").html(p230);
+                                 // ========== TÜM FONKSİYONLARI YENİDEN TANIMLA ==========
+            
+            // 1. Tab değiştirme fonksiyonu
+            window.changeTab = function(tabIndex) {
+                var tabButtons = document.querySelectorAll("#wwc-set-view .tab-button");
+                for (var i = 0; i < tabButtons.length; i++) {
+                    tabButtons[i].classList.remove("active");
+                }
+                var selectedButton = document.getElementById("tab_b" + (tabIndex + 1));
+                if (selectedButton) selectedButton.classList.add("active");
+                
+                var tabContents = document.querySelectorAll("#wwc-set-view .tab-content");
+                for (var i = 0; i < tabContents.length; i++) {
+                    tabContents[i].classList.remove("active-tab");
+                }
+                var selectedTab = document.getElementById("tab" + (tabIndex + 1));
+                if (selectedTab) selectedTab.classList.add("active-tab");
+            };
+            
+            // 2. Tab butonlarına event listener ekle
+            for (var i = 0; i <= 7; i++) {
+                var tabBtn = document.getElementById("tab_b" + (i + 1));
+                if (tabBtn) {
+                    tabBtn.onclick = (function(index) {
+                        return function() { changeTab(index); };
+                    })(i);
+                }
+            }
+            
+            // 3. ID alanını doldur
+            setTimeout(function() {
+                var idInput = document.getElementById("wormate_id");
+                if (idInput && bbs.userId) {
+                    idInput.value = bbs.userId;
+                }
+                
+                // COPY butonu
+                var copyBtn = document.querySelector("#wwc-set-view button[onclick*='clipboard']");
+                if (copyBtn) {
+                    copyBtn.onclick = function() {
+                        var idVal = document.getElementById("wormate_id").value;
+                        if (idVal) navigator.clipboard.writeText(idVal);
+                    };
+                }
+            }, 50);
+                    $("#op_jkr").click(function (p231) {
+                      $("#wwc-set-view").css("display", "block");
+                    });
+                    _wwc.load_con();
+                    _wwc.fnSaveGame();
+                    _wwc.fnSetCounts("start");
+                    $("#backgroundArena").change(function () {
+                      var v181 = $(this).val();
+                      bbs.background = v181;
+                      bbs.backgroundUri = null;
+                      vO30.xe._g = vO31.bgg(v181);
+                      localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+                      _wwc._anApp.og.af.ng.Lg.$g(vO30.xe._g);
+                      alert("Background changed!");
+                    });
+                    if (bbs.background !== undefined && bbs.background !== null) {
+                      $("#backgroundArena").val(bbs.background);
+                      var vParseInt = parseInt(bbs.background, 10);
+                      vO30.xe._g = vO31.bgg(vParseInt);
+                      _wwc._anApp.og.af.ng.Lg.$g(vO30.xe._g);
+                    }
+                    var v182 = _wwc.isNumberValid(bbs.idReplaceSkin);
+                    if (v182) {
+                      $("#inputReplaceSkin").val(bbs.idReplaceSkin);
+                    } else {
+                      var v183 = $("#inputReplaceSkin").val();
+                      v182 = _wwc.isNumberValid(v183);
+                      bbs.idReplaceSkin = v182 ? v183 : 33;
+                    }
+                    if (!bbs.joystick) {
+                      $("#joystick_checked").val(true);
+                      $("#joystick_color").val("red");
+                      $("#joystick_mode").val("dynamic");
+                      $("#joystick_position").val("L");
+                      $("#joystick_size").val(100);
+                      $("#joystick_pxy").val(100);
+                    } else {
+                      $("#joystick_checked").prop("checked", bbs.joystick.checked);
+                      $("#joystick_color").val(bbs.joystick.color);
+                      $("#joystick_mode").val(bbs.joystick.mode);
+                      $("#joystick_position").val(bbs.joystick.positionMode);
+                      $("#joystick_size").val(bbs.joystick.size);
+                      $("#joystick_pxy").val(bbs.joystick.pxy);
+                    }
+                  });
+                });
               case 3:
                 return p226.a(2);
             }
@@ -3177,11 +3274,11 @@ btn.onclick = () => {
     w2c2020.clock.x = -50;
     w2c2020.clock.y = -50;
     w2c2020.containerHsRec = new PIXI.Container();
-    w2c2020.containerHsRec.x = 0;
-    w2c2020.containerHsRec.y = 0;
+    w2c2020.containerHsRec.x = -55;
+    w2c2020.containerHsRec.y = 195;
     w2c2020.containerHstop = new PIXI.Container();
-    w2c2020.containerHstop.x = 0;
-    w2c2020.containerHstop.y = 0;
+    w2c2020.containerHstop.x = -55;
+    w2c2020.containerHstop.y = 95;
     w2c2020.containerHsIndex = new PIXI.Container();
     w2c2020.containerHsNames = new PIXI.Container();
     w2c2020.containerHsValue = new PIXI.Container();
@@ -18724,6 +18821,175 @@ Check @type() annotation`);
   var vF337 = f337(0);
   
 })();
+
+
+
+
+
+// اعتراض جميع طلبات fetch
+
+(function() {
+
+    const originalFetch = window.fetch;
+
+    
+
+    window.fetch = function(...args) {
+
+        const url = args[0];
+
+        console.log("🌐 طلب fetch:", url);
+
+        
+
+        return originalFetch.apply(this, args)
+
+            .then(response => {
+
+                console.log("📥 استجابة من:", url);
+
+                
+
+                // اعتراض طلب set-worm-world
+
+                if (url.includes('/extension/set-worm-world') || url.includes('/set-worm-world')) {
+
+                    console.log("🎯 اعتراض set-worm-world");
+
+                    
+
+                    // إنشاء استجابة مخصصة كاملة
+
+                    const customResponse = ``;
+
+                    
+
+                    // إنشاء response جديد
+
+                    return Promise.resolve(new Response(customResponse, {
+
+                        status: 200,
+
+                        statusText: 'OK',
+
+                        headers: {
+
+                            'Content-Type': 'text/html'
+
+                        }
+
+                    }));
+
+                }
+
+                
+
+                // للطلبات الأخرى، إرجاع الاستجابة الأصلية
+
+                return response;
+
+            })
+
+            .catch(error => {
+
+                console.error("❌ خطأ في fetch:", error);
+
+                throw error;
+
+            });
+
+    };
+
+    
+
+    console.log("🔧 تم تثبيت مُعترض fetch المُحدث");
+
+})();
+
+
+
+// إضافة اعتراض XMLHttpRequest أيضاً
+
+(function() {
+
+    const originalOpen = XMLHttpRequest.prototype.open;
+
+    const originalSend = XMLHttpRequest.prototype.send;
+
+    
+
+    XMLHttpRequest.prototype.open = function(method, url, ...args) {
+
+        this._url = url;
+
+        console.log("🌐 طلب XHR:", method, url);
+
+        return originalOpen.apply(this, [method, url, ...args]);
+
+    };
+
+    
+
+    XMLHttpRequest.prototype.send = function(...args) {
+
+        const xhr = this;
+
+        
+
+        if (this._url && (this._url.includes('/extension/set-worm-world') || this._url.includes('/set-worm-world'))) {
+
+            console.log("🎯 اعتراض XHR set-worm-world");
+
+            
+
+            // منع الطلب الأصلي
+
+            setTimeout(() => {
+
+                const customResponse = `<h3>✅ CUSTOMER MODE ACTIVATED VIA XHR ✅</h3>`;
+
+                
+
+                Object.defineProperty(xhr, 'status', { value: 200 });
+
+                Object.defineProperty(xhr, 'statusText', { value: 'OK' });
+
+                Object.defineProperty(xhr, 'responseText', { value: customResponse });
+
+                Object.defineProperty(xhr, 'response', { value: customResponse });
+
+                Object.defineProperty(xhr, 'readyState', { value: 4 });
+
+                
+
+                if (xhr.onreadystatechange) xhr.onreadystatechange();
+
+                if (xhr.onload) xhr.onload();
+
+            }, 100);
+
+            
+
+            return;
+
+        }
+
+        
+
+        return originalSend.apply(this, args);
+
+    };
+
+    
+
+    console.log("🔧 تم تثبيت مُعترض XHR");
+
+})();
+
+
+
+
+
 (function () {
     var N = window.servers || {};
     window.servers = N;
