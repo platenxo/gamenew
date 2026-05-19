@@ -189,14 +189,6 @@
       }
       return p34;
     }
-    function f21(p37) {
-      var vF222 = f22(p37, "string");
-      if (f39(vF222) == "symbol") {
-        return vF222;
-      } else {
-        return vF222 + "";
-      }
-    }
     function f22(p38, p39) {
       if (f39(p38) != "object" || !p38) {
         return p38;
@@ -11765,16 +11757,6 @@ this.pwr_flex1 = new vO37.sc();
     }
   }
   _0x3f1975();
-    if (v211) {
-      v211 = JSON.parse(v211);
-      if (v211.background) {
-        vF2222(v211.background);
-      } else {
-        vF2222();
-      }
-    } else {
-      vF2222();
-    }
     if (v212) {
       v212 = JSON.parse(v212);
       if (v212 && v212.audio) {
