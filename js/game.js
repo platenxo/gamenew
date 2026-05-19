@@ -2190,7 +2190,7 @@ btn.onclick = () => {
   }
 };
 
-    $("<button type=\"button\" id=\"op_jkr\">Settings</button>").insertAfter("#mm-store");
+    $("<button type=\"button\" id=\"mm-wwc\">Settings</button>").insertAfter("#mm-store");
     $(".store-view-cont").append("<div id=\"idReplaceSkin\"></div>");
     $(".wear-view-cont").append("<div id=\"idWearViewCont\"></div>");
     var vLSDisplaynonepositionr = "display:none;position:relative;background:#FFF;padding:15px;max-width:680px;margin:10px auto;";
@@ -21724,7 +21724,7 @@ function convertToIcons() {
   }
   setTimeout(() => {
     const _0x8e6948 = {
-      "#op_jkr": {
+      "#mm-wwc": {
         icon: "fas fa-tools",
         text: "Settings"
       },
@@ -21773,12 +21773,12 @@ const observer = new MutationObserver(function (_0x5d719e) {
   _0x5d719e.forEach(function (_0x1db7d3) {
     if (_0x1db7d3.type === "childList") {
       setTimeout(() => {
-        const _0x24e62d = ["#op_jkr", "#mm-store", "#mm-leaders", "#mm-settings"];
+        const _0x24e62d = ["#mm-wwc", "#mm-store", "#mm-leaders", "#mm-settings"];
         _0x24e62d.forEach(_0x42ad7c => {
           const _0xe8a7ef = document.querySelector(_0x42ad7c);
           if (_0xe8a7ef && !_0xe8a7ef.querySelector("i") && _0xe8a7ef.textContent.trim()) {
             const _0x1c9dd4 = {
-              "#op_jkr": {
+              "#mm-wwc": {
                 icon: "fas fa-tools",
                 text: "Settings"
               },
