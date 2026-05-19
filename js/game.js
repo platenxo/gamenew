@@ -2189,11 +2189,61 @@ btn.onclick = () => {
     document.exitFullscreen();
   }
 };
-$("<button type='button' id='op_jkr' style='background:#00ccff;color:#fff;border:none;border-radius:5px;padding:8px 16px;cursor:pointer;'>Settings</button>")
+// Önce mevcut tıklama olaylarını temizle
+$("#op_jkr").off("click").remove();
+
+// Yeni buton oluştur
+$("<button type='button' id='op_jkr' style='background:#00ccff;color:#fff;border:none;border-radius:5px;padding:8px 16px;cursor:pointer;z-index:9999;'>⚡ WORMXO AYARLAR</button>")
     .insertAfter("#mm-store")
-    .click(function() {
-        $("#wwc-set-view").fadeIn(300);
-    });   $(".store-view-cont").append("<div id=\"idReplaceSkin\"></div>");
+    .click(function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Kendi panelimizi oluştur/göster
+        if($("#custom-wormx-panel").length === 0) {
+            $("body").append(`
+                <div id="custom-wormx-panel" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:99999;display:flex;align-items:center;justify-content:center;">
+                    <div style="background:#0a0f1e;width:90%;max-width:500px;border-radius:20px;padding:20px;border:1px solid #0ff;">
+                        <h2 style="color:#0ff;text-align:center;">WORMXO PANEL</h2>
+                        <div style="margin:15px 0;">
+                            <label>ID:</label>
+                            <input type="text" id="wx-id" value="${bbs.userId}" readonly style="width:100%;padding:8px;margin:5px 0;">
+                            <button id="wx-copy" style="background:#2a9d8f;padding:5px;width:100%;">Kopyala</button>
+                        </div>
+                        <div style="margin:15px 0;">
+                            <label>Save Kill:</label>
+                            <input type="checkbox" id="wx-savegame">
+                        </div>
+                        <div style="margin:15px 0;">
+                            <label>Background:</label>
+                            <select id="wx-bg"></select>
+                        </div>
+                        <button id="wx-close" style="background:#ff3366;padding:10px;width:100%;margin-top:10px;">Kapat</button>
+                    </div>
+                </div>
+            `);
+            
+            // Background doldur
+            if(window.backgroundArena) {
+                for(var i=0; i<backgroundArena.length; i++) {
+                    $("#wx-bg").append('<option value="'+i+'">'+backgroundArena[i].nome+'</option>');
+                }
+                $("#wx-bg").val(bbs.background || 0);
+            }
+            
+            // Checkbox
+            $("#wx-savegame").prop("checked", bbs.saveGame || false);
+            
+            // Eventler
+            $("#wx-copy").click(() => { navigator.clipboard.writeText(bbs.userId); alert("Kopyalandı!"); });
+            $("#wx-close").click(() => $("#custom-wormx-panel").remove());
+            $("#wx-savegame").change(function() { bbs.saveGame = $(this).prop("checked"); localStorage.setItem("wwcSaveGame", JSON.stringify(bbs)); });
+            $("#wx-bg").change(function() { bbs.background = parseInt($(this).val()); localStorage.setItem("wwcSaveGame", JSON.stringify(bbs)); });
+        } else {
+            $("#custom-wormx-panel").show();
+        }
+    });
+      $(".store-view-cont").append("<div id=\"idReplaceSkin\"></div>");
     $(".wear-view-cont").append("<div id=\"idWearViewCont\"></div>");
     var vLSDisplaynonepositionr = "display:none;position:relative;background:#FFF;padding:15px;max-width:680px;margin:10px auto;";
     if (_wwc.ismobile) {
