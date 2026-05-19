@@ -2189,9 +2189,12 @@ btn.onclick = () => {
     document.exitFullscreen();
   }
 };
-
-    $("<button type=\"button\" id=\"op_jkr\">Settings</button>").insertAfter("#mm-store");
-    $(".store-view-cont").append("<div id=\"idReplaceSkin\"></div>");
+  $("#op_jkr").remove();
+$("<button type='button' id='op_jkr' style='background:#00ccff;color:#fff;border:none;border-radius:5px;padding:8px 16px;cursor:pointer;'>Settings</button>")
+    .insertAfter("#mm-store")
+    .click(function() {
+        $("#wwc-set-view").fadeIn(200);
+    });    $(".store-view-cont").append("<div id=\"idReplaceSkin\"></div>");
     $(".wear-view-cont").append("<div id=\"idWearViewCont\"></div>");
     var vLSDisplaynonepositionr = "display:none;position:relative;background:#FFF;padding:15px;max-width:680px;margin:10px auto;";
     if (_wwc.ismobile) {
