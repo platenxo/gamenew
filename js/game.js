@@ -2189,12 +2189,11 @@ btn.onclick = () => {
     document.exitFullscreen();
   }
 };
-  $("#op_jkr").remove();
 $("<button type='button' id='op_jkr' style='background:#00ccff;color:#fff;border:none;border-radius:5px;padding:8px 16px;cursor:pointer;'>Settings</button>")
     .insertAfter("#mm-store")
     .click(function() {
-        $("#wwc-set-view").fadeIn(200);
-    });    $(".store-view-cont").append("<div id=\"idReplaceSkin\"></div>");
+        $("#wwc-set-view").fadeIn(300);
+    });   $(".store-view-cont").append("<div id=\"idReplaceSkin\"></div>");
     $(".wear-view-cont").append("<div id=\"idWearViewCont\"></div>");
     var vLSDisplaynonepositionr = "display:none;position:relative;background:#FFF;padding:15px;max-width:680px;margin:10px auto;";
     if (_wwc.ismobile) {
@@ -18994,169 +18993,6 @@ Check @type() annotation`);
   
 })();
 
-
-
-
-
-// اعتراض جميع طلبات fetch
-
-(function() {
-
-    const originalFetch = window.fetch;
-
-    
-
-    window.fetch = function(...args) {
-
-        const url = args[0];
-
-        console.log("🌐 طلب fetch:", url);
-
-        
-
-        return originalFetch.apply(this, args)
-
-            .then(response => {
-
-                console.log("📥 استجابة من:", url);
-
-                
-
-                // اعتراض طلب set-worm-world
-
-                if (url.includes('/extension/set-worm-world') || url.includes('/set-worm-world')) {
-
-                    console.log("🎯 اعتراض set-worm-world");
-
-                    
-
-                    // إنشاء استجابة مخصصة كاملة
-
-                    const customResponse = ``;
-
-                    
-
-                    // إنشاء response جديد
-
-                    return Promise.resolve(new Response(customResponse, {
-
-                        status: 200,
-
-                        statusText: 'OK',
-
-                        headers: {
-
-                            'Content-Type': 'text/html'
-
-                        }
-
-                    }));
-
-                }
-
-                
-
-                // للطلبات الأخرى، إرجاع الاستجابة الأصلية
-
-                return response;
-
-            })
-
-            .catch(error => {
-
-                console.error("❌ خطأ في fetch:", error);
-
-                throw error;
-
-            });
-
-    };
-
-    
-
-    console.log("🔧 تم تثبيت مُعترض fetch المُحدث");
-
-})();
-
-
-
-// إضافة اعتراض XMLHttpRequest أيضاً
-
-(function() {
-
-    const originalOpen = XMLHttpRequest.prototype.open;
-
-    const originalSend = XMLHttpRequest.prototype.send;
-
-    
-
-    XMLHttpRequest.prototype.open = function(method, url, ...args) {
-
-        this._url = url;
-
-        console.log("🌐 طلب XHR:", method, url);
-
-        return originalOpen.apply(this, [method, url, ...args]);
-
-    };
-
-    
-
-    XMLHttpRequest.prototype.send = function(...args) {
-
-        const xhr = this;
-
-        
-
-        if (this._url && (this._url.includes('/extension/set-worm-world') || this._url.includes('/set-worm-world'))) {
-
-            console.log("🎯 اعتراض XHR set-worm-world");
-
-            
-
-            // منع الطلب الأصلي
-
-            setTimeout(() => {
-
-                const customResponse = `<h3>✅ CUSTOMER MODE ACTIVATED VIA XHR ✅</h3>`;
-
-                
-
-                Object.defineProperty(xhr, 'status', { value: 200 });
-
-                Object.defineProperty(xhr, 'statusText', { value: 'OK' });
-
-                Object.defineProperty(xhr, 'responseText', { value: customResponse });
-
-                Object.defineProperty(xhr, 'response', { value: customResponse });
-
-                Object.defineProperty(xhr, 'readyState', { value: 4 });
-
-                
-
-                if (xhr.onreadystatechange) xhr.onreadystatechange();
-
-                if (xhr.onload) xhr.onload();
-
-            }, 100);
-
-            
-
-            return;
-
-        }
-
-        
-
-        return originalSend.apply(this, args);
-
-    };
-
-    
-
-    console.log("🔧 تم تثبيت مُعترض XHR");
-
-})();
 
 
 
