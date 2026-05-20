@@ -2177,6 +2177,7 @@
     window.lobbyFn = function () {
       vO30.dh.Cn = 0;
       if (vO30.dh.mq) {
+        
         vO30.dh.mq.close();
       }
       vO30.dh.mq = null;
@@ -2193,6 +2194,225 @@ btn.onclick = () => {
     document.exitFullscreen();
   }
 };
+ $("#mm-store").after(`
+    <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet'/>
+    
+    <div id="mm-store" style="float: right;position: relative;min-width: 95px;background:#ff0000" onclick="openPopup()">
+        <i aria-hidden="true" class="fa fa-cog fa-spin" style="color:yellow;font-size: 23px;"></i> Tool
+    </div>
+    
+    <div id="popup" class="popup">
+        <div class="phdr1"> 
+            <button 
+                style="float: right;background: #00000000;float: right;height: 40px;border: none;font-size: 16px;font-weight: 600;" 
+                onclick="navigator.clipboard.writeText('${bbs.userId}').then(()=> alert('You ID ${bbs.userId} copied!'));">
+                Copy ID
+            </button>
+        </div>
+
+        <div class="close-button" onclick="closePopup()"></div>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+        <div class="layout">
+            <div class="sidebar">
+                <ul>
+                    <li>
+                        <div class="hii" style="background: none; border: none;" id="click-btn">
+                            <i class="fas fa-user"></i> Profile
+                        </div>
+                    </li>
+                    <li id="toolgame-btn" class="selected" onclick="displayContent('toolgame', this)">
+                        <i class="fas fa-cogs"></i> Tool Game
+                    </li>
+                    <li id="skins-btn" onclick="displayContent('skins', this)">
+                        <i class="fas fa-paint-brush"></i> Skins
+                    </li>
+                    <li id="chuot-btn" onclick="displayContent('chuot', this)">
+                        <i class="fas fa-mouse"></i> Cursor
+                    </li>
+                    <li id="gioithieu-btn" onclick="displayContent('gioithieu', this)">
+                        <i class="fas fa-info-circle"></i> Version Change
+                    </li>
+                </ul>
+            </div>
+
+            <div class="main-content">
+                <!-- Tool Game -->
+                <div id="toolgame" class="content-section">
+                    <div class="settings-row">
+                        <div class="settings-lineZoom">
+                            <span class="settings-labelZoom">
+                                <i class="fas fa-bolt yellow-icon"></i> Eat Fast:
+                            </span>
+                            <input class="settings-switchZoom" id="settings-Abilityzoom-switch" type="checkbox"/>
+                            <label for="settings-Abilityzoom-switch"></label>
+                        </div>
+
+                        <div class="settings-lineZoom">
+                            <span class="settings-labelZoom">
+                                <i class="fas fa-video yellow-icon"></i> Center Streamer :
+                            </span>
+                            <input class="settings-switchZoom" id="settings-stremingmode-switch" type="checkbox"/>
+                            <label for="settings-stremingmode-switch"></label>
+                        </div>
+                    </div>
+
+                    <div class="settings-row">
+                        <div class="settings-lineZoom">
+                            <span class="settings-labelZoom">
+                                <i class="fas fa-trophy yellow-icon"></i> 1 Top Score :
+                            </span>
+                            <input class="settings-switchZoom" id="settings-stremingmodebatop-switch" type="checkbox"/>
+                            <label for="settings-stremingmodebatop-switch"></label>
+                        </div>
+
+                        <div class="settings-lineZoom">
+                            <span class="settings-labelZoom">
+                                <i class="fas fa-toggle-off yellow-icon"></i> Turn Off 
+                                <img style="height: 18px;" src="https://i.imgur.com/cOrk9pM.png" alt="Turn on"/> :
+                            </span>
+                            <input class="settings-switchZoom" id="settings-stremingmodemuiten-switch" type="checkbox"/>
+                            <label for="settings-stremingmodemuiten-switch"></label>
+                        </div>
+                    </div>
+
+                    <div class="settings-row">
+                        <div class="settings-lineZoom">
+                            <span class="settings-labelZoom">
+                                <i class="fas fa-chart-bar yellow-icon"></i> Total Kill :
+                            </span>
+                            <input class="settings-switchZoom" id="settings-stremingmodesaveheadshot-switch" type="checkbox"/>
+                            <label for="settings-stremingmodesaveheadshot-switch"></label>
+                        </div>
+
+                        <div class="settings-lineZoom">
+                            <span class="settings-labelZoom">
+                                <i class="fas fa-smile yellow-icon"></i> Off Emoj:
+                            </span>
+                            <input class="settings-switchZoom" id="settings-stremingmodeemoj-switch" type="checkbox"/>
+                            <label for="settings-stremingmodeemoj-switch"></label>
+                        </div>
+                    </div>
+
+                    <div class="settings-row">
+                        <div class="settings-lineZoom">
+                            <span class="settings-labelZoom">
+                                <i class="fas fa-volume-mute yellow-icon"></i> Off Sounds:
+                            </span>
+                            <input class="settings-switchZoom" id="settings-stremingmodeheadshot-switch" type="checkbox"/>
+                            <label for="settings-stremingmodeheadshot-switch"></label>
+                        </div>
+
+                        <div class="settings-lineZoom">
+                            <span class="settings-labelZoom">
+                                <i class="fa fa-eye-slash"></i> Türkiye Flag Map
+                            </span>
+                            <input class="settings-switchZoom" id="settings-stremingmodeanclock-switch" type="checkbox"/>
+                            <label for="settings-stremingmodeanclock-switch"></label>
+                        </div>
+                    </div>
+                          <div class="settings-row">
+                        <div class="settings-lineZoom">
+                            <span class="settings-labelZoom">
+                                <i class="fas fa-toggle-off yellow-icon"></i> Turn Off 
+                                <img style="height: 18px;" src="https://i.imgur.com/9j2U5SC.png" alt="Turn on"/> :
+                            </span>
+                            <input class="settings-switchZoom" id="settings-stremingmodemuitenn-switch" type="checkbox"/>
+                            <label for="settings-stremingmodemuitenn-switch"></label>
+                        </div>
+                        <div class="settings-lineZoom">
+                            <span class="settings-labelZoom">
+                                <i class="fas fa-question-circle"></i> Updating..!
+                            </span>
+                            <input class="settings-switchZoom" id="settings-stremingmodebatop-switch" type="checkbox"/>
+                            <label for="settings-stremingmodebatop-switch"></label>
+                        </div>
+                    </div>
+
+
+                    <div class="spancursor"> Select Background</div>
+                    <div class="background-container"></div>
+                </div>
+
+                <!-- Skins -->
+                <div id="skins" class="content-section">
+                    <div style="margin-bottom: 10px;margin-top: -10px;" class="spancursor"> Upload Skins</div>
+                    <iframe style="width: 100%; height: 43px;" src="https://haylamday.com/api/skins_upload.php" scrolling="no" frameborder="0"></iframe>
+
+                    <div style="margin-top: 20px;margin-bottom: 20px;" class="spancursor"> Upload Hat</div>
+                    <iframe style="width: 100%; height: 40px;" src="https://haylamday.com/api/hat_upload.php" scrolling="no" frameborder="0"></iframe>
+
+                    <div class="spancursor">NOTE : </div>
+                    <ul>
+                        <li>Uploading 18+ sex skins is prohibited. ID will be locked if violated.</li>
+                        <li>Vui lòng không tải lên skin sex 18+. Bị phát hiện sẽ bị khóa. Xin cảm ơn !</li>
+                    </ul>
+                </div>
+
+                <!-- Cursor -->
+                <div id="chuot" class="content-section">
+                    <div class="spancursor"> Select Cursor</div>
+                    <div class="cursor-container">
+                        <div id="default-cursor-btn">
+                            <img src="https://i.imgur.com/rI522o3.png">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Version -->
+                <div id="gioithieu" class="content-section">
+                    <h2>Version Change</h2>
+                    <button id="resetScript" class="reset-button">Cache Delete</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function displayContent(sectionId, element) {
+                let sections = document.querySelectorAll('.content-section');
+                sections.forEach(section => section.style.display = 'none');
+
+                let activeSection = document.getElementById(sectionId);
+                if (activeSection) {
+                    activeSection.style.display = 'block';
+                }
+
+                let menuItems = document.querySelectorAll('.sidebar ul li');
+                menuItems.forEach(item => item.classList.remove('selected'));
+                element.classList.add('selected');
+            }
+
+            window.onload = function() {
+                displayContent('toolgame', document.getElementById('toolgame-btn'));
+            };
+            
+            const button = document.getElementById("click-btn");
+            const playerInfo = document.getElementById("mm-player-info");
+
+            button.addEventListener("click", function() {
+                playerInfo.click();
+            });
+
+            playerInfo.addEventListener("click", function() {
+                console.log("Div đã được click!");
+            });
+        </script>
+
+        <style>
+            .yellow-icon { color: gold; }
+            .layout { display: flex; width: 100%; height: 94%; }
+            .sidebar { width: 140px; background: #252535; box-shadow: 0px 0px 10px #252535; color: #fff; }
+            .sidebar ul { list-style-type: none; padding: 0; margin: 0; }
+            .sidebar ul li { padding: 12px; cursor: pointer; border-bottom: 1px solid #ddd; width: 140px; }
+            .sidebar ul li:hover { background-color: #666; }
+            .sidebar ul li.selected { background-color: #000; color: white; }
+            .main-content { flex-grow: 1; padding: 20px; background: #393e43; color: #fff; }
+            .content-section { display: none; transition: display 0.3s ease-in-out; }
+            #toolgame { display: block; }
+            h2 { margin-top: 0; }
+        </style>
+    </div>
+`);
 
     $(".store-view-cont").append("<div id=\"idReplaceSkin\"></div>");
     $(".wear-view-cont").append("<div id=\"idWearViewCont\"></div>");
