@@ -2555,294 +2555,416 @@ $("<button type='button' id='op_jkr' style='background:#00ccff;color:#fff;border
         return vF36.apply(this, arguments);
       };
     }();
-   // game.js - YENİ SIDEBAR'LI PANEL (Tüm ayarlar aynı)
+    // game.js - İçine eklenecek panel kodu
 
-(function() {
-    let isPanelOpen = false;
+// Panel açma butonu için
+function openWormJKRSettings() {
+    if($("#wwc-set-view").length === 0) {
+        $("body").append('<div id="wwc-set-view" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;background:rgba(0,0,0,0.8);display:none;"></div>');
+    }
+    
+    var panelHTML = `
+<div id="wwc-set-view" style="display: block; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 1100px; height: 85%; background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%); border-radius: 22px; overflow: hidden; font-family: 'Segoe UI', sans-serif; color: #fff; border: 1px solid rgba(0,204,255,0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.8); z-index: 100000;">
 
-    // Panel HTML - Tüm ayarlar korundu, sadece sidebar eklendi
-    const panelHTML = `
-    <div id="wwc-set-view" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);backdrop-filter:blur(5px);z-index:9999;display:none;justify-content:center;align-items:center;">
-        <div style="width:95%;max-width:1300px;height:90%;background:#FFF;border-radius:16px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);display:flex;flex-direction:column;overflow:hidden;">
-            
-            <!-- BAŞLIK -->
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:linear-gradient(135deg, #ff4444, #cc0000);border-radius:16px 16px 0 0;">
-                <h2 style="color:#fff;margin:0;font-size:20px;font-weight:bold;">⚡ WormXo PANEL</h2>
-                <button id="mm-wwc-close" style="background:#fff;border:none;color:#cc0000;width:32px;height:32px;border-radius:40px;cursor:pointer;font-weight:bold;font-size:16px;">✕</button>
+  <div id="wormxy-sidebar" style="width: 220px; background: rgba(0,0,0,0.6); border-right: 1px solid rgba(0, 200, 255, 0.3); padding: 20px 15px; display: flex; flex-direction: column; gap: 8px; height: 100%; float: left;">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <span style="color: #00ccff; font-weight: bold; font-size: 18px; text-shadow: 0 0 10px #00ccff;">⚡ WORM JKR</span>
+    </div>
+    <button class="xy-tab-btn active" data-tab="xy-systems" style="background: rgba(0,204,255,0.2); color: #00ccff; border: 1px solid #00ccff; padding: 12px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: bold; width: 100%; margin: 3px 0;">🎮 OYUN</button>
+    <button class="xy-tab-btn" data-tab="xy-settings" style="background: transparent; color: #ccc; border: 1px solid #444; padding: 12px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: bold; width: 100%; margin: 3px 0;">👤 HESAP</button>
+    <button class="xy-tab-btn" data-tab="xy-joystick" style="background: transparent; color: #ccc; border: 1px solid #444; padding: 12px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: bold; width: 100%; margin: 3px 0;">🕹️ JOYSTICK</button>
+    <button class="xy-tab-btn" data-tab="xy-zoom" style="background: transparent; color: #ccc; border: 1px solid #444; padding: 12px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: bold; width: 100%; margin: 3px 0;">🔍 ZOOM</button>
+    <button class="xy-tab-btn" data-tab="xy-custom" style="background: transparent; color: #ccc; border: 1px solid #444; padding: 12px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: bold; width: 100%; margin: 3px 0;">🎨 ÖZEL</button>
+    <button class="xy-tab-btn" data-tab="xy-skinedit" style="background: transparent; color: #ccc; border: 1px solid #444; padding: 12px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: bold; width: 100%; margin: 3px 0;">🔄 SKIN SWAP</button>
+    <button class="xy-tab-btn" data-tab="xy-help" style="background: transparent; color: #ccc; border: 1px solid #444; padding: 12px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: bold; width: 100%; margin: 3px 0;">❓ YARDIM</button>
+    <div style="flex-grow: 1;"></div>
+    <div style="font-size: 10px; color: #555; text-align: center; margin-top: 20px;">WormJKR v2.0</div>
+  </div>
+
+  <div style="flex: 1; padding: 25px; overflow-y: auto; height: 100%; margin-left: 220px;">
+    <button id="mm-wwc-close" style="background: #ff4444; color: #fff; border: none; padding: 6px 15px; border-radius: 8px; cursor: pointer; position: absolute; top: 15px; right: 15px; z-index: 10; font-weight: bold;">✕ KAPAT</button>
+
+    <!-- OYUN TAB -->
+    <div id="xy-systems" class="xy-tab-content" style="display: block;">
+        <h3 style="color: #00ccff; margin-top: 0;">🎮 Oyun Sistemleri</h3>
+        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 15px 0;">
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; background: rgba(15,15,18,0.8); padding: 20px; border-radius: 12px;">
+            <div>
+                <label style="font-size: 11px; color: #00ccff; font-weight: bold;">🏆 Top Leaderboard</label>
+                <select id="sel_top" style="width: 100%; padding: 8px; background: #1a1a1f; border: 1px solid #00ccff; border-radius: 6px; color: white; margin-top: 5px;">
+                    <option value="10">Tümü</option>
+                    <option value="1">Top 1</option>
+                    <option value="2">Top 2</option>
+                    <option value="3">Top 3</option>
+                    <option value="4">Top 4</option>
+                    <option value="5">Top 5</option>
+                    <option value="6">Top 6</option>
+                    <option value="7">Top 7</option>
+                    <option value="8">Top 8</option>
+                    <option value="9">Top 9</option>
+                </select>
             </div>
+            <div>
+                <label style="font-size: 11px; color: #00ccff; font-weight: bold;">🐍 ZigZag Mode</label>
+                <select id="zigzag_mode" style="width: 100%; padding: 8px; background: #1a1a1f; border: 1px solid #00ccff; border-radius: 6px; color: white; margin-top: 5px;">
+                    <option value="0">Kapalı</option>
+                    <option value="1">Tip 1</option>
+                    <option value="2">Tip 2</option>
+                    <option value="3">Tip 3</option>
+                </select>
+            </div>
+            <div>
+                <label style="font-size: 11px; color: #00ccff; font-weight: bold;">📺 Hud Position</label>
+                <select id="hudPositionMode" style="width: 100%; padding: 8px; background: #1a1a1f; border: 1px solid #00ccff; border-radius: 6px; color: white; margin-top: 5px;">
+                    <option value="0">100%</option>
+                    <option value="1">75%</option>
+                    <option value="2">Center</option>
+                </select>
+            </div>
+            <div>
+                <label style="font-size: 11px; color: #00ccff; font-weight: bold;">🌍 Background</label>
+                <select id="backgroundArena" style="width: 100%; padding: 8px; background: #1a1a1f; border: 1px solid #00ccff; border-radius: 6px; color: white; margin-top: 5px;"></select>
+            </div>
+            <div>
+                <label style="font-size: 11px; color: #00ccff; font-weight: bold;">💾 SAVE KILL</label><br>
+                <input type="checkbox" id="saveGame" style="width: 20px; height: 20px; margin-top: 8px;">
+            </div>
+            <div>
+                <label style="font-size: 11px; color: #00ccff; font-weight: bold;">🔊 SOUNDS</label><br>
+                <input type="checkbox" id="activeSounds" style="width: 20px; height: 20px; margin-top: 8px;">
+            </div>
+            <div>
+                <label style="font-size: 11px; color: #00ccff; font-weight: bold;">🚫 Bad Language</label><br>
+                <input type="checkbox" id="activeBadLang" style="width: 20px; height: 20px; margin-top: 8px;">
+            </div>
+            <div>
+                <label style="font-size: 11px; color: #00ccff; font-weight: bold;">🔄 Replace Skin ID</label>
+                <input type="number" id="inputReplaceSkin" value="35" style="width: 100%; padding: 8px; background: #1a1a1f; border: 1px solid #00ccff; border-radius: 6px; color: white; margin-top: 5px;">
+            </div>
+        </div>
+    </div> 
 
-            <!-- ANA İÇERİK: SIDEBAR + TABLER -->
-            <div style="display:flex;flex:1;overflow:hidden;">
-                
-                <!-- SIDEBAR MENU -->
-                <div style="width:260px;background:#f5f5f5;border-right:1px solid #ddd;padding:15px 10px;display:flex;flex-direction:column;gap:5px;overflow-y:auto;">
-                    <div class="wx-tab-btn active" data-tab="set" style="display:flex;align-items:center;gap:10px;padding:10px 15px;background:#ff4444;border-radius:8px;cursor:pointer;color:#fff;font-weight:bold;">
-                        <span>⚙️</span><span>SET</span>
-                    </div>
-                    <div class="wx-tab-btn" data-tab="account" style="display:flex;align-items:center;gap:10px;padding:10px 15px;background:#e0e0e0;border-radius:8px;cursor:pointer;color:#333;">
-                        <span>👤</span><span>Account</span>
-                    </div>
-                    <div class="wx-tab-btn" data-tab="help" style="display:flex;align-items:center;gap:10px;padding:10px 15px;background:#e0e0e0;border-radius:8px;cursor:pointer;color:#333;">
-                        <span>❓</span><span>HELP</span>
-                    </div>
-                    <div class="wx-tab-btn" data-tab="custom" style="display:flex;align-items:center;gap:10px;padding:10px 15px;background:#e0e0e0;border-radius:8px;cursor:pointer;color:#333;">
-                        <span>🎨</span><span>CUSTOM</span>
-                    </div>
-                    <div class="wx-tab-btn" data-tab="zoom" style="display:flex;align-items:center;gap:10px;padding:10px 15px;background:#e0e0e0;border-radius:8px;cursor:pointer;color:#333;">
-                        <span>🔍</span><span>SET ZOOM</span>
-                    </div>
-                    <div class="wx-tab-btn" data-tab="skinswap" style="display:flex;align-items:center;gap:10px;padding:10px 15px;background:#e0e0e0;border-radius:8px;cursor:pointer;color:#333;">
-                        <span>🔄</span><span>SKIN SWAP</span>
-                    </div>
-                    <div class="wx-tab-btn" data-tab="joystick" style="display:flex;align-items:center;gap:10px;padding:10px 15px;background:#e0e0e0;border-radius:8px;cursor:pointer;color:#333;">
-                        <span>🕹️</span><span>JOYSTICK</span>
-                    </div>
-                </div>
-
-                <!-- İÇERİK ALANI (TABLAR) - AYNI ÖRNEKTEKİ GİBİ -->
-                <div style="flex:1;padding:20px;overflow-y:auto;background:#fff;">
-                    
-                    <!-- TAB 1: SET (AYNEN) -->
-                    <div id="wx-tab-set" class="wx-tab-content" style="display:block;">
-                        <div style="display: flex">
-                            <div style="width: 33%"><label>SAVE Kill:</label> <input type="checkbox" id="saveGame" /></div>
-                            <div style="width: 33%"><label>Background:</label> <select id="backgroundArena"></select></div>
-                            <div style="width: 34%"><label>Replace SKIN:</label> <input style="width: 60px" type="text" name="inputReplaceSkin" id="inputReplaceSkin" value="35" maxlength="4" onchange="setIdReplaceSkin(this)" /></div>
-                        </div>
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 10px;">
-                            <div><label>TOP HS ("9")</label> <input type="checkbox" id="showTophs" /></div>
-                            <div><label>Record HS ("0")</label> <input type="checkbox" id="showRechs" /></div>
-                            <div><label>3 TOP SCORE</label> <input type="checkbox" id="onlytop" /></div>
-                        </div>
-                        <div class="setting-item" style="text-align: right; margin-top: -32px;"></div>
-                        <div class="setting-item" style="text-align: right;">
-                            <span class="setting-label"><i class="fas fa-desktop" style="color: #ffbb00;"></i>Zigzag:</span>
-                            <select id="zigzag_mode"><option value="0">None</option><option value="1">Zigzag 1</option><option value="2">Zigzag 2</option><option value="3">Zigzag 3</option></select>
-                        </div>
-                        <div class="setting-item" style="text-align: right;">
-                            <span class="setting-label"><i class="fas fa-desktop" style="color: #ffbb00;"></i>Screen:</span>
-                            <select id="hudPositionMode"><option value="0">100%</option><option value="1">75%</option><option value="2">Center</option></select>
-                        </div>
-                        
-                        <div style="margin-bottom: 5px">
-                            <strong class="sub-title">Joystick Settings</strong>
-                            <div class="wwc-joystick">
-                                <div><label style="display: block">Active</label><input type="checkbox" id="joystick_checked" onclick="setconfigjoystick_checked(this)" /></div>
-                                <div><label style="display: block">Color</label><select id="joystick_color" onchange="setconfigjoystick_color(this)"><option value="red">RED</option><option value="blue">BLUE</option><option value="white">WHITE</option><option value="black">Black</option></select></div>
-                                <div><label style="display: block">Mode</label><select id="joystick_mode" onchange="setconfigjoystick_mode(this)"><option value="dynamic">Dynamic</option><option value="static">Static</option></select></div>
-                                <div><label style="display: block">Position</label><select id="joystick_position" onchange="setconfigjoystick_position(this)"><option value="R">Right</option><option value="L">Left</option></select></div>
-                                <div><label style="display: block; margin-top: 10px;">Size</label><select id="joystick_size" onchange="setconfigjoystick_size(this)"><option value="110">110</option><option value="100">100</option><option value="90">90</option><option value="80">80</option><option value="75">75</option><option value="70">70</option></select></div>
-                            </div>
-                        </div>
-                        <strong class="sub-title">Plus</strong>
-                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 10px;">
-                            <div><label>Bad Language</label><input type="checkbox" id="activeBadLang" /></div>
-                            <div><label>SOUNDS:</label><input type="checkbox" id="activeSounds" /></div>
-                        </div>
-                    </div>
-                    
-                    <!-- TAB 2: ACCOUNT (AYNEN) -->
-                    <div id="wx-tab-account" class="wx-tab-content" style="display:none;">
-                        <div style="position: relative; padding: 20px; background: linear-gradient(to bottom, #00f0ff, #c285ff); border-radius: 20px; color: #fff;">
-                            <div style="text-align: center;"><h2 style="margin: 0 0 20px 0;">⚙️</h2></div>
-                            <div style="margin-bottom: 15px;">
-                                <label style="display: block; margin-bottom: 8px; font-weight: bold;">📋 Account ID</label>
-                                <div style="display: flex; gap: 10px;">
-                                    <input value="${bbs && bbs.userId ? bbs.userId : ''}" type="text" id="wormate_id" readonly style="padding: 8px; border: none; border-radius: 8px; flex: 1;" />
-                                    <button onclick="navigator.clipboard.writeText(document.getElementById('wormate_id').value)" style="background-color: #910e91; color: white; border: none; border-radius: 8px; padding: 8px 12px; cursor: pointer;">COPY</button>
-                                </div>
-                            </div>
-                            <div style="margin-bottom: 15px;">
-                                <label style="display: block; margin-bottom: 8px; font-weight: bold;">📁 Skin_Wear_file (.json)</label>
-                                <div style="display: flex; gap: 10px;">
-                                    <input type="file" accept=".json" id="fileSkin" style="padding: 8px; border: none; border-radius: 8px; flex: 1;" />
-                                    <button onclick="document.getElementById('fileSkin').value=''" style="background-color: #910e91; color: white; border: none; border-radius: 8px; padding: 8px 12px; cursor: pointer;">Clear</button>
-                                </div>
-                            </div>
-                            <div style="margin: 10px 0; border-bottom: 1px solid #CCC; padding-bottom: 5px;">
-                                <button id="shareRankBtn" onclick="toShareRank && toShareRank()">To Share in data e Rank</button>
-                            </div>
-                            <div style="margin: 10px 0; border-bottom: 1px solid #CCC; padding-bottom: 5px;">
-                                The data is updated manually only due to data sharing regulations.
-                                <div style="margin: 10px 0;"><button id="openAccountBtn" type="button" onclick="onOpen && onOpen()" style="width: 100%; background-color: #54fd36; padding: 6px; font-size: 20px;">Open Account</button></div>
-                            </div>
-                            <div style="margin-top: 5px;">
-                                <div style="display: flex; gap: 10px; justify-content: space-between; align-items: center;">
-                                    <div>
-                                        <label>CONNECT IN</label>
-                                        <input type="text" placeholder="ROOM CODE" id="roomCode" name="roomCode" />
-                                        <div style="display: flex; justify-content: space-between; gap: 5px; margin: 5px 0;">
-                                            <button style="width: 100%;" onclick="setRoomCode && setRoomCode(true)">CONNECT</button>
-                                            <button style="width: 100%;" onclick="setRoomCode && setRoomCode(false)">DISCONNECT</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- TAB 3: HELP (AYNEN) -->
-                    <div id="wx-tab-help" class="wx-tab-content" style="display:none;">
-                        <strong class="sub-title">KEYBOARD</strong>
-                        <div style="padding: 5px; margin-top: 5px; border: #eb991c 1px solid; display: flex;">
-                            <ul>
-                                <li>0 - SHOW/HIDE RECORD HS</li>
-                                <li>1 - SKIN REPLACE</li>
-                                <li>9 - SHOW/HIDE TOP HS</li>
-                                <li>8 - AUTOMATIC LOOP</li>
-                                <li>7 - AUTOMATIC SPIRAL</li>
-                                <li>6 - SHOW/HIDE NAMES TOP(1 SEG RUN)</li>
-                            </ul>
-                            <ul>
-                                <li>5 - RESPAWN</li>
-                                <li>4 - LASER</li>
-                                <li>3 - BACKGROUND</li>
-                                <li>&lt;|, - ZOOM(+ 0.25)</li>
-                                <li>&gt;|. - ZOOM(- 0.25)</li>
-                                <li>Z = ZOOM(1)</li>
-                                <li>C = CLOSE-UP(0.5)</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <!-- TAB 4: CUSTOM (AYNEN) -->
-                    <div id="wx-tab-custom" class="wx-tab-content" style="display:none;">
-                        <div style="display:flex; gap: 15px;">
-                            <div>
-                                <strong class="sub-title">LASER</strong>
-                                <input type="checkbox" id="laser" name="laser" value="laser">
-                                <input type="color" id="color" name="color" value="#ff0000">
-                                <input type="range" id="range" name="range" min="0.1" max="1" step="0.1" value="0.1">
-                                <span id="range-value">0.1</span>
-                            </div>
-                            <div>
-                                <strong class="sub-title">ENEMY NAME COLOR</strong>
-                                <input type="color" id="enemyNameColor" name="enemyNameColor" value="#ff0000">
-                                <input type="number" id="enemyNameFontSize" name="enemyNameFontSize" min="14" max="28" step="1" value="14">
-                            </div>
-                        </div>
-                        <strong class="sub-title">CUSTOMIZE</strong>
-                        <button id="TestAUDIO" onclick="testAudio && testAudio()">Test AUDIO</button>
-                        <button id="clearBackground" onclick="clearBackground && clearBackground()">Clear WALLPAPERS</button>
-                        <button id="clearPosition" onclick="clearMapPosition && clearMapPosition()">Clear Map Position</button>
-                        <button id="clearClock" onclick="clearClock && clearClock()">Clear Map Clock</button>
-                        <button id="clearJoyStick" onclick="clearJoyStick && clearJoyStick()">Clear Joy Stick</button>
-                        <button id="clearBgGame" onclick="clearBgGame && clearBgGame()">Clear Bg GAME</button>
-                    </div>
-                    
-                    <!-- TAB 5: SET ZOOM (AYNEN) -->
-                    <div id="wx-tab-zoom" class="wx-tab-content" style="display:none;">
-                        <div class="set-zoom-wwc">
-                            <div><label>Zoom PC</label><input type="checkbox" id="activeZoom" /></div>
-                            <div><label>Zoom Mobile</label><input type="checkbox" id="activeZoomMobile" /></div>
-                            <div class="szwwc-item"><label>Zoom Limit Down</label><div><input type="range" id="limitDown" min="0.25" max="2" step="0.25" /><span id="limitDownValue"></span></div></div>
-                            <div class="szwwc-item"><label>Zoom +|- step (CAUTION)</label><div><input type="range" id="step" min="0.25" max="2" step="0.25" /><span id="stepValue"></span></div></div>
-                            <div class="szwwc-item"><label>Zoom Keyboard (c or C)</label><div><input type="range" id="closeUp" min="0.25" max="2" step="0.25" /><span id="closeUpValue"></span></div></div>
-                            <div class="szwwc-item"><label>Zoom Keyboard (z or Z)</label><div><input type="range" id="closeDown" min="0.25" max="2" step="0.25" /><span id="closeDownValue"></span></div></div>
-                        </div>
-                    </div>
-                    
-                    <!-- TAB 6: SKIN SWAP (AYNEN) -->
-                    <div id="wx-tab-skinswap" class="wx-tab-content" style="display:none;">
-                        <div class="container-tab7">
-                            <h3>SKINS SELECTEDS</h3>
-                            <ul id="myListSkin"></ul>
-                            <hr />
-                            <button onclick="initTab7 && initTab7()">Reload LIST</button>
-                            <button onclick="cleanTheSkinShed && cleanTheSkinShed()">Clean LIST</button>
-                        </div>
-                    </div>
-                    
-                    <!-- TAB 7: JOYSTICK (AYNEN) -->
-                    <div id="wx-tab-joystick" class="wx-tab-content" style="display:none;">
-                        <div style="padding: 0 0 5px 0; border-bottom: 1px solid #CCC; margin: 0 0 5px 0;">
-                            <div style="display: flex;">
-                                <div><label>Type Button Zoom</label><select id="joystickSelectTypeCurrent"><option value="btn">BUTTON</option><option value="range">RANGE</option></select></div> &nbsp; | &nbsp;
-                                <div><label>Type Name</label><select id="joystickSelectTypeName"><option value="all">all</option><option value="abb">abbreviated</option></select></div>
-                            </div>
-                            <div id="joystickButtons" style="display: flex; margin: 5px 0; justify-content: space-between;"></div>
-                        </div>
-                        PREVIEW
-                        <div class="game-area">
-                            <div class="menu-bar"></div>
-                            <div style="display: flex;">
-                                <div class="slider-container-01">TOUCH DIRECTIONAL</div>
-                                <div class="slider-container-02"><input id="sliderZoom" type="range" min="0.25" max="2" step="0.25" value="1" style="width: 90px;"></div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div><button id="joystickCleanConfig">CLEAN CONFIG</button></div>
-                    </div>
-                    
-                </div>
+    <!-- HESAP TAB -->
+    <div id="xy-settings" class="xy-tab-content" style="display: none;">
+        <h3 style="color: #00ccff; margin-top: 0;">👤 Users Settings</h3>
+        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 15px 0;">
+        
+        <div style="background: rgba(15,15,18,0.8); padding: 20px; border-radius: 12px;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                <label style="font-size: 12px; color: #00ccff; font-weight: bold;">User ID:</label>
+                <input type="text" id="wormate_id" readonly style="flex: 1; padding: 10px; border: 1px solid #00ccff; border-radius: 8px; background: #000; color: #00ccff; font-family: monospace;">
+                <button id="copyIdBtn" style="background: #00ccff; color: #000; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">📋 COPY</button>
+            </div>
+            <hr style="border-color: #333;">
+            <div style="margin-top: 20px;">
+                <label style="color: #00ccff; font-weight: bold;">📁 Skin Dosyası (.json)</label>
+                <input type="file" id="fileSkin" accept=".json" style="width: 100%; margin-top: 10px; padding: 8px; background: #1a1a1f; border: 1px solid #00ccff; border-radius: 6px; color: white;">
+            </div>
+            <div style="margin-top: 20px; display: flex; gap: 10px;">
+                <button id="shareRankBtn" style="background: #ff9900; padding: 10px 15px;">📊 Rank Paylaş</button>
+                <button id="openAccountBtn" style="background: #54fd36; color: #000; padding: 10px 15px;">🔓 Web Hesap Aç</button>
             </div>
         </div>
     </div>
-    `;
 
-    // CSS stilleri (örnekteki stiller aynen)
-    const styleCSS = `
-    <style>
-        .sub-title { font-size: 14px; font-weight: bold; display: block; color: rgb(0, 0, 0); border-bottom: 1px solid; margin: 10px 0; }
-        .wwc-joystick div { min-width: 100px; display: inline-block; }
-        .set-zoom-wwc { display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 1fr); margin-top: 10px; }
-        .szwwc-item { grid-column: 1 / 3; }
-        .szwwc-item label { display: block; }
-        .szwwc-item div { display: flex; align-items: center; }
-        .szwwc-item input[type="range"] { flex: 1; width: 90%; }
-        .game-area { border: 1px solid #CCC; }
-        .menu-bar { width: 100%; display: flex; gap: 10px; justify-content: center; align-content: flex-start; align-items: flex-start; }
-        .slider-container-01 { width: 95%; height: 110px; background: #eee; display: flex; align-content: center; justify-content: center; align-items: center; }
-        .slider-container-02 { width: 5%; display: flex; justify-content: center; }
-        .slider-container-02 input[type="range"] { transform: rotate(270deg); }
-        .tab-button { cursor: pointer; padding: 5px 15px; background-color: #eee; border: 1px solid #ccc; border-radius: 5px 5px 0 0; }
-        .tab-button.active { background-color: #fff; color: #ff0000; }
-        .tab-content { display: none; padding: 5px 10px 0 10px; border-radius: 0 0 5px 5px; }
-        .active-tab { display: block; }
-        .group-tab-button { display: flex; margin-top: 7px; }
-    </style>
-    `;
+    <!-- JOYSTICK TAB -->
+    <div id="xy-joystick" class="xy-tab-content" style="display: none;">
+        <h3 style="color: #00ccff; margin-top: 0;">🕹️ Joystick Settings</h3>
+        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 15px 0;">
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; background: rgba(15,15,18,0.8); padding: 20px; border-radius: 12px;">
+            <div>
+                <label style="font-size: 11px; color: #aaa;">Active</label><br>
+                <input type="checkbox" id="joystick_checked" style="margin-top: 5px;">
+            </div>
+            <div>
+                <label style="font-size: 11px; color: #00ccff;">Color</label>
+                <select id="joystick_color" style="width: 100%; padding: 6px; background: #1a1a1f; border: 1px solid #00ccff; border-radius: 6px; color: white; margin-top: 5px;">
+                    <option value="red">KIRMIZI</option>
+                    <option value="blue">MAVİ</option>
+                    <option value="white">BEYAZ</option>
+                    <option value="black">SİYAH</option>
+                </select>
+            </div>
+            <div>
+                <label style="font-size: 11px; color: #00ccff;">Mode</label>
+                <select id="joystick_mode" style="width: 100%; padding: 6px; background: #1a1a1f; border: 1px solid #00ccff; border-radius: 6px; color: white; margin-top: 5px;">
+                    <option value="dynamic">DYNAMIC</option>
+                    <option value="static">STATIC</option>
+                </select>
+            </div>
+            <div>
+                <label style="font-size: 11px; color: #00ccff;">Position</label>
+                <select id="joystick_position" style="width: 100%; padding: 6px; background: #1a1a1f; border: 1px solid #00ccff; border-radius: 6px; color: white; margin-top: 5px;">
+                    <option value="L">SOL</option>
+                    <option value="R">SAĞ</option>
+                </select>
+            </div>
+            <div>
+                <label style="font-size: 11px; color: #00ccff;">Size</label>
+                <select id="joystick_size" style="width: 100%; padding: 6px; background: #1a1a1f; border: 1px solid #00ccff; border-radius: 6px; color: white; margin-top: 5px;">
+                    <option value="70">70px</option>
+                    <option value="80">80px</option>
+                    <option value="90">90px</option>
+                    <option value="100">100px</option>
+                    <option value="110">110px</option>
+                </select>
+            </div>
+        </div>
+    </div>
 
-    // Paneli aç
-    window.openWormXoSettings = function() {
-        if($("#wwc-set-view").length === 0) {
-            $("body").append('<div id="wwc-set-view" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;background:rgba(0,0,0,0.8);display:none;"></div>');
-        }
+    <!-- ZOOM TAB -->
+    <div id="xy-zoom" class="xy-tab-content" style="display: none;">
+        <h3 style="color: #00ccff; margin-top: 0;">🔍 Zoom Settings</h3>
+        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 15px 0;">
         
-        // CSS'i ekle
-        if($("#wwc-panel-style").length === 0) $("head").append(styleCSS);
+        <div style="background: rgba(15,15,18,0.8); padding: 20px; border-radius: 12px;">
+            <div style="display: flex; gap: 30px; margin-bottom: 20px;">
+                <div><label>Zoom PC</label><br><input type="checkbox" id="activeZoom" style="margin-top: 5px;"></div>
+                <div><label>Zoom Mobile</label><br><input type="checkbox" id="activeZoomMobile" style="margin-top: 5px;"></div>
+            </div>
+            <div style="margin-top: 15px;">
+                <label>Zoom Limit Down: <span id="limitDownValue" style="color:#0ff;">0.25</span></label>
+                <input type="range" id="limitDown" min="0.25" max="2" step="0.25" style="width: 100%; margin-top: 5px;">
+            </div>
+            <div style="margin-top: 15px;">
+                <label>Zoom Step: <span id="stepValue" style="color:#0ff;">0.25</span></label>
+                <input type="range" id="step" min="0.25" max="2" step="0.25" style="width: 100%; margin-top: 5px;">
+            </div>
+            <div style="margin-top: 15px;">
+                <label>C tuşu (Close-Up): <span id="closeUpValue" style="color:#0ff;">0.5</span></label>
+                <input type="range" id="closeUp" min="0.25" max="2" step="0.25" style="width: 100%; margin-top: 5px;">
+            </div>
+            <div style="margin-top: 15px;">
+                <label>Z tuşu (Normal): <span id="closeDownValue" style="color:#0ff;">1</span></label>
+                <input type="range" id="closeDown" min="0.25" max="2" step="0.25" style="width: 100%; margin-top: 5px;">
+            </div>
+        </div>
+    </div>
+
+    <!-- ÖZEL TAB -->
+    <div id="xy-custom" class="xy-tab-content" style="display: none;">
+        <h3 style="color: #00ccff; margin-top: 0;">🎨 Custom Settings</h3>
+        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 15px 0;">
         
-        $("#wwc-set-view").html(panelHTML).fadeIn(200);
-        isPanelOpen = true;
+        <div style="background: rgba(15,15,18,0.8); padding: 20px; border-radius: 12px;">
+            <div><label>🔫 Laser Active</label> <input type="checkbox" id="laser" style="margin-left: 10px;"></div>
+            <div style="margin-top: 15px;"><label>🎨 Laser Color</label> <input type="color" id="laserColor" value="#ff0000" style="margin-left: 10px;"></div>
+            <div style="margin-top: 15px;"><label>📏 Laser Thickness</label> <input type="range" id="range" min="0.1" max="1" step="0.1" style="width: 200px; margin-left: 10px;"> <span id="range-value" style="color:#0ff;">0.1</span></div>
+            <div style="margin-top: 15px;"><label>👥 Enemy Name Color</label> <input type="color" id="enemyNameColor" value="#ff0000" style="margin-left: 10px;"></div>
+            <div style="margin-top: 15px;"><label>🔤 Enemy Name Font Size</label> <input type="number" id="enemyNameFontSize" min="14" max="28" value="14" style="width: 80px; margin-left: 10px;"></div>
+            <hr>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+                <button id="clearBackgroundBtn" style="background: #ff6600; padding: 8px 15px;">🗑️ Clear Wallpapers</button>
+                <button id="clearPositionBtn" style="background: #ff6600; padding: 8px 15px;">🗑️ Clear Map Position</button>
+                <button id="clearClockBtn" style="background: #ff6600; padding: 8px 15px;">🗑️ Clear Clock</button>
+                <button id="clearJoyStickBtn" style="background: #ff6600; padding: 8px 15px;">🗑️ Clear Joystick</button>
+                <button id="clearBgGameBtn" style="background: #ff6600; padding: 8px 15px;">🗑️ Clear Bg Game</button>
+                <button id="testAudioBtn" style="background: #00ccff; color: #000; padding: 8px 15px;">🔊 Test AUDIO</button>
+                <button id="resetSettingsBtn" style="background: #ff4444; padding: 8px 15px;">🔄 Tüm Ayarları Sıfırla</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SKIN SWAP TAB -->
+    <div id="xy-skinedit" class="xy-tab-content" style="display: none;">
+        <h3 style="color: #00ccff; margin-top: 0;">🔄 Skin Swap Listesi</h3>
+        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 15px 0;">
         
-        // Tab geçişleri
-        $(".wx-tab-btn").click(function() {
-            var tab = $(this).data("tab");
-            $(".wx-tab-btn").removeClass("active");
-            $(this).addClass("active");
-            $(".wx-tab-btn").css("background", "#e0e0e0").css("color", "#333");
-            $(this).css("background", "#ff4444").css("color", "#fff");
-            $(".wx-tab-content").hide();
-            $("#wx-tab-" + tab).show();
-        });
+        <div style="background: rgba(15,15,18,0.8); padding: 20px; border-radius: 12px;">
+            <ul id="myListSkin" style="margin: 15px 0; list-style: none; max-height: 300px; overflow-y: auto;"></ul>
+            <div style="display: flex; gap: 10px;">
+                <button id="reloadSkinList" style="background: #00ccff; color: #000; padding: 8px 15px;">⟳ Yenile Liste</button>
+                <button id="cleanSkinShed" style="background: #ff4444; padding: 8px 15px;">🗑️ Tümünü Temizle</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- YARDIM TAB -->
+    <div id="xy-help" class="xy-tab-content" style="display: none;">
+        <h3 style="color: #00ccff; margin-top: 0;">❌ Yardım & Kısayollar</h3>
+        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 15px 0;">
         
-        // Kapatma
-        $("#mm-wwc-close, #wwc-set-view").click(function(e) {
-            if(e.target.id === "wwc-set-view" || e.target.id === "mm-wwc-close") {
-                $("#wwc-set-view").fadeOut(200);
-                isPanelOpen = false;
-            }
-        });
-    };
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; background: rgba(15,15,18,0.8); padding: 20px; border-radius: 12px;">
+            <div><strong style="color:#0ff;">0</strong> - SHOW/HIDE RECORD HS</div>
+            <div><strong style="color:#0ff;">1</strong> - SKIN REPLACE</div>
+            <div><strong style="color:#0ff;">9</strong> - SHOW/HIDE TOP HS</div>
+            <div><strong style="color:#0ff;">8</strong> - AUTOMATIC LOOP</div>
+            <div><strong style="color:#0ff;">7</strong> - AUTOMATIC SPIRAL</div>
+            <div><strong style="color:#0ff;">6</strong> - SHOW/HIDE NAMES</div>
+            <div><strong style="color:#0ff;">5</strong> - RESPAWN</div>
+            <div><strong style="color:#0ff;">4</strong> - LASER</div>
+            <div><strong style="color:#0ff;">3</strong> - BACKGROUND</div>
+            <div><strong style="color:#0ff;">&lt; ,</strong> - ZOOM(+ 0.25)</div>
+            <div><strong style="color:#0ff;">&gt; .</strong> - ZOOM(- 0.25)</div>
+            <div><strong style="color:#0ff;">Z</strong> - ZOOM(1)</div>
+            <div><strong style="color:#0ff;">C</strong> - CLOSE-UP(0.5)</div>
+        </div>
+    </div>
+
+  </div>
+</div>
+    `;
     
-    // Menüye buton ekle
-    $(document).ready(function() {
-        if($("#mm-wwc").length === 0 && $("#main-menu-view").length) {
-            $("#main-menu-view .line-bottom").append('<button id="mm-wwc" style="background:#ff4444;color:#fff;border:none;border-radius:5px;padding:10px 20px;margin:5px;cursor:pointer;font-weight:bold;">⚡ WormXo</button>');
-        }
-        $("#mm-wwc").off().click(openWormXoSettings);
+    $("#wwc-set-view").html(panelHTML).fadeIn(300);
+    
+    // ============ TÜM EVENTLER ============
+    
+    // Tab geçişleri
+    $(".xy-tab-btn").click(function() {
+        var tabId = $(this).data("tab");
+        $(".xy-tab-btn").css({background: "transparent", color: "#ccc", border: "1px solid #444"});
+        $(this).css({background: "rgba(0,204,255,0.2)", color: "#00ccff", border: "1px solid #00ccff"});
+        $(".xy-tab-content").hide();
+        $("#" + tabId).fadeIn(200);
     });
-})();    var vF81 = function f81(p234) {
+    
+    // Kapat
+    $("#mm-wwc-close").click(function() {
+        $("#wwc-set-view").fadeOut(300);
+    });
+    
+    // ID Doldur
+    if(bbs && bbs.userId) $("#wormate_id").val(bbs.userId);
+    $("#copyIdBtn").click(() => { navigator.clipboard.writeText($("#wormate_id").val()); alert("ID Kopyalandı!"); });
+    
+    // Değerleri yükle
+    $("#sel_top").val(bbs.lr || 10);
+    $("#zigzag_mode").val(bbs.flx || 0);
+    $("#hudPositionMode").val(bbs.hudSettings?.mode || 0);
+    $("#saveGame").prop("checked", bbs.saveGame || false);
+    $("#activeSounds").prop("checked", bbs.activeSounds2 || false);
+    $("#activeBadLang").prop("checked", bbs.activeBadLang || false);
+    $("#inputReplaceSkin").val(bbs.idReplaceSkin || 35);
+    
+    // Joystick
+    if(!bbs.joystick) bbs.joystick = {};
+    $("#joystick_checked").prop("checked", bbs.joystick.checked !== false);
+    $("#joystick_color").val(bbs.joystick.color || "red");
+    $("#joystick_mode").val(bbs.joystick.mode || "dynamic");
+    $("#joystick_position").val(bbs.joystick.positionMode || "L");
+    $("#joystick_size").val(bbs.joystick.size || 100);
+    
+    // Zoom
+    if(!bbs.configZoom) bbs.configZoom = {};
+    $("#activeZoom").prop("checked", bbs.activeZoom || false);
+    $("#activeZoomMobile").prop("checked", bbs.activeZoomMobile || false);
+    $("#limitDown").val(bbs.configZoom.limitDown || 0.25);
+    $("#step").val(bbs.configZoom.step || 0.25);
+    $("#closeUp").val(bbs.configZoom.closeUp || 0.5);
+    $("#closeDown").val(bbs.configZoom.closeDown || 1);
+    $("#limitDownValue").text(bbs.configZoom.limitDown || 0.25);
+    $("#stepValue").text(bbs.configZoom.step || 0.25);
+    $("#closeUpValue").text(bbs.configZoom.closeUp || 0.5);
+    $("#closeDownValue").text(bbs.configZoom.closeDown || 1);
+    
+    // Laser
+    $("#laser").prop("checked", bbs.laserActive || false);
+    $("#laserColor").val(bbs.laserColor || "#ff0000");
+    $("#range").val(bbs.laser || 0.1);
+    $("#range-value").text(bbs.laser || 0.1);
+    $("#enemyNameColor").val(bbs.enemyNameColor || "#ff0000");
+    $("#enemyNameFontSize").val(bbs.enemyNameFontSize || 14);
+    
+    // Background doldur
+    if(window.backgroundArena) {
+        for(var i=0; i<backgroundArena.length; i++) {
+            $("#backgroundArena").append('<option value="'+i+'">'+backgroundArena[i].nome+'</option>');
+        }
+        $("#backgroundArena").val(bbs.background || 0);
+    }
+    
+    // Skin swap list
+    function updateSkinList() {
+        var list = $("#myListSkin").empty();
+        if(!bbs.cambiar || Object.keys(bbs.cambiar).length === 0) {
+            list.html("<li style='color:#888;'>Hiç skin swap yok</li>");
+        } else {
+            for(var key in bbs.cambiar) {
+                list.append("<li style='color:#0ff; margin:5px 0;'>🔹 " + bbs.cambiar[key] + "</li>");
+            }
+        }
+    }
+    updateSkinList();
+    
+    // Kaydetme fonksiyonu
+    function saveWX() {
+        localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+    }
+    
+    // Event listener'lar
+    $("#sel_top").change(function() { bbs.lr = parseInt($(this).val()); saveWX(); });
+    $("#zigzag_mode").change(function() { bbs.flx = parseInt($(this).val()); saveWX(); });
+    $("#hudPositionMode").change(function() { if(!bbs.hudSettings) bbs.hudSettings={}; bbs.hudSettings.mode = parseInt($(this).val()); saveWX(); });
+    $("#saveGame").change(function() { bbs.saveGame = $(this).prop("checked"); saveWX(); });
+    $("#activeSounds").change(function() { bbs.activeSounds2 = $(this).prop("checked"); saveWX(); });
+    $("#activeBadLang").change(function() { bbs.activeBadLang = $(this).prop("checked"); saveWX(); });
+    $("#inputReplaceSkin").change(function() { bbs.idReplaceSkin = parseInt($(this).val()); saveWX(); });
+    $("#backgroundArena").change(function() { bbs.background = parseInt($(this).val()); bbs.backgroundUri = null; saveWX(); });
+    
+    $("#joystick_checked").change(function() { bbs.joystick.checked = $(this).prop("checked"); saveWX(); });
+    $("#joystick_color").change(function() { bbs.joystick.color = $(this).val(); saveWX(); });
+    $("#joystick_mode").change(function() { bbs.joystick.mode = $(this).val(); saveWX(); });
+    $("#joystick_position").change(function() { bbs.joystick.positionMode = $(this).val(); saveWX(); });
+    $("#joystick_size").change(function() { bbs.joystick.size = $(this).val(); saveWX(); });
+    
+    $("#activeZoom").change(function() { bbs.activeZoom = $(this).prop("checked"); saveWX(); });
+    $("#activeZoomMobile").change(function() { bbs.activeZoomMobile = $(this).prop("checked"); saveWX(); });
+    
+    $("#limitDown, #step, #closeUp, #closeDown").on("input", function() {
+        var id = $(this).attr("id");
+        var val = parseFloat($(this).val());
+        bbs.configZoom[id] = val;
+        $("#" + id + "Value").text(val);
+        saveWX();
+    });
+    
+    $("#laser").change(function() { bbs.laserActive = $(this).prop("checked"); saveWX(); });
+    $("#laserColor").on("input", function() { bbs.laserColor = $(this).val(); saveWX(); });
+    $("#range").on("input", function() { var v = parseFloat($(this).val()).toFixed(1); $("#range-value").text(v); bbs.laser = v; saveWX(); });
+    $("#enemyNameColor").on("input", function() { bbs.enemyNameColor = $(this).val(); saveWX(); });
+    $("#enemyNameFontSize").change(function() { bbs.enemyNameFontSize = parseInt($(this).val()); saveWX(); });
+    
+    // Temizleme butonları
+    $("#clearBackgroundBtn").click(() => { bbs.backgroundUri = null; bbs.background = 0; saveWX(); alert("Arkaplan temizlendi!"); });
+    $("#clearPositionBtn").click(() => { if(bbs.display) bbs.display.custom = false; saveWX(); alert("Pozisyon sıfırlandı!"); });
+    $("#clearClockBtn").click(() => { bbs.display = bbs.display || {}; bbs.display.customClock = null; saveWX(); alert("Saat temizlendi!"); });
+    $("#clearJoyStickBtn").click(() => { bbs.customJoystick = null; saveWX(); alert("Joystick sıfırlandı!"); });
+    $("#clearBgGameBtn").click(() => { bbs.background = null; bbs.backgroundIsCustom = false; saveWX(); alert("Oyun arkaplanı temizlendi!"); });
+    $("#testAudioBtn").click(() => { if(window.testAudioCustom) testAudioCustom(); else alert("Ses testi"); });
+    $("#resetSettingsBtn").click(() => { if(confirm("Tüm ayarlar sıfırlansın?")) { localStorage.removeItem("wwcSaveGame"); location.reload(); } });
+    
+    $("#reloadSkinList").click(updateSkinList);
+    $("#cleanSkinShed").click(() => { bbs.cambiar = {}; saveWX(); updateSkinList(); alert("Skin swap temizlendi!"); });
+    
+    // File upload
+    $("#fileSkin").change(function(e) {
+        var reader = new FileReader();
+        reader.onload = function(ev) {
+            try {
+                var t = JSON.parse(ev.target.result);
+                if(t.wear) { localStorage.setItem("custom_wormworld_wear", ev.target.result); alert("WEAR yüklendi!"); location.reload(); }
+                else if(t.skin) { localStorage.setItem("custom_wormworld_skin", ev.target.result); alert("SKIN yüklendi!"); location.reload(); }
+                else alert("Geçersiz dosya!");
+            } catch(e) { alert("Hatalı JSON!"); }
+        };
+        reader.readAsText(e.target.files[0]);
+    });
+    
+    $("#shareRankBtn").click(() => { if(confirm("Rank paylaşımını aç?")) fetch("https://gateway.wormate.io/pub/wuid/" + bbs.wuid + "/consent/change?value=true").then(() => alert("Açıldı!")); });
+    $("#openAccountBtn").click(() => { window.open("https://wormworld.io/admin?page=login&token=" + (bbs.tk || ""), "_blank"); });
+}
+
+// Buton ile açmak için
+$(document).ready(function() {
+    // Ana menüye buton ekle
+    if($("#mm-wwc").length === 0 && $("#main-menu-view").length) {
+        $("#main-menu-view .line-bottom").append('<button id="mm-wwc" style="background:#00ccff;color:#fff;border:none;border-radius:5px;padding:10px 20px;margin:5px;cursor:pointer;font-weight:bold;">⚡ WORM JKR</button>');
+    }
+    $("#mm-wwc").off().click(openWormJKRSettings);
+});
+    var vF81 = function f81(p234) {
       if (bbs.PropertyManager) {
         if (bbs.PropertyManager.lj) {
           p234.skinId = bbs.PropertyManager.lj;
