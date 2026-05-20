@@ -2413,7 +2413,18 @@ btn.onclick = () => {
         </style>
     </div>
 `);
-
+function openPopup() {
+  var v762 = document.getElementById("popup");
+  var v763 = document.getElementById("overlay");
+  v762.style.display = "block";
+  v763.style.display = "block";
+}
+function closePopup() {
+  var v764 = document.getElementById("popup");
+  var v765 = document.getElementById("overlay");
+  v764.style.display = "none";
+  v765.style.display = "none";
+}
     $(".store-view-cont").append("<div id=\"idReplaceSkin\"></div>");
     $(".wear-view-cont").append("<div id=\"idWearViewCont\"></div>");
     var vLSDisplaynonepositionr = "display:none;position:relative;background:#FFF;padding:15px;max-width:680px;margin:10px auto;";
