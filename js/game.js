@@ -2205,7 +2205,7 @@ $("<button type='button' id='op_jkr' style='background:#00ccff;color:#fff;border
         if($("#custom-wormx-panel").length === 0) {
             $("body").append(`
                 <div id="custom-wormx-panel" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:99999;display:flex;align-items:center;justify-content:center;overflow:auto;">
-                    <div style="background:#0a0f1e;width:95%;max-width:600px;border-radius:20px;padding:25px;border:1px solid #0ff;max-height:90%;overflow-y:auto;">
+                    <div style="background:#0a0f1e;width:95%;max-width:700px;border-radius:20px;padding:25px;border:1px solid #0ff;max-height:90%;overflow-y:auto;">
                         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
                             <h2 style="color:#0ff;margin:0;">⚡ WORMXO PANEL</h2>
                             <button id="wx-close" style="background:#ff3366;border:none;color:white;padding:8px 16px;border-radius:10px;cursor:pointer;">✕ KAPAT</button>
@@ -2236,19 +2236,45 @@ $("<button type='button' id='op_jkr' style='background:#00ccff;color:#fff;border
                         <!-- Arkaplan ve Zigzag -->
                         <div style="margin:15px 0;background:#1a1f2e;padding:15px;border-radius:12px;">
                             <label style="color:#0ff;">🌍 ARKAPLAN</label>
-                            <select id="wx-bg" style="width:100%;padding:8px;margin-top:5px;border-radius:8px;"></select>
+                            <select id="wx-bg" style="width:100%;padding:8px;margin-top:5px;border-radius:8px;background:#0a0f1e;color:white;border:1px solid #0ff;"></select>
                             
                             <label style="color:#0ff;margin-top:15px;">🐍 ZIGZAG MOD</label>
-                            <select id="wx-zigzag" style="width:100%;padding:8px;margin-top:5px;border-radius:8px;">
-                                <option value="0">None</option><option value="1">Zigzag 1</option>
-                                <option value="2">Zigzag 2</option><option value="3">Zigzag 3</option>
+                            <select id="wx-zigzag" style="width:100%;padding:8px;margin-top:5px;border-radius:8px;background:#0a0f1e;color:white;border:1px solid #0ff;">
+                                <option value="0">None</option>
+                                <option value="1">Zigzag 1</option>
+                                <option value="2">Zigzag 2</option>
+                                <option value="3">Zigzag 3</option>
+                            </select>
+                            
+                            <label style="color:#0ff;margin-top:15px;">📺 EKRAN MODU</label>
+                            <select id="wx-hud" style="width:100%;padding:8px;margin-top:5px;border-radius:8px;background:#0a0f1e;color:white;border:1px solid #0ff;">
+                                <option value="0">100%</option>
+                                <option value="1">75%</option>
+                                <option value="2">Center</option>
                             </select>
                         </div>
                         
                         <!-- Skin Replace -->
                         <div style="margin:15px 0;background:#1a1f2e;padding:15px;border-radius:12px;">
                             <label style="color:#0ff;">🔄 SKIN REPLACE ID</label>
-                            <input type="number" id="wx-replaceskin" style="width:100%;padding:8px;margin-top:5px;border-radius:8px;" value="${bbs.idReplaceSkin || 35}">
+                            <input type="number" id="wx-replaceskin" style="width:100%;padding:8px;margin-top:5px;border-radius:8px;background:#0a0f1e;color:white;border:1px solid #0ff;" value="${bbs.idReplaceSkin || 35}">
+                        </div>
+                        
+                        <!-- Zoom Ayarları -->
+                        <div style="margin:15px 0;background:#1a1f2e;padding:15px;border-radius:12px;">
+                            <label style="color:#0ff;">🔍 ZOOM AYARLARI</label>
+                            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px;">
+                                <div><input type="checkbox" id="wx-zoom-pc"> <label>Zoom PC</label></div>
+                                <div><input type="checkbox" id="wx-zoom-mobile"> <label>Zoom Mobile</label></div>
+                            </div>
+                            <div style="margin-top:10px;">
+                                <label>Min Zoom: <span id="wx-limit-val" style="color:#0ff;">0.25</span></label>
+                                <input type="range" id="wx-limit-down" min="0.25" max="2" step="0.25" style="width:100%;">
+                            </div>
+                            <div style="margin-top:10px;">
+                                <label>Zoom Adımı: <span id="wx-step-val" style="color:#0ff;">0.25</span></label>
+                                <input type="range" id="wx-step" min="0.25" max="2" step="0.25" style="width:100%;">
+                            </div>
                         </div>
                         
                         <!-- Joystick -->
@@ -2257,29 +2283,56 @@ $("<button type='button' id='op_jkr' style='background:#00ccff;color:#fff;border
                             <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px;">
                                 <div><input type="checkbox" id="wx-js-active"> <label>Aktif</label></div>
                                 <div>
-                                    <select id="wx-js-color" style="padding:5px;">
-                                        <option value="red">Kırmızı</option><option value="blue">Mavi</option>
-                                        <option value="white">Beyaz</option><option value="black">Siyah</option>
+                                    <select id="wx-js-color" style="padding:5px;background:#0a0f1e;color:white;border:1px solid #0ff;">
+                                        <option value="red">Kırmızı</option>
+                                        <option value="blue">Mavi</option>
+                                        <option value="white">Beyaz</option>
+                                        <option value="black">Siyah</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <select id="wx-js-position" style="padding:5px;">
-                                        <option value="L">Sol</option><option value="R">Sağ</option>
+                                    <select id="wx-js-position" style="padding:5px;background:#0a0f1e;color:white;border:1px solid #0ff;">
+                                        <option value="L">Sol</option>
+                                        <option value="R">Sağ</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <select id="wx-js-size" style="padding:5px;">
-                                        <option value="80">80px</option><option value="100">100px</option>
-                                        <option value="120">120px</option>
+                                    <select id="wx-js-size" style="padding:5px;background:#0a0f1e;color:white;border:1px solid #0ff;">
+                                        <option value="70">70px</option>
+                                        <option value="80">80px</option>
+                                        <option value="90">90px</option>
+                                        <option value="100">100px</option>
+                                        <option value="110">110px</option>
                                     </select>
                                 </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Laser ve Renkler -->
+                        <div style="margin:15px 0;background:#1a1f2e;padding:15px;border-radius:12px;">
+                            <label style="color:#0ff;">🎨 LAZER & RENKLER</label>
+                            <div style="margin-top:10px;">
+                                <div><input type="checkbox" id="wx-laser"> <label>Laser Aktif</label></div>
+                                <div style="margin-top:10px;"><label>Laser Rengi:</label> <input type="color" id="wx-laser-color" value="#ff0000" style="margin-left:10px;"></div>
+                                <div style="margin-top:10px;"><label>Düşman Rengi:</label> <input type="color" id="wx-enemy-color" value="#ff0000" style="margin-left:10px;"></div>
                             </div>
                         </div>
                         
                         <!-- Skin Yükle -->
                         <div style="margin:15px 0;background:#1a1f2e;padding:15px;border-radius:12px;">
                             <label style="color:#0ff;">📁 SKIN YÜKLE (.json)</label>
-                            <input type="file" id="wx-skinfile" accept=".json" style="width:100%;margin-top:5px;">
+                            <input type="file" id="wx-skinfile" accept=".json" style="width:100%;margin-top:5px;padding:8px;background:#0a0f1e;color:white;border:1px solid #0ff;border-radius:8px;">
+                        </div>
+                        
+                        <!-- Temizleme Butonları -->
+                        <div style="margin:15px 0;background:#1a1f2e;padding:15px;border-radius:12px;">
+                            <label style="color:#0ff;">🧹 TEMİZLEME</label>
+                            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px;">
+                                <button id="wx-clear-bg" style="background:#ff6600;border:none;padding:8px;border-radius:8px;cursor:pointer;">Arkaplan Temizle</button>
+                                <button id="wx-clear-pos" style="background:#ff6600;border:none;padding:8px;border-radius:8px;cursor:pointer;">Pozisyon Sıfırla</button>
+                                <button id="wx-clear-js" style="background:#ff6600;border:none;padding:8px;border-radius:8px;cursor:pointer;">Joystick Sıfırla</button>
+                                <button id="wx-test-audio" style="background:#00ccff;border:none;padding:8px;border-radius:8px;cursor:pointer;">🔊 Test Ses</button>
+                            </div>
                         </div>
                         
                         <button id="wx-reset" style="background:#ff9900;border:none;padding:10px;width:100%;margin-top:10px;border-radius:8px;cursor:pointer;">🔄 TÜM AYARLARI SIFFIRLA</button>
@@ -2287,7 +2340,7 @@ $("<button type='button' id='op_jkr' style='background:#00ccff;color:#fff;border
                 </div>
             `);
             
-            // Değerleri yükle
+            // ============ DEĞERLERİ YÜKLE ============
             $("#wx-savegame").prop("checked", bbs.saveGame || false);
             $("#wx-tophs").prop("checked", bbs.showTophs || false);
             $("#wx-rechs").prop("checked", bbs.showRechs || false);
@@ -2296,10 +2349,28 @@ $("<button type='button' id='op_jkr' style='background:#00ccff;color:#fff;border
             $("#wx-badlang").prop("checked", bbs.activeBadLang || false);
             $("#wx-zigzag").val(bbs.flx || 0);
             $("#wx-replaceskin").val(bbs.idReplaceSkin || 35);
-            $("#wx-js-active").prop("checked", bbs.joystick?.checked !== false);
-            $("#wx-js-color").val(bbs.joystick?.color || "red");
-            $("#wx-js-position").val(bbs.joystick?.positionMode || "L");
-            $("#wx-js-size").val(bbs.joystick?.size || 100);
+            $("#wx-hud").val(bbs.hudSettings?.mode || 0);
+            
+            // Zoom
+            if(!bbs.configZoom) bbs.configZoom = {};
+            $("#wx-zoom-pc").prop("checked", bbs.activeZoom || false);
+            $("#wx-zoom-mobile").prop("checked", bbs.activeZoomMobile || false);
+            $("#wx-limit-down").val(bbs.configZoom.limitDown || 0.25);
+            $("#wx-limit-val").text(bbs.configZoom.limitDown || 0.25);
+            $("#wx-step").val(bbs.configZoom.step || 0.25);
+            $("#wx-step-val").text(bbs.configZoom.step || 0.25);
+            
+            // Joystick
+            if(!bbs.joystick) bbs.joystick = {};
+            $("#wx-js-active").prop("checked", bbs.joystick.checked !== false);
+            $("#wx-js-color").val(bbs.joystick.color || "red");
+            $("#wx-js-position").val(bbs.joystick.positionMode || "L");
+            $("#wx-js-size").val(bbs.joystick.size || 100);
+            
+            // Laser
+            $("#wx-laser").prop("checked", bbs.laserActive || false);
+            $("#wx-laser-color").val(bbs.laserColor || "#ff0000");
+            $("#wx-enemy-color").val(bbs.enemyNameColor || "#ff0000");
             
             // Background doldur
             if(window.backgroundArena) {
@@ -2309,10 +2380,16 @@ $("<button type='button' id='op_jkr' style='background:#00ccff;color:#fff;border
                 $("#wx-bg").val(bbs.background || 0);
             }
             
-            // Eventler
-            $("#wx-copy").click(() => { navigator.clipboard.writeText(bbs.userId); alert("ID Kopyalandı!"); });
+            // ============ KAYDETME FONKSİYONU ============
+            function saveWX() {
+                localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+            }
+            
+            // ============ EVENT LISTENER'LAR ============
+            $("#wx-copy").click(() => { navigator.clipboard.writeText(bbs.userId); alert("ID Kopyalandı: " + bbs.userId); });
             $("#wx-close").click(() => $("#custom-wormx-panel").remove());
             
+            // Genel ayarlar
             $("#wx-savegame").change(function() { bbs.saveGame = $(this).prop("checked"); saveWX(); });
             $("#wx-tophs").change(function() { bbs.showTophs = $(this).prop("checked"); saveWX(); });
             $("#wx-rechs").change(function() { bbs.showRechs = $(this).prop("checked"); saveWX(); });
@@ -2322,38 +2399,58 @@ $("<button type='button' id='op_jkr' style='background:#00ccff;color:#fff;border
             $("#wx-bg").change(function() { bbs.background = parseInt($(this).val()); bbs.backgroundUri = null; saveWX(); });
             $("#wx-zigzag").change(function() { bbs.flx = parseInt($(this).val()); saveWX(); });
             $("#wx-replaceskin").change(function() { bbs.idReplaceSkin = parseInt($(this).val()); saveWX(); });
+            $("#wx-hud").change(function() { if(!bbs.hudSettings) bbs.hudSettings = {}; bbs.hudSettings.mode = parseInt($(this).val()); saveWX(); });
+            
+            // Zoom
+            $("#wx-zoom-pc").change(function() { bbs.activeZoom = $(this).prop("checked"); saveWX(); });
+            $("#wx-zoom-mobile").change(function() { bbs.activeZoomMobile = $(this).prop("checked"); saveWX(); });
+            $("#wx-limit-down").on("input", function() { var v = parseFloat($(this).val()); $("#wx-limit-val").text(v); if(!bbs.configZoom) bbs.configZoom = {}; bbs.configZoom.limitDown = v; saveWX(); });
+            $("#wx-step").on("input", function() { var v = parseFloat($(this).val()); $("#wx-step-val").text(v); if(!bbs.configZoom) bbs.configZoom = {}; bbs.configZoom.step = v; saveWX(); });
+            
+            // Joystick
             $("#wx-js-active").change(function() { if(!bbs.joystick) bbs.joystick = {}; bbs.joystick.checked = $(this).prop("checked"); saveWX(); });
             $("#wx-js-color").change(function() { if(!bbs.joystick) bbs.joystick = {}; bbs.joystick.color = $(this).val(); saveWX(); });
             $("#wx-js-position").change(function() { if(!bbs.joystick) bbs.joystick = {}; bbs.joystick.positionMode = $(this).val(); saveWX(); });
             $("#wx-js-size").change(function() { if(!bbs.joystick) bbs.joystick = {}; bbs.joystick.size = $(this).val(); saveWX(); });
             
+            // Laser
+            $("#wx-laser").change(function() { bbs.laserActive = $(this).prop("checked"); saveWX(); });
+            $("#wx-laser-color").on("input", function() { bbs.laserColor = $(this).val(); saveWX(); });
+            $("#wx-enemy-color").on("input", function() { bbs.enemyNameColor = $(this).val(); saveWX(); });
+            
+            // Temizleme butonları
+            $("#wx-clear-bg").click(() => { bbs.backgroundUri = null; bbs.background = 0; saveWX(); alert("Arkaplan temizlendi!"); });
+            $("#wx-clear-pos").click(() => { if(bbs.display) bbs.display.custom = false; saveWX(); alert("Pozisyon sıfırlandı!"); });
+            $("#wx-clear-js").click(() => { bbs.customJoystick = null; saveWX(); alert("Joystick sıfırlandı!"); });
+            $("#wx-test-audio").click(() => { if(window.testAudioCustom) testAudioCustom(); else alert("Ses testi"); });
+            
+            // Skin yükleme
             $("#wx-skinfile").change(function(e) {
                 var reader = new FileReader();
                 reader.onload = function(ev) {
                     try {
                         var t = JSON.parse(ev.target.result);
-                        if(t.wear) { localStorage.setItem("custom_wormworld_wear", ev.target.result); alert("WEAR yüklendi!"); location.reload(); }
-                        else if(t.skin) { localStorage.setItem("custom_wormworld_skin", ev.target.result); alert("SKIN yüklendi!"); location.reload(); }
-                        else alert("Geçersiz dosya!");
-                    } catch(e) { alert("Hatalı JSON!"); }
+                        if(t.wear) { localStorage.setItem("custom_wormworld_wear", ev.target.result); alert("WEAR yüklendi! Sayfa yenilenecek."); location.reload(); }
+                        else if(t.skin) { localStorage.setItem("custom_wormworld_skin", ev.target.result); alert("SKIN yüklendi! Sayfa yenilenecek."); location.reload(); }
+                        else alert("Geçersiz dosya! SKIN veya WEAR formatında olmalı.");
+                    } catch(e) { alert("Hatalı JSON dosyası!"); }
                 };
                 reader.readAsText(e.target.files[0]);
             });
             
+            // Tüm ayarları sıfırla
             $("#wx-reset").click(function() {
-                if(confirm("Tüm ayarlar sıfırlansın?")) {
+                if(confirm("TÜM AYARLAR SIFIRLANSIN MI?\nBu işlem geri alınamaz!")) {
                     localStorage.removeItem("wwcSaveGame");
+                    alert("Ayarlar sıfırlandı! Sayfa yenileniyor...");
                     location.reload();
                 }
             });
             
-            function saveWX() {
-                localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
-            }
         } else {
             $("#custom-wormx-panel").show();
         }
-    });  
+    });
     $(".store-view-cont").append("<div id=\"idReplaceSkin\"></div>");
     $(".wear-view-cont").append("<div id=\"idWearViewCont\"></div>");
     var vLSDisplaynonepositionr = "display:none;position:relative;background:#FFF;padding:15px;max-width:680px;margin:10px auto;";
