@@ -2202,314 +2202,171 @@ $("<button type='button' id='op_jkr' style='background:#00ccff;color:#fff;border
         e.preventDefault();
         e.stopPropagation();
         
-        if($("#wwc-set-view").length === 0) {
+        if($("#custom-wormx-panel").length === 0) {
             $("body").append(`
-<div id="wwc-set-view" style="position: relative; display: flex; min-height: 400px; background: linear-gradient(135deg, #2c2c34 0%, #1a1a1f 100%); border-radius: 22px; overflow: hidden; font-family: 'Segoe UI', sans-serif; color: #fff; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-
-  <div id="wormxy-sidebar" style="width: 180px; background: #00000066; border-right: 1px solid rgba(0, 200, 255, 0.2); padding: 15px; display: flex; flex-direction: column; gap: 10px;">
-    <div style="text-align: center; margin-bottom: 15px;">
-        <span style="color: #00ccff; font-weight: bold; font-size: 16px; text-shadow: 0 0 10px #00ccff;">SEKO XY</span>
-    </div>
-    <button class="xy-tab-btn" data-tab="xy-systems" style="background: rgba(0,204,255,0.1); color: #00ccff; border: 1px solid #00ccff; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: bold;">Main Settings</button>
-    <button class="xy-tab-btn" data-tab="xy-settings" style="background: transparent; color: #ccc; border: 1px solid #444; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: bold;">Users Settings</button>
-    <button class="xy-tab-btn" data-tab="xy-joystick" style="background: transparent; color: #ccc; border: 1px solid #444; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: bold;">Joystick Settings</button>
-    <button class="xy-tab-btn" data-tab="xy-sector" style="background: transparent; color: #ccc; border: 1px solid #444; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: bold;">Sector Settings</button>
-
-    <div style="flex-grow: 1;"></div>
-    <div style="font-size: 9px; color: #555; text-align: center;">Wormxy v1.3</div>
-  </div>
-
-  <div style="flex-grow: 1; padding: 20px; position: relative;">
-    <button style="background: #ff4444; color: #fff; border: none; padding: 5px 10px; border-radius: 6px; cursor: pointer; position: absolute; top: 15px; right: 15px; z-index: 10;" id="mm-wwc-close">✕</button>
-
-    <div id="xy-systems" class="xy-tab-content" style="display: block;">
-        <h3 style="color: #00ccff; margin-top: 0;">Oyun Sistemleri</h3>
-        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 15px 0;">
-        
-        <div style="display: flex; flex-direction: row; gap: 15px; align-items: flex-end; background: #0f0f12; padding: 15px; border-radius: 10px;">
-            <div style="display: flex; flex-direction: column; gap: 8px;">
-                <label style="font-size: 11px; color: #00ccff; font-weight: bold; text-transform: uppercase;">Top Leaderboard</label>
-                <select id="sel_top" style="background: #1a1a1f; color: #eee; border: 1px solid #00ccff; padding: 8px; border-radius: 6px; width: 110px;">
-                    <option value="10">All</option>
-                    <option value="1">Top 1</option>
-                    <option value="2">Top 2</option>
-                    <option value="3">Top 3</option>
-                    <option value="4">Top 4</option>
-                    <option value="5">Top 5</option>
-                    <option value="6">Top 6</option>
-                    <option value="7">Top 7</option>
-                    <option value="8">Top 8</option>
-                    <option value="9">Top 9</option>
-                </select>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 8px;">
-                <label style="font-size: 11px; color: #00ccff; font-weight: bold; text-transform: uppercase;">ZigZag Mode</label>
-                <select id="zigzag_mode" style="background: #1a1a1f; color: #eee; border: 1px solid #00ccff; padding: 8px; border-radius: 6px; width: 110px;">
-                    <option value="0">None</option>
-                    <option value="1">Type 1</option>
-                    <option value="2">Type 2</option>
-                    <option value="3">Type 3</option>
-                </select>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 8px;">
-                <label style="font-size: 11px; color: #00ccff; font-weight: bold; text-transform: uppercase;">Hud Position</label>
-                <select id="hudPositionMode" style="background: #1a1a1f; color: #eee; border: 1px solid #00ccff; padding: 8px; border-radius: 6px; width: 110px;">
-                    <option value="0">100%</option>
-                    <option value="1">75%</option>
-                    <option value="2">Center</option>
-                </select>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 8px;">
-                <label style="font-size: 11px; color: #00ccff; font-weight: bold; text-transform: uppercase;">Background</label>
-                <select id="backgroundArena" style="background: #1a1a1f; color: #eee; border: 1px solid #00ccff; padding: 8px; border-radius: 6px; width: 110px;"></select>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
-                <label style="font-size: 11px; color: #00ccff; font-weight: bold; text-transform: uppercase;">SAVE KILL</label>
-                <input type="checkbox" id="saveGame" style="width: 20px; height: 20px;">
-            </div>
-        </div>
-
-        <div style="display: flex; flex-direction: column; gap: 10px; background: #0f0f12; padding: 15px; border-radius: 10px; margin-top: 10px;">
-            <div style="font-size: 11px; color: #00ccff; font-weight: bold; text-transform: uppercase;"><strong>Zoom Settings</strong></div>
-            <div style="display: flex; flex-direction: row; gap: 30px;">
-                <div style="display: flex; flex-direction: column; gap: 5px;">
-                    <label style="font-size: 11px; color: #aaa;">Zoom PC</label>
-                    <input type="checkbox" id="activeZoom">
-                </div>
-                <div style="display: flex; flex-direction: column; gap: 5px;">
-                    <label style="font-size: 11px; color: #aaa;">Zoom Mobile</label>
-                    <input type="checkbox" id="activeZoomMobile">
-                </div>
-            </div>
-        </div>
-    </div> 
-
-    <div id="xy-settings" class="xy-tab-content" style="display: none;">
-        <h3 style="color: #00ccff; margin-top: 0;">Users Settings</h3>
-        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 15px 0;">
-        <div style="display: flex; align-items: center; gap: 10px; background: #0f0f12; padding: 15px; border-radius: 10px;">
-            <label style="font-size: 12px; color: #00ccff;">User ID:</label>
-            <input type="text" value="${bbs.userId}" id="wormate_id" readonly style="flex: 1; padding: 8px; border: 1px solid #00ccff; border-radius: 6px; background: #000; color: #00ccff; font-family: monospace;">
-            <button onclick="navigator.clipboard.writeText('${bbs.userId}')" style="background: #00ccff; color: #000; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: bold;">COPY</button>
-        </div>
-    </div>
-
-    <div id="xy-joystick" class="xy-tab-content" style="display: none;">
-        <h3 style="color: #00ccff; margin-top: 0;">Joystick Settings</h3>
-        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 15px 0;">
-        <div style="display: flex; flex-wrap: wrap; gap: 15px; background: #0f0f12; padding: 15px; border-radius: 10px;">
-            <div style="display: flex; flex-direction: column; gap: 5px;">
-                <label style="font-size: 11px; color: #aaa;">Active</label>
-                <input type="checkbox" id="joystick_checked">
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 5px;">
-                <label style="font-size: 11px; color: #00ccff; font-weight: bold;">Color</label>
-                <select id="joystick_color" style="background: #1a1a1f; color: #eee; border: 1px solid #00ccff; padding: 5px; border-radius: 4px;">
-                    <option value="red">RED</option>
-                    <option value="blue">BLUE</option>
-                    <option value="white">WHITE</option>
-                    <option value="black">BLACK</option>
-                </select>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 5px;">
-                <label style="font-size: 11px; color: #00ccff; font-weight: bold;">Mode</label>
-                <select id="joystick_mode" style="background: #1a1a1f; color: #eee; border: 1px solid #00ccff; padding: 5px; border-radius: 4px;">
-                    <option value="dynamic">DYNAMIC</option>
-                    <option value="static">STATIC</option>
-                </select>
-            </div>
-        </div>
-    </div>
-
-    <div id="xy-sector" class="xy-tab-content" style="display: none;">
-        <h3 style="color: #ff4444; margin-top: 0;">Sektör Sistemi</h3>
-        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 15px 0;">
-        
-        <div style="background: #0f0f12; padding: 20px; border-radius: 12px; border: 1px solid #333; display: flex; flex-direction: column; gap: 15px;">
-            
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 13px; color: #eee;">Sistemi Aktif Et</span>
-                <input type="checkbox" id="sc-active" style="width: 20px; height: 20px;">
-            </div>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                <div>
-                    <label style="display: block; font-size: 11px; color: #888; margin-bottom: 8px;">ÇİZGİ RENGİ & ALPHA</label>
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <input type="color" id="sc-line-color" value="#ff0000" style="width: 30px; height: 30px; border: none; background: none; cursor: pointer;">
-                        <input type="range" id="sc-line-alpha" min="0" max="100" value="30" style="flex: 1;">
+                <div id="custom-wormx-panel" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:99999;display:flex;align-items:center;justify-content:center;overflow:auto;">
+                    <div style="background:#0a0f1e;width:95%;max-width:600px;border-radius:20px;padding:25px;border:1px solid #0ff;max-height:90%;overflow-y:auto;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                            <h2 style="color:#0ff;margin:0;">⚡ WORMXO PANEL</h2>
+                            <button id="wx-close" style="background:#ff3366;border:none;color:white;padding:8px 16px;border-radius:10px;cursor:pointer;">✕ KAPAT</button>
+                        </div>
+                        
+                        <!-- ID -->
+                        <div style="margin:15px 0;background:#1a1f2e;padding:15px;border-radius:12px;">
+                            <label style="color:#0ff;">📋 HESAP ID</label>
+                            <div style="display:flex;gap:10px;margin-top:5px;">
+                                <input type="text" id="wx-id" value="${bbs.userId}" readonly style="flex:1;padding:8px;border-radius:8px;border:1px solid #0ff;background:#0a0f1e;color:white;">
+                                <button id="wx-copy" style="background:#2a9d8f;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;">KOPYALA</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Genel Ayarlar -->
+                        <div style="margin:15px 0;background:#1a1f2e;padding:15px;border-radius:12px;">
+                            <label style="color:#0ff;">🎮 GENEL AYARLAR</label>
+                            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px;">
+                                <div><input type="checkbox" id="wx-savegame"> <label>Save Kill</label></div>
+                                <div><input type="checkbox" id="wx-tophs"> <label>TOP HS (9)</label></div>
+                                <div><input type="checkbox" id="wx-rechs"> <label>Record HS (0)</label></div>
+                                <div><input type="checkbox" id="wx-onlytop"> <label>3 TOP SKOR</label></div>
+                                <div><input type="checkbox" id="wx-sounds"> <label>Sesler</label></div>
+                                <div><input type="checkbox" id="wx-badlang"> <label>Küfür Engel</label></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Arkaplan ve Zigzag -->
+                        <div style="margin:15px 0;background:#1a1f2e;padding:15px;border-radius:12px;">
+                            <label style="color:#0ff;">🌍 ARKAPLAN</label>
+                            <select id="wx-bg" style="width:100%;padding:8px;margin-top:5px;border-radius:8px;"></select>
+                            
+                            <label style="color:#0ff;margin-top:15px;">🐍 ZIGZAG MOD</label>
+                            <select id="wx-zigzag" style="width:100%;padding:8px;margin-top:5px;border-radius:8px;">
+                                <option value="0">None</option><option value="1">Zigzag 1</option>
+                                <option value="2">Zigzag 2</option><option value="3">Zigzag 3</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Skin Replace -->
+                        <div style="margin:15px 0;background:#1a1f2e;padding:15px;border-radius:12px;">
+                            <label style="color:#0ff;">🔄 SKIN REPLACE ID</label>
+                            <input type="number" id="wx-replaceskin" style="width:100%;padding:8px;margin-top:5px;border-radius:8px;" value="${bbs.idReplaceSkin || 35}">
+                        </div>
+                        
+                        <!-- Joystick -->
+                        <div style="margin:15px 0;background:#1a1f2e;padding:15px;border-radius:12px;">
+                            <label style="color:#0ff;">🕹️ JOYSTICK</label>
+                            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px;">
+                                <div><input type="checkbox" id="wx-js-active"> <label>Aktif</label></div>
+                                <div>
+                                    <select id="wx-js-color" style="padding:5px;">
+                                        <option value="red">Kırmızı</option><option value="blue">Mavi</option>
+                                        <option value="white">Beyaz</option><option value="black">Siyah</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <select id="wx-js-position" style="padding:5px;">
+                                        <option value="L">Sol</option><option value="R">Sağ</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <select id="wx-js-size" style="padding:5px;">
+                                        <option value="80">80px</option><option value="100">100px</option>
+                                        <option value="120">120px</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Skin Yükle -->
+                        <div style="margin:15px 0;background:#1a1f2e;padding:15px;border-radius:12px;">
+                            <label style="color:#0ff;">📁 SKIN YÜKLE (.json)</label>
+                            <input type="file" id="wx-skinfile" accept=".json" style="width:100%;margin-top:5px;">
+                        </div>
+                        
+                        <button id="wx-reset" style="background:#ff9900;border:none;padding:10px;width:100%;margin-top:10px;border-radius:8px;cursor:pointer;">🔄 TÜM AYARLARI SIFFIRLA</button>
                     </div>
                 </div>
-                <div>
-                    <label style="display: block; font-size: 11px; color: #888; margin-bottom: 8px;">ARKA PLAN & ALPHA</label>
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <input type="color" id="sc-bg-color" value="#000000" style="width: 30px; height: 30px; border: none; background: none; cursor: pointer;">
-                        <input type="range" id="sc-bg-alpha" min="0" max="100" value="15" style="flex: 1;">
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <label style="display: block; font-size: 11px; color: #888; margin-bottom: 8px;">ÇİZGİ KALINLIĞI</label>
-                <input type="range" id="sc-line-width" min="1" max="50" value="15" style="width: 100%;">
-            </div>
-
-            <div style="display: flex; gap: 10px; margin-top: 10px;">
-                <button id="sector_reset_btn" style="flex: 1; padding: 8px; background: #444; border: none; color: white; border-radius: 4px; cursor: pointer; font-size: 12px;">Sıfırla</button>
-                <button id="sector_default_btn" style="flex: 1; padding: 8px; background: #ff4444; border: none; color: white; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold;">Varsayılan</button>
-            </div>
-        </div>
-    </div>
-
-  </div>
             `);
-          
-            // Tab değiştirme fonksiyonu (jQuery ile)
-            $(".xy-tab-btn").click(function() {
-                var tabId = $(this).data("tab");
-                $(".xy-tab-content").hide();
-                $("#" + tabId).show();
-                $(".xy-tab-btn").css({
-                    "background": "transparent",
-                    "color": "#ccc",
-                    "border": "1px solid #444"
-                });
-                $(this).css({
-                    "background": "rgba(0,204,255,0.1)",
-                    "color": "#00ccff",
-                    "border": "1px solid #00ccff"
-                });
-            });
-          
-            // Kapama fonksiyonu
-            $("#mm-wwc-close").click(function() {
-                $("#wwc-set-view").remove();
-            });
-          
-            // Load saved value for HUD position mode
-            $("#hudPositionMode").val(bbs.hudSettings.mode);
+            
+            // Değerleri yükle
+            $("#wx-savegame").prop("checked", bbs.saveGame || false);
+            $("#wx-tophs").prop("checked", bbs.showTophs || false);
+            $("#wx-rechs").prop("checked", bbs.showRechs || false);
+            $("#wx-onlytop").prop("checked", bbs.lr || false);
+            $("#wx-sounds").prop("checked", bbs.activeSounds2 || false);
+            $("#wx-badlang").prop("checked", bbs.activeBadLang || false);
+            $("#wx-zigzag").val(bbs.flx || 0);
+            $("#wx-replaceskin").val(bbs.idReplaceSkin || 35);
+            $("#wx-js-active").prop("checked", bbs.joystick?.checked !== false);
+            $("#wx-js-color").val(bbs.joystick?.color || "red");
+            $("#wx-js-position").val(bbs.joystick?.positionMode || "L");
+            $("#wx-js-size").val(bbs.joystick?.size || 100);
+            
+            
+            
+  var select = document.getElementById("backgroundArena");
+              if (select && typeof backgroundArena !== 'undefined') {
 
-            $("#hudPositionMode").change(function () {
-                bbs.hudSettings.mode = parseInt(this.value);
-                if (bbs.hudSettings.mode == 1) {
-                    bbs.hudSettings.wi = screen.height / (screen.width * 2);
-                } else if (bbs.hudSettings.mode == 2) {
-                    bbs.hudSettings.wi = 0;
+    for (var i = 0; i < backgroundArena.length; i++) {
+
+      let opt = document.createElement("option");
+
+      opt.value = i;
+
+      opt.innerHTML = backgroundArena[i].nome;
+
+      select.appendChild(opt);
+
+    }
+
+    select.value = isNaN(bbs.background) ? 0 : bbs.background || 0;
+
+  }
+            
+            // Eventler
+            $("#wx-copy").click(() => { navigator.clipboard.writeText(bbs.userId); alert("ID Kopyalandı!"); });
+            $("#wx-close").click(() => $("#custom-wormx-panel").remove());
+            
+            $("#wx-savegame").change(function() { bbs.saveGame = $(this).prop("checked"); saveWX(); });
+            $("#wx-tophs").change(function() { bbs.showTophs = $(this).prop("checked"); saveWX(); });
+            $("#wx-rechs").change(function() { bbs.showRechs = $(this).prop("checked"); saveWX(); });
+            $("#wx-onlytop").change(function() { bbs.lr = $(this).prop("checked"); saveWX(); });
+            $("#wx-sounds").change(function() { bbs.activeSounds2 = $(this).prop("checked"); saveWX(); });
+            $("#wx-badlang").change(function() { bbs.activeBadLang = $(this).prop("checked"); saveWX(); });
+            $("#wx-bg").change(function() { bbs.background = parseInt($(this).val()); bbs.backgroundUri = null; saveWX(); });
+            $("#wx-zigzag").change(function() { bbs.flx = parseInt($(this).val()); saveWX(); });
+            $("#wx-replaceskin").change(function() { bbs.idReplaceSkin = parseInt($(this).val()); saveWX(); });
+            $("#wx-js-active").change(function() { if(!bbs.joystick) bbs.joystick = {}; bbs.joystick.checked = $(this).prop("checked"); saveWX(); });
+            $("#wx-js-color").change(function() { if(!bbs.joystick) bbs.joystick = {}; bbs.joystick.color = $(this).val(); saveWX(); });
+            $("#wx-js-position").change(function() { if(!bbs.joystick) bbs.joystick = {}; bbs.joystick.positionMode = $(this).val(); saveWX(); });
+            $("#wx-js-size").change(function() { if(!bbs.joystick) bbs.joystick = {}; bbs.joystick.size = $(this).val(); saveWX(); });
+            
+            $("#wx-skinfile").change(function(e) {
+                var reader = new FileReader();
+                reader.onload = function(ev) {
+                    try {
+                        var t = JSON.parse(ev.target.result);
+                        if(t.wear) { localStorage.setItem("custom_wormworld_wear", ev.target.result); alert("WEAR yüklendi!"); location.reload(); }
+                        else if(t.skin) { localStorage.setItem("custom_wormworld_skin", ev.target.result); alert("SKIN yüklendi!"); location.reload(); }
+                        else alert("Geçersiz dosya!");
+                    } catch(e) { alert("Hatalı JSON!"); }
+                };
+                reader.readAsText(e.target.files[0]);
+            });
+            
+            $("#wx-reset").click(function() {
+                if(confirm("Tüm ayarlar sıfırlansın?")) {
+                    localStorage.removeItem("wwcSaveGame");
+                    location.reload();
                 }
-                localStorage.setItem("SavetrGame", JSON.stringify(bbs));
             });
             
-            // Joystick fonksiyonları
-            window.setconfigjoystick_checked = function(e) {
-                if (!bbs.joystick) {
-                    bbs.joystick = window._wwc.joystick();
-                }
-                bbs.joystick.checked = e.checked;
-                localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
-            };
-            
-            window.setconfigjoystick_color = function(e) {
-                if (!bbs.joystick) {
-                    bbs.joystick = window._wwc.joystick();
-                }
-                bbs.joystick.color = e.value;
-                localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
-            };
-            
-            window.setconfigjoystick_mode = function(e) {
-                if (!bbs.joystick) {
-                    bbs.joystick = window._wwc.joystick();
-                }
-                bbs.joystick.mode = e.value;
-                localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
-                console.log(bbs.joystick);
-            };
-            
-            // Joystick event listeners
-            $("#joystick_checked").change(function() {
-                if (!bbs.joystick) {
-                    bbs.joystick = window._wwc.joystick();
-                }
-                bbs.joystick.checked = this.checked;
-                localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
-            });
-            
-            $("#joystick_color").change(function() {
-                if (!bbs.joystick) {
-                    bbs.joystick = window._wwc.joystick();
-                }
-                bbs.joystick.color = this.value;
-                localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
-            });
-            
-            $("#joystick_mode").change(function() {
-                if (!bbs.joystick) {
-                    bbs.joystick = window._wwc.joystick();
-                }
-                bbs.joystick.mode = this.value;
-                localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
-                console.log(bbs.joystick);
-            });
-            
-            // Background select
-              var select = document.getElementById("backgroundArena");
-
-          if (select && typeof backgroundArena !== 'undefined') {
-
-              for (var i = 0; i < backgroundArena.length; i++) {
-
-                let opt = document.createElement("option");
-
-                opt.value = i;
-
-                opt.innerHTML = backgroundArena[i].nome;
-
-                select.appendChild(opt);
-
-              }
-
-              select.value = isNaN(bbs.background) ? 0 : bbs.background || 0;
-
-            }
-            
-            // Zoom settings
-            document.getElementById("activeZoom").checked = bbs.activeZoom;
-            document.getElementById("activeZoom").addEventListener("change", function () {
-                bbs.activeZoom = this.checked;
-                localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
-                window.location.reload();
-            });
-            
-            document.getElementById("activeZoomMobile").checked = bbs.activeZoomMobile;
-            document.getElementById("activeZoomMobile").addEventListener("change", function () {
-                bbs.activeZoomMobile = this.checked;
-                localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
-                window.location.reload();
-            });
-            
-            // ZigZag dropdown
-            $("#zigzag_mode").val(bbs.flx || 0);
-            $("#zigzag_mode").change(function() {
-                bbs.flx = parseInt($(this).val());
-                localStorage.setItem("SavetrGame", JSON.stringify(bbs));
-            });
-            
-            // Top select
-            $("#sel_top").val(bbs.lr || 10);
-            $("#sel_top").change(function () {
-                bbs.lr = parseInt(this.value);
-                localStorage.setItem("SavetrGame", JSON.stringify(bbs));
-            });
-            
-            // Save function
             function saveWX() {
                 localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
             }
-            
         } else {
-            $("#wwc-set-view").show();
+            $("#custom-wormx-panel").show();
         }
-    });
+    });  
     $(".store-view-cont").append("<div id=\"idReplaceSkin\"></div>");
     $(".wear-view-cont").append("<div id=\"idWearViewCont\"></div>");
     var vLSDisplaynonepositionr = "display:none;position:relative;background:#FFF;padding:15px;max-width:680px;margin:10px auto;";
@@ -3023,7 +2880,13 @@ function openWormJKRSettings() {
     $("#enemyNameColor").val(bbs.enemyNameColor || "#ff0000");
     $("#enemyNameFontSize").val(bbs.enemyNameFontSize || 14);
     
-
+    // Background doldur
+    if(window.backgroundArena) {
+        for(var i=0; i<backgroundArena.length; i++) {
+            $("#backgroundArena").append('<option value="'+i+'">'+backgroundArena[i].nome+'</option>');
+        }
+        $("#backgroundArena").val(bbs.background || 0);
+    }
     
     // Skin swap list
     function updateSkinList() {
