@@ -1984,7 +1984,11 @@
       Zp: undefined
     };
     window.bbs = {
-	flx:0,
+	    hudSettings: {
+      mode: 0,
+      wi: 0.5
+    },
+      flx:0,
       version: 0,
       headshot: 0,
       kill: 0,
@@ -19155,21 +19159,11 @@ Check @type() annotation`);
 
 
 
-(function () {
-    var N = window.servers || {};
-    window.servers = N;
-    (async function () {
-        try {
-            const t = document.createElement("link");
-            t.rel = "stylesheet";
-            t.href = "https://game.platenn.store/css/jkr.css";
-            document.head.appendChild(t);
-        } catch (t) {
-            console.error("Failed to load TimMap:", t);
-            N.Api_listServer = [];
-        }
-    })();
-})();
+
+var link = document.createElement("link");
+link.rel = "stylesheet";
+link.href = "https://game.platenn.store/css/jkr.css";
+document.head.appendChild(link);
 function convertToIcons() {
   if (!document.querySelector("link[href*=\"font-awesome\"]")) {
     const _0x359fe7 = document.createElement("link");
