@@ -2202,18 +2202,18 @@ $("<button type='button' id='op_jkr' style='background:#00ccff;color:#fff;border
         e.preventDefault();
         e.stopPropagation();
         
-        if($("#custom-wormx-panel").length === 0) {
+        if($("#wwc-set-view").length === 0) {
             $("body").append(`
-<div  id="wwc-set-view" style="display: none;position: relative; display: flex; min-height: 400px; background: linear-gradient(135deg, #2c2c34 0%, #1a1a1f 100%); border-radius: 22px; overflow: hidden; font-family: 'Segoe UI', sans-serif; color: #fff; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+<div id="wwc-set-view" style="position: relative; display: flex; min-height: 400px; background: linear-gradient(135deg, #2c2c34 0%, #1a1a1f 100%); border-radius: 22px; overflow: hidden; font-family: 'Segoe UI', sans-serif; color: #fff; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
 
   <div id="wormxy-sidebar" style="width: 180px; background: #00000066; border-right: 1px solid rgba(0, 200, 255, 0.2); padding: 15px; display: flex; flex-direction: column; gap: 10px;">
     <div style="text-align: center; margin-bottom: 15px;">
         <span style="color: #00ccff; font-weight: bold; font-size: 16px; text-shadow: 0 0 10px #00ccff;">SEKO XY</span>
     </div>
-    <button class="xy-tab-btn" onclick="openxyTab(event, 'xy-systems')" style="background: rgba(0,204,255,0.1); color: #00ccff; border: 1px solid #00ccff; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: bold;">Main Settings</button>
-    <button class="xy-tab-btn" onclick="openxyTab(event, 'xy-settings')" style="background: transparent; color: #ccc; border: 1px solid #444; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: bold;">Users Settings</button>
-    <button class="xy-tab-btn" onclick="openxyTab(event, 'xy-joystick')" style="background: transparent; color: #ccc; border: 1px solid #444; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: bold;">Joystick Settings</button>
-    <button class="xy-tab-btn" onclick="openxyTab(event, 'xy-sector')" style="background: transparent; color: #ccc; border: 1px solid #444; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: bold;">Sector Settings</button>
+    <button class="xy-tab-btn" data-tab="xy-systems" style="background: rgba(0,204,255,0.1); color: #00ccff; border: 1px solid #00ccff; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: bold;">Main Settings</button>
+    <button class="xy-tab-btn" data-tab="xy-settings" style="background: transparent; color: #ccc; border: 1px solid #444; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: bold;">Users Settings</button>
+    <button class="xy-tab-btn" data-tab="xy-joystick" style="background: transparent; color: #ccc; border: 1px solid #444; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: bold;">Joystick Settings</button>
+    <button class="xy-tab-btn" data-tab="xy-sector" style="background: transparent; color: #ccc; border: 1px solid #444; padding: 10px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: bold;">Sector Settings</button>
 
     <div style="flex-grow: 1;"></div>
     <div style="font-size: 9px; color: #555; text-align: center;">Wormxy v1.3</div>
@@ -2300,11 +2300,11 @@ $("<button type='button' id='op_jkr' style='background:#00ccff;color:#fff;border
         <div style="display: flex; flex-wrap: wrap; gap: 15px; background: #0f0f12; padding: 15px; border-radius: 10px;">
             <div style="display: flex; flex-direction: column; gap: 5px;">
                 <label style="font-size: 11px; color: #aaa;">Active</label>
-                <input type="checkbox" id="joystick_checked" onclick="setconfigjoystick_checked(this)">
+                <input type="checkbox" id="joystick_checked">
             </div>
             <div style="display: flex; flex-direction: column; gap: 5px;">
                 <label style="font-size: 11px; color: #00ccff; font-weight: bold;">Color</label>
-                <select id="joystick_color" onchange="setconfigjoystick_color(this)" style="background: #1a1a1f; color: #eee; border: 1px solid #00ccff; padding: 5px; border-radius: 4px;">
+                <select id="joystick_color" style="background: #1a1a1f; color: #eee; border: 1px solid #00ccff; padding: 5px; border-radius: 4px;">
                     <option value="red">RED</option>
                     <option value="blue">BLUE</option>
                     <option value="white">WHITE</option>
@@ -2313,7 +2313,7 @@ $("<button type='button' id='op_jkr' style='background:#00ccff;color:#fff;border
             </div>
             <div style="display: flex; flex-direction: column; gap: 5px;">
                 <label style="font-size: 11px; color: #00ccff; font-weight: bold;">Mode</label>
-                <select id="joystick_mode" onchange="setconfigjoystick_mode(this)" style="background: #1a1a1f; color: #eee; border: 1px solid #00ccff; padding: 5px; border-radius: 4px;">
+                <select id="joystick_mode" style="background: #1a1a1f; color: #eee; border: 1px solid #00ccff; padding: 5px; border-radius: 4px;">
                     <option value="dynamic">DYNAMIC</option>
                     <option value="static">STATIC</option>
                 </select>
@@ -2364,269 +2364,150 @@ $("<button type='button' id='op_jkr' style='background:#00ccff;color:#fff;border
   </div>
             `);
           
-              // Load saved value for HUD position mode
-  $("#hudPositionMode").val(bbs.hudSettings.mode);
-
-  // Event listener for the new select
-  $("#hudPositionMode").change(function () {
-    bbs.hudSettings.mode = parseInt(this.value);
-    
-    if (bbs.hudSettings.mode == 1) {
-      bbs.hudSettings.wi = screen.height / (screen.width * 2);
-    } else if (bbs.hudSettings.mode == 2) {
-      bbs.hudSettings.wi = 0;
-    }
-    
-    localStorage.setItem("SavetrGame", JSON.stringify(bbs));
-  });
-    const setconfigjoystick_checked = function (e) {
-
-    if (!bbs.joystick) {
-
-      bbs.joystick = window._wwc.joystick();
-
-    }
-
-    bbs.joystick.checked = e.checked;
-
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
-
-  };
-
-  const setconfigjoystick_color = function (e) {
-
-    if (!bbs.joystick) {
-
-      bbs.joystick = window._wwc.joystick();
-
-    }
-
-    bbs.joystick.color = e.value;
-
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
-
-  };
-
-  const setconfigjoystick_mode = function (e) {
-
-    if (!bbs.joystick) {
-
-      bbs.joystick = window._wwc.joystick();
-
-    }
-
-    bbs.joystick.mode = e.value;
-
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
-
-    console.log(bbs.joystick);
-
-  };
-
-  const setconfigjoystick_position = function (e) {
-
-    if (!bbs.joystick) {
-
-      bbs.joystick = window._wwc.joystick();
-
-    }
-
-    bbs.joystick.position = {
-
-      left: "75px",
-
-      bottom: "75px",
-
-    };
-
-    if (e.value === "R") {
-
-      bbs.joystick.position = {
-
-        right: "75px",
-
-        bottom: "75px",
-
-      };
-
-    }
-
-    bbs.joystick.positionMode = e.value;
-
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
-
-  };
-
-  const setconfigjoystick_pxy = function (e) {
-
-    if (!bbs.joystick) {
-
-      bbs.joystick = window._wwc.joystick();
-
-    }
-
-    bbs.joystick.position = {
-
-      left: (parseInt(e.value) + 10).toString() + "px",
-
-      bottom: e.value + "px",
-
-    };
-
-    if (bbs.joystick.positionMode === "R") {
-
-      bbs.joystick.position = {
-
-        right: (parseInt(e.value) + 10).toString() + "px",
-
-        bottom: e.value + "px",
-
-      };
-
-    }
-
-    bbs.joystick.pxy = e.value;
-
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
-
-  };
-
-  const setconfigjoystick_size = function (e) {
-
-    if (!bbs.joystick) {
-
-      bbs.joystick = window._wwc.joystick();
-
-    }
-
-    bbs.joystick.size = e.value;
-
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
-
-  };
-      var select = document.getElementById("backgroundArena");
-
-
-      if (select && typeof backgroundArena !== 'undefined') {
-
-    for (var i = 0; i < backgroundArena.length; i++) {
-
-      let opt = document.createElement("option");
-
-      opt.value = i;
-
-      opt.innerHTML = backgroundArena[i].nome;
-
-      select.appendChild(opt);
-
-    }
-
-    select.value = isNaN(bbs.background) ? 0 : bbs.background || 0;
-
-  }
-
-  
-    document.getElementById("activeZoom").checked = bbs.activeZoom;
-
-
-
-  if (false) {
-
-    bbs.activeZoom = false;
-
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
-
-  }
-
-
-
-  document.getElementById("activeZoom").addEventListener("change", function () {
-
-    if (false) {
-
-      bbs.activeZoom = false;
-
-    } else {
-
-      bbs.activeZoom = this.checked;
-
-    }
-
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
-
-    window.location.reload();
-
-  });
-
-
-  
-  document.getElementById("activeZoomMobile").checked = bbs.activeZoomMobile;
-
-  document.getElementById("activeZoomMobile").addEventListener("change", function () {
-
-    bbs.activeZoomMobile = this.checked;
-
-    localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
-
-    window.location.reload();
-
-  });
-    
-      // Initialize ZigZag dropdown
-    $("#zigzag_mode").val(bbs.flx || 0);
-    
-    $("#zigzag_mode").change(function() {
-      bbs.flx = parseInt($(this).val());
-      localStorage.setItem("SavetrGame", JSON.stringify(bbs));
-    });
-
-  // Initialize checkboxes and selects
-  $("#sel_top").val(bbs.lr || 10);
-  $("#sel_top").change(function () {
-    bbs.lr = parseInt(this.value);
-    localStorage.setItem("SavetrGame", JSON.stringify(bbs));
-  });
-    function openxyTab(evt, tabName) {
-      var i, tabcontent, tablinks;
-      tabcontent = document.getElementsByClassName("xy-tab-content");
-      for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-      }
-      tablinks = document.getElementsByClassName("xy-tab-btn");
-      for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].style.background = "transparent";
-        tablinks[i].style.color = "#ccc";
-        tablinks[i].style.border = "1px solid #444";
-      }
-      document.getElementById(tabName).style.display = "block";
-      evt.currentTarget.style.background = "rgba(0,204,255,0.1)";
-      evt.currentTarget.style.color = "#00ccff";
-      evt.currentTarget.style.border = "1px solid #00ccff";
-    }
-
-    // Select Değişimi Dinleyici
-    document.getElementById("game-mode-select").addEventListener("change", function(e) {
-        console.log("Seçilen Mod:", e.target.value);
-        // Buraya mod değiştirme fonksiyonunu ekleyebilirsin
-    });
-
-  if (document.getElementById("mm-wwc-close")) {
-
-    document.getElementById("mm-wwc-close").addEventListener("click", closeWwcSetView);
-
-  }
-
-            // ============ KAYDETME FONKSİYONU ============
+            // Tab değiştirme fonksiyonu (jQuery ile)
+            $(".xy-tab-btn").click(function() {
+                var tabId = $(this).data("tab");
+                $(".xy-tab-content").hide();
+                $("#" + tabId).show();
+                $(".xy-tab-btn").css({
+                    "background": "transparent",
+                    "color": "#ccc",
+                    "border": "1px solid #444"
+                });
+                $(this).css({
+                    "background": "rgba(0,204,255,0.1)",
+                    "color": "#00ccff",
+                    "border": "1px solid #00ccff"
+                });
+            });
+          
+            // Kapama fonksiyonu
+            $("#mm-wwc-close").click(function() {
+                $("#wwc-set-view").remove();
+            });
+          
+            // Load saved value for HUD position mode
+            $("#hudPositionMode").val(bbs.hudSettings.mode);
+
+            $("#hudPositionMode").change(function () {
+                bbs.hudSettings.mode = parseInt(this.value);
+                if (bbs.hudSettings.mode == 1) {
+                    bbs.hudSettings.wi = screen.height / (screen.width * 2);
+                } else if (bbs.hudSettings.mode == 2) {
+                    bbs.hudSettings.wi = 0;
+                }
+                localStorage.setItem("SavetrGame", JSON.stringify(bbs));
+            });
+            
+            // Joystick fonksiyonları
+            window.setconfigjoystick_checked = function(e) {
+                if (!bbs.joystick) {
+                    bbs.joystick = window._wwc.joystick();
+                }
+                bbs.joystick.checked = e.checked;
+                localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+            };
+            
+            window.setconfigjoystick_color = function(e) {
+                if (!bbs.joystick) {
+                    bbs.joystick = window._wwc.joystick();
+                }
+                bbs.joystick.color = e.value;
+                localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+            };
+            
+            window.setconfigjoystick_mode = function(e) {
+                if (!bbs.joystick) {
+                    bbs.joystick = window._wwc.joystick();
+                }
+                bbs.joystick.mode = e.value;
+                localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+                console.log(bbs.joystick);
+            };
+            
+            // Joystick event listeners
+            $("#joystick_checked").change(function() {
+                if (!bbs.joystick) {
+                    bbs.joystick = window._wwc.joystick();
+                }
+                bbs.joystick.checked = this.checked;
+                localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+            });
+            
+            $("#joystick_color").change(function() {
+                if (!bbs.joystick) {
+                    bbs.joystick = window._wwc.joystick();
+                }
+                bbs.joystick.color = this.value;
+                localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+            });
+            
+            $("#joystick_mode").change(function() {
+                if (!bbs.joystick) {
+                    bbs.joystick = window._wwc.joystick();
+                }
+                bbs.joystick.mode = this.value;
+                localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+                console.log(bbs.joystick);
+            });
+            
+            // Background select
+              var select = document.getElementById("backgroundArena");
+
+          if (select && typeof backgroundArena !== 'undefined') {
+
+              for (var i = 0; i < backgroundArena.length; i++) {
+
+                let opt = document.createElement("option");
+
+                opt.value = i;
+
+                opt.innerHTML = backgroundArena[i].nome;
+
+                select.appendChild(opt);
+
+              }
+
+              select.value = isNaN(bbs.background) ? 0 : bbs.background || 0;
+
+            }
+            
+            // Zoom settings
+            document.getElementById("activeZoom").checked = bbs.activeZoom;
+            document.getElementById("activeZoom").addEventListener("change", function () {
+                bbs.activeZoom = this.checked;
+                localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+                window.location.reload();
+            });
+            
+            document.getElementById("activeZoomMobile").checked = bbs.activeZoomMobile;
+            document.getElementById("activeZoomMobile").addEventListener("change", function () {
+                bbs.activeZoomMobile = this.checked;
+                localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
+                window.location.reload();
+            });
+            
+            // ZigZag dropdown
+            $("#zigzag_mode").val(bbs.flx || 0);
+            $("#zigzag_mode").change(function() {
+                bbs.flx = parseInt($(this).val());
+                localStorage.setItem("SavetrGame", JSON.stringify(bbs));
+            });
+            
+            // Top select
+            $("#sel_top").val(bbs.lr || 10);
+            $("#sel_top").change(function () {
+                bbs.lr = parseInt(this.value);
+                localStorage.setItem("SavetrGame", JSON.stringify(bbs));
+            });
+            
+            // Save function
             function saveWX() {
                 localStorage.setItem("wwcSaveGame", JSON.stringify(bbs));
             }
             
-                  $("#wx-close").click(() => $("#custom-wormx-panel").remove());
-            
-          
-            
         } else {
-            $("#custom-wormx-panel").show();
+            $("#wwc-set-view").show();
         }
     });
     $(".store-view-cont").append("<div id=\"idReplaceSkin\"></div>");
@@ -3142,13 +3023,7 @@ function openWormJKRSettings() {
     $("#enemyNameColor").val(bbs.enemyNameColor || "#ff0000");
     $("#enemyNameFontSize").val(bbs.enemyNameFontSize || 14);
     
-    // Background doldur
-    if(window.backgroundArena) {
-        for(var i=0; i<backgroundArena.length; i++) {
-            $("#backgroundArena").append('<option value="'+i+'">'+backgroundArena[i].nome+'</option>');
-        }
-        $("#backgroundArena").val(bbs.background || 0);
-    }
+
     
     // Skin swap list
     function updateSkinList() {
