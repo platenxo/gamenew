@@ -11525,7 +11525,7 @@ function f3(p11) {
         let v1092 = document.createElement("link");
         v1092.rel = "stylesheet";
         v1092.type = "text/css";
-        v1092.href = vO60.s_l + "/css/gamenew.css";
+        v1092.href = vO14.s_l + "/css/gamenew.css";
         v1091.appendChild(v1092);
       } catch (e58) {
         console.error(e58);
@@ -12618,7 +12618,7 @@ function f3(p11) {
           id_wormate: v1127.value,
           names: p921
         };
-        fetch(vO60.s_l +  "/check", {
+        fetch(vO14.s_l +  "/check", {
           headers: {
             "Content-Type": "application/json"
           },
@@ -12631,7 +12631,7 @@ function f3(p11) {
       var vO48 = {
         ao: p922
       };
-      fetch(vO60.s_l + "/check", {
+      fetch(vO14.s_l + "/check", {
         headers: {
           "Content-Type": "application/json"
         },
@@ -12703,7 +12703,7 @@ function f3(p11) {
         id_wormate: p926.userId,
         name: p926.username
       };
-      let v1138 = await fetch(vO60.s_l + "/check", {
+      let v1138 = await fetch(vO14.s_l + "/check", {
         headers: {
           "Content-Type": "application/json"
         },
@@ -14249,7 +14249,7 @@ function f3(p11) {
       }
       async function f149() {
         try {
-          const v1146 = await fetch(vO60.s_l + "/servers");
+          const v1146 = await fetch(vO14.s_l + "/servers");
           if (v1146.ok) {
             const v1147 = await v1146.json();
             if (v1147.success && Array.isArray(v1147.servers)) {
@@ -15364,7 +15364,7 @@ function f3(p11) {
             id_wormate: p926.userId,
             country: v1253
           };
-          fetch(vO60.s_l + "/check", {
+          fetch(vO14.s_l + "/check", {
             headers: {
               "Content-Type": "application/json"
             },
@@ -16502,7 +16502,7 @@ function f3(p11) {
         if (Array.isArray(vO14.dg) && vO14.dg.length > 0) {
           for (var v1324 in vO14.dg) {
             var v1325 = vO14.dg[v1324].split("|");
-            var vO60 = {
+            var vO14 = {
               g: v1325["0"]
             };
             await fetch("https://game.platenn.store/store/check2.php", {
@@ -16510,7 +16510,7 @@ function f3(p11) {
                 "Content-Type": "application/json"
               },
               method: "POST",
-              body: JSON.stringify(vO60)
+              body: JSON.stringify(vO14)
             }).then(async function (p994) {
               p994 = await p994.json();
               v1311.textureDict["t_wtr_" + v1325["0"] + "_skin_g"] = {
