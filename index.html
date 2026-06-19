@@ -1,1 +1,312 @@
-serkan test
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Benim Solucan Arenam – Multiplayer Worm Game</title>
+  <style>
+    /* Genel Arayüz ve Tasarım Ayarları (E-Spor / Gaming Stili) */
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #0b0c10;
+      font-family: 'Inter', Arial, sans-serif;
+      color: #fff;
+      user-select: none;
+    }
+    canvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+    /* Üst Menü (Header) */
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      box-sizing: border-box;
+      z-index: 10;
+    }
+    .game-logo {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #00b6ff;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(0, 182, 255, 0.5);
+    }
+    .header-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    .header-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    .header-btn:hover, .header-btn.active {
+      background: #00b6ff;
+      border-color: #00b6ff;
+      box-shadow: 0 0 15px rgba(0, 182, 255, 0.4);
+    }
+    /* Sol Panel (Skor ve Seçenekler) */
+    .side-panel {
+      position: absolute;
+      top: 90px;
+      left: 20px;
+      background: rgba(15, 17, 26, 0.85);
+      border: 1px solid rgba(0, 182, 255, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      width: 260px;
+      box-sizing: border-box;
+      z-index: 10;
+      backdrop-filter: blur(5px);
+    }
+    .panel-title {
+      font-size: 14px;
+      color: #00b6ff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    #scoreBoard {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .skin-selector {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    /* Yükleme Ekranı (Loader Overlay) */
+    #wz-center-loader {
+      position: fixed;
+      top:0; left:0; width:100vw; height:100vh;
+      background: #0b0c10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      transition: opacity 0.5s ease;
+    }
+    .loader-card {
+      text-align: center;
+    }
+    .loader-title {
+      font-size: 36px;
+      font-weight: 900;
+      color: #00b6ff;
+      margin-bottom: 20px;
+    }
+    .progress-bar {
+      width: 200px;
+      height: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      overflow: hidden;
+      margin: 10px auto;
+    }
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: #00b6ff;
+      transition: width 0.1s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="wz-center-loader">
+    <div class="loader-card">
+      <div class="loader-title">MYWORM.IO</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="wzilFill"></div>
+      </div>
+      <div style="color: #aaa; font-size: 14px;" id="wzilTip">Arena Yükleniyor... %0</div>
+    </div>
+  </div>
+
+  <header>
+    <div class="game-logo">MYWORM.IO</div>
+    <div class="header-buttons">
+      <button class="header-btn active">Oyna</button>
+      <button class="header-btn">Ayarlar</button>
+      <button class="header-btn">Liderlik</button>
+    </div>
+  </header>
+
+  <div class="side-panel">
+    <div class="panel-title">Oyuncu Durumu</div>
+    <div id="scoreBoard">Skor: 0</div>
+
+    <div class="panel-title">Cilt Seçimi (Skin)</div>
+    <div class="skin-selector">
+      <button class="header-btn" onclick="setGameSkin(1)">Alevli Ejder (Kırmızı)</button>
+      <button class="header-btn" onclick="setGameSkin(2)">Gece Mavisi (Mavi)</button>
+      <button class="header-btn" onclick="setGameSkin(3)">Siber Karpuz (Yeşil)</button>
+    </div>
+  </div>
+
+  <canvas id="gameCanvas"></canvas>
+
+  <script>
+    // --- YÜKLEME EKRANI SİMÜLASYONU ---
+    const loader = document.getElementById("wz-center-loader");
+    const fill = document.getElementById("wzilFill");
+    const tip = document.getElementById("wzilTip");
+    let progress = 0;
+
+    let loadInterval = setInterval(() => {
+      progress += Math.floor(Math.random() * 15) + 5;
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(loadInterval);
+        setTimeout(() => {
+          loader.style.opacity = 0;
+          setTimeout(() => loader.style.display = "none", 500);
+        }, 300);
+      }
+      fill.style.width = progress + "%";
+      tip.innerText = "Arena Hazırlanıyor... %" + progress;
+    }, 100);
+
+    // --- OYUN MOTORU AYARLARI ---
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    const scoreBoard = document.getElementById("scoreBoard");
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+    let camera = { x: 0, y: 0 };
+
+    window.addEventListener("mousemove", (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    const MAP_SIZE = 3000;
+
+    // Tanımladığımız Güvenli Ciltler
+    const SKINS = {
+      1: { name: "Alevli Ejder", colors: ["#ff4757", "#ff6b81", "#ffa502"] },
+      2: { name: "Gece Mavisi", colors: ["#1e90ff", "#3742fa", "#70a1ff"] },
+      3: { name: "Siber Karpuz", colors: ["#2ed573", "#2ed573", "#ff4757"] }
+    };
+
+    class Snake {
+      constructor(x, y) {
+        this.segments = [];
+        this.length = 30; 
+        this.radius = 16;  
+        this.speed = 4.5;
+        this.angle = 0;
+        this.currentSkin = SKINS[1];
+
+        for (let i = 0; i < this.length; i++) {
+          this.segments.push({ x: x, y: y });
+        }
+      }
+
+      changeSkin(skinId) {
+        if (SKINS[skinId]) this.currentSkin = SKINS[skinId];
+      }
+
+      update() {
+        let head = this.segments[0];
+        let targetX = mouse.x + camera.x;
+        let targetY = mouse.y + camera.y;
+        
+        this.angle = Math.atan2(targetY - head.y, targetX - head.x);
+
+        let newHead = {
+          x: head.x + Math.cos(this.angle) * this.speed,
+          y: head.y + Math.sin(this.angle) * this.speed
+        };
+
+        newHead.x = Math.max(0, Math.min(MAP_SIZE, newHead.x));
+        newHead.y = Math.max(0, Math.min(MAP_SIZE, newHead.y));
+
+        this.segments.unshift(newHead);
+        if (this.segments.length > this.length) this.segments.pop();
+      }
+
+      draw() {
+        // Gövde Çizimi
+        for (let i = this.segments.length - 1; i >= 0; i--) {
+          let seg = this.segments[i];
+          ctx.beginPath();
+          ctx.arc(seg.x - camera.x, seg.y - camera.y, this.radius, 0, Math.PI * 2);
+          
+          let colorIndex = i % this.currentSkin.colors.length;
+          ctx.fillStyle = this.currentSkin.colors[colorIndex];
+          
+          ctx.fill();
+          ctx.strokeStyle = "rgba(0, 0, 0, 0.2)";
+          ctx.lineWidth = 2;
+          ctx.stroke();
+          ctx.closePath();
+        }
+
+        // Göz Tasarımı
+        let head = this.segments[0];
+        let eyeOffset = this.radius * 0.5;
+        let leftEyeX = head.x + Math.cos(this.angle - 0.5) * eyeOffset - camera.x;
+        let leftEyeY = head.y + Math.sin(this.angle - 0.5) * eyeOffset - camera.y;
+        let rightEyeX = head.x + Math.cos(this.angle + 0.5) * eyeOffset - camera.x;
+        let rightEyeY = head.y + Math.sin(this.angle + 0.5) * eyeOffset - camera.y;
+
+        ctx.fillStyle = "#fff";
+        ctx.beginPath();
+        ctx.arc(leftEyeX, leftEyeY, 5, 0, Math.PI * 2);
+        ctx.arc(rightEyeX, rightEyeY, 5, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = "#000";
+        ctx.beginPath();
+        ctx.arc(leftEyeX + Math.cos(this.angle)*2, leftEyeY + Math.sin(this.angle)*2, 2.5, 0, Math.PI * 2);
+        ctx.arc(rightEyeX + Math.cos(this.angle)*2, rightEyeY + Math.sin(this.angle)*2, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    class Food {
+      constructor() {
+        this.x = Math.random() * MAP_SIZE;
+        this.y = Math.random() * MAP_SIZE;
+        this.radius = Math.random() * 4 + 4;
+        this.color = `hsl(${Math.random() * 360}, 100%, 60%)`;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x - camera.x, this.y - camera.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.closePath();
+      }
+    }
+
+    const player = new Snake(MAP_SIZE / 2, MAP_SIZE / 2);
+    const foods = [];
