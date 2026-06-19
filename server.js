@@ -11,9 +11,7 @@ app.use(express.json());
 // 🛡️ GÜVENLİK BAŞLIKLARI (Cross-Origin-Opener-Policy hatasını çözer)
 // ================================================================
 app.use((req, res, next) => {
-    // Google Login pop-up'ının ana sayfaya postMessage göndermesine izin verir
     res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
-    // Pop-up ile ilgili ek güvenlik kısıtlamasını kaldırır
     res.setHeader('Cross-Origin-Embedder-Policy', 'unsafe-none');
     next();
 });
@@ -54,20 +52,23 @@ app.post('/verify-token', async (req, res) => {
     res.json({ success: true, payload });
 });
 
-// Oyun konfigürasyonu
+// ================================================================
+// 🔧 OPTİMİZE EDİLMİŞ KONFIGÜRASYON (RAM TASARRUFU)
+// ================================================================
 const CONFIG = {
     WORLD_SIZE: 10000,
-    MAX_PLAYERS: 50,
+    MAX_PLAYERS: 20,          // 50'den 20'ye düşürüldü
     PLAYER_SPEED: 16,
     RESPAWN_TIME: 3000,
     SCORE_PER_KILL: 30000,
-    FOOD_COUNT: 1000,
+    FOOD_COUNT: 1500,         // 150.000'den 1.500'e düşürüldü!
     FOOD_RADIUS: 8,
     PLAYER_START_RADIUS: 12,
     GROWTH_PER_FOOD: 1.2,
     SEGMENT_DISTANCE: 8,
     COINS_PER_FOOD: 1
 };
+// ================================================================
 
 // Mağaza verileri
 const STORE = {
@@ -190,12 +191,11 @@ async function verifyIdToken(id_token) {
         const res = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${id_token}`);
         if (!res.ok) return null;
         const payload = await res.json();
-        // payload.aud should match GOOGLE_CLIENT_ID if provided
         if (GOOGLE_CLIENT_ID && payload.aud !== GOOGLE_CLIENT_ID) {
             console.warn('Token audience mismatch:', payload.aud);
             return null;
         }
-        return payload; // contains sub, email, name, picture
+        return payload;
     } catch (e) {
         console.error('Token doğrulama hatası:', e);
         return null;
@@ -209,14 +209,11 @@ wss.on('connection', async (ws, req) => {
         return;
     }
 
-    // read token from query string if provided
     let token = null;
     try {
         const url = new URL(req.url, `http://${req.headers.host}`);
         token = url.searchParams.get('token');
-    } catch (e) {
-        // ignore
-    }
+    } catch (e) {}
 
     let user = null;
     if (token) {
@@ -248,7 +245,6 @@ wss.on('connection', async (ws, req) => {
     const clientId = nextClientId++;
     const player = createPlayer(clientId);
 
-    // if logged in user, apply saved preferences
     if (user) {
         player.nickname = (user.isVIP && user.vipName) ? user.vipName : (user.name || player.nickname);
         player.coins = user.coins || player.coins;
@@ -328,18 +324,15 @@ function handleClientMessage(clientId, data) {
             
         case 'setNickname':
             if (data.nickname && data.nickname.length > 0 && data.nickname.length <= 20) {
-                // Only allow VIPs to set custom vipName
                 const client = clients.get(clientId);
                 const isVIP = client && client.userKey && USERS.get(client.userKey) && USERS.get(client.userKey).isVIP;
                 if (isVIP && data.nickname.startsWith('@')) {
-                    // VIP personal name, stored separately
                     const user = USERS.get(client.userKey);
                     if (user) {
                         user.vipName = data.nickname.substring(1, 21);
                         player.nickname = user.vipName;
                     }
                 } else {
-                    // normal nickname change
                     player.nickname = data.nickname.substring(0, 20);
                 }
 
@@ -644,26 +637,29 @@ function gameLoop() {
         gameState.foods.push(spawnFood());
     }
     
-    broadcast({
-        type: 'gameState',
-        players: Array.from(gameState.players.values()).map(p => ({
-            id: p.id,
-            segments: p.segments,
-            radius: p.radius,
-            color: getSkinColor(p),
-            score: p.score,
-            kills: p.kills,
-            deaths: p.deaths,
-            nickname: p.nickname,
-            alive: p.alive,
-            length: p.length,
-            skin: p.skin,
-            trail: p.trail,
-            hat: p.hat
-        })),
-        foods: gameState.foods,
-        particles: gameState.particles.slice(0, 100)
-    });
+    // Sadece bağlı oyuncu varsa yayın yap (gereksiz yere boşuna gönderme)
+    if (clients.size > 0) {
+        broadcast({
+            type: 'gameState',
+            players: Array.from(gameState.players.values()).map(p => ({
+                id: p.id,
+                segments: p.segments,
+                radius: p.radius,
+                color: getSkinColor(p),
+                score: p.score,
+                kills: p.kills,
+                deaths: p.deaths,
+                nickname: p.nickname,
+                alive: p.alive,
+                length: p.length,
+                skin: p.skin,
+                trail: p.trail,
+                hat: p.hat
+            })),
+            foods: gameState.foods,
+            particles: gameState.particles.slice(0, 100)
+        });
+    }
 }
 
 function broadcast(data) {
@@ -688,4 +684,5 @@ const PORT = process.env.PORT || 3000;
 server.listen(PORT, '0.0.0.0', () => {
     console.log(`🐛 Wormate.io Sunucu ${PORT} portunda çalışıyor`);
     console.log(`🛒 Mağaza: ${STORE.skins.length} deri, ${STORE.trails.length} iz, ${STORE.hats.length} şapka`);
+    console.log(`✅ Optimize edildi: ${CONFIG.FOOD_COUNT} yemek, max ${CONFIG.MAX_PLAYERS} oyuncu`);
 });
