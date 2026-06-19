@@ -6,6 +6,19 @@ const fetch = require('node-fetch');
 
 const app = express();
 app.use(express.json());
+
+// ================================================================
+// 🛡️ GÜVENLİK BAŞLIKLARI (Cross-Origin-Opener-Policy hatasını çözer)
+// ================================================================
+app.use((req, res, next) => {
+    // Google Login pop-up'ının ana sayfaya postMessage göndermesine izin verir
+    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
+    // Pop-up ile ilgili ek güvenlik kısıtlamasını kaldırır
+    res.setHeader('Cross-Origin-Embedder-Policy', 'unsafe-none');
+    next();
+});
+// ================================================================
+
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server, path: '/ws' });
 
