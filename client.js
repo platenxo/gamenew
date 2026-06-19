@@ -18,7 +18,7 @@ class WormGame {
         this.store = null;
         this.playerData = null;
         this.token = null;
-        this.googleClientId = null;
+        this.googleClientId = "337143823950-ni8amg87q94tqnlv3fst5hmdcitnbenu.apps.googleusercontent.com";
         this.useOfflineMode = false;
         this.authOverlay = null;
         this.authMessage = null;
