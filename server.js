@@ -45,10 +45,10 @@ app.post('/verify-token', async (req, res) => {
 const CONFIG = {
     WORLD_SIZE: 10000,
     MAX_PLAYERS: 50,
-    PLAYER_SPEED: 4,
+    PLAYER_SPEED: 16,
     RESPAWN_TIME: 3000,
-    SCORE_PER_KILL: 10,
-    FOOD_COUNT: 150,
+    SCORE_PER_KILL: 30000,
+    FOOD_COUNT: 150000,
     FOOD_RADIUS: 8,
     PLAYER_START_RADIUS: 12,
     GROWTH_PER_FOOD: 1.2,
