@@ -1,312 +1,510 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Benim Solucan Arenam – Multiplayer Worm Game</title>
-  <style>
-    /* Genel Arayüz ve Tasarım Ayarları (E-Spor / Gaming Stili) */
-    body {
-      margin: 0;
-      overflow: hidden;
-      background-color: #0b0c10;
-      font-family: 'Inter', Arial, sans-serif;
-      color: #fff;
-      user-select: none;
-    }
-    canvas {
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1;
-    }
-    /* Üst Menü (Header) */
-    header {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 70px;
-      background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 20px;
-      box-sizing: border-box;
-      z-index: 10;
-    }
-    .game-logo {
-      font-size: 28px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      color: #00b6ff;
-      text-transform: uppercase;
-      text-shadow: 0 0 10px rgba(0, 182, 255, 0.5);
-    }
-    .header-buttons {
-      display: flex;
-      gap: 10px;
-    }
-    .header-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: white;
-      padding: 8px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.2s ease;
-    }
-    .header-btn:hover, .header-btn.active {
-      background: #00b6ff;
-      border-color: #00b6ff;
-      box-shadow: 0 0 15px rgba(0, 182, 255, 0.4);
-    }
-    /* Sol Panel (Skor ve Seçenekler) */
-    .side-panel {
-      position: absolute;
-      top: 90px;
-      left: 20px;
-      background: rgba(15, 17, 26, 0.85);
-      border: 1px solid rgba(0, 182, 255, 0.2);
-      border-radius: 12px;
-      padding: 20px;
-      width: 260px;
-      box-sizing: border-box;
-      z-index: 10;
-      backdrop-filter: blur(5px);
-    }
-    .panel-title {
-      font-size: 14px;
-      color: #00b6ff;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 10px;
-      font-weight: bold;
-    }
-    #scoreBoard {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-    .skin-selector {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    /* Yükleme Ekranı (Loader Overlay) */
-    #wz-center-loader {
-      position: fixed;
-      top:0; left:0; width:100vw; height:100vh;
-      background: #0b0c10;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 100;
-      transition: opacity 0.5s ease;
-    }
-    .loader-card {
-      text-align: center;
-    }
-    .loader-title {
-      font-size: 36px;
-      font-weight: 900;
-      color: #00b6ff;
-      margin-bottom: 20px;
-    }
-    .progress-bar {
-      width: 200px;
-      height: 6px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 3px;
-      overflow: hidden;
-      margin: 10px auto;
-    }
-    .progress-fill {
-      width: 0%;
-      height: 100%;
-      background: #00b6ff;
-      transition: width 0.1s ease;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>🐛 Wormate.io</title>
+    <style>
+        /* Tüm stiller burada */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            overflow: hidden;
+            background: #0a0a1a;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: none;
+        }
+        
+        canvas { display: block; touch-action: none; }
+        
+        /* Oyun içi UI */
+        #ui {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+        #ui * { pointer-events: auto; }
+        
+        /* Skor Tablosu */
+        #scoreboard {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.85);
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            min-width: 220px;
+            max-height: 350px;
+            overflow-y: auto;
+            font-size: 13px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+        #scoreboard::-webkit-scrollbar { width: 4px; }
+        #scoreboard::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 2px; }
+        #scoreboard::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 2px; }
+        #scoreboard h3 {
+            text-align: center;
+            color: #4CAF50;
+            font-size: 16px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        .score-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            align-items: center;
+        }
+        .score-item.local {
+            background: rgba(255,255,0,0.08);
+            border-radius: 6px;
+            padding: 4px 8px;
+        }
+        .score-item .rank {
+            color: #888;
+            font-size: 12px;
+            width: 28px;
+            text-align: center;
+        }
+        .score-item .name {
+            flex: 1;
+            padding: 0 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .score-item .name.local { color: #ffff00; font-weight: bold; }
+        .score-item .score { color: #4CAF50; font-weight: bold; }
+        .score-item .length { color: #ffd93d; font-size: 12px; margin-left: 8px; }
+        .score-item .kills { color: #ff6b6b; font-size: 12px; margin-left: 4px; }
+        
+        /* Zoom Kontrolleri */
+        .zoom-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.75);
+            padding: 8px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .zoom-controls button {
+            width: 44px;
+            height: 44px;
+            font-size: 22px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-weight: bold;
+        }
+        .zoom-controls button:hover { transform: scale(1.05); }
+        .zoom-controls button:active { transform: scale(0.95); }
+        .zoom-controls .zoom-in { background: #4CAF50; }
+        .zoom-controls .zoom-out { background: #f44336; }
+        .zoom-controls .zoom-level {
+            color: white;
+            text-align: center;
+            font-size: 12px;
+            padding: 2px 0;
+            font-weight: 600;
+        }
+        
+        /* İsim Değiştirme */
+        .nickname-container {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            background: rgba(0,0,0,0.6);
+            padding: 8px 12px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .nickname-container input {
+            padding: 8px 14px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.9);
+            font-size: 13px;
+            width: 160px;
+            outline: none;
+        }
+        .nickname-container input:focus {
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+        }
+        .nickname-container button {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 8px;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+        .nickname-container button:hover { transform: scale(1.05); background: #45a049; }
+        
+        /* Para Göstergesi */
+        #coinDisplay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            color: #FFD700;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,215,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        #coinDisplay .coin-icon { font-size: 22px; }
+        #coinDisplay .coin-amount { color: #FFD700; }
+        
+        /* Mağaza Butonu */
+        #storeBtn {
+            position: absolute;
+            top: 80px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        #storeBtn:hover {
+            transform: scale(1.05);
+            border-color: #4CAF50;
+        }
+        #storeBtn .store-icon { font-size: 20px; }
+        
+        /* Mağaza Modal */
+        #storeModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+        #storeModal.active { display: flex; }
+        
+        #storeContent {
+            background: rgba(20,20,40,0.95);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+        }
+        #storeContent::-webkit-scrollbar { width: 4px; }
+        #storeContent::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 2px; }
+        #storeContent::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 2px; }
+        
+        #storeHeader {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        #storeHeader h2 {
+            color: white;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #storeHeader h2 span { color: #FFD700; }
+        #closeStore {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+        #closeStore:hover { opacity: 1; }
+        
+        /* Kategoriler */
+        .store-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .store-tab {
+            padding: 8px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            color: #888;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .store-tab:hover { background: rgba(255,255,255,0.1); }
+        .store-tab.active {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+        
+        /* Ürünler */
+        .store-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+        }
+        .store-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid rgba(255,255,255,0.05);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .store-item:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255,255,255,0.2);
+        }
+        .store-item.owned {
+            border-color: #4CAF50;
+            background: rgba(76,175,80,0.1);
+        }
+        .store-item.equipped {
+            border-color: #FFD700;
+            background: rgba(255,215,0,0.1);
+        }
+        .store-item .item-icon {
+            font-size: 36px;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .store-item .item-thumb {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto 8px auto;
+            background: rgba(0,0,0,0.1);
+        }
+        .store-item .item-name {
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .store-item .item-price {
+            font-size: 12px;
+            margin-top: 6px;
+            color: #FFD700;
+        }
+        .store-item .item-status {
+            font-size: 11px;
+            margin-top: 6px;
+            padding: 3px 10px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        .store-item .item-status.owned { background: rgba(76,175,80,0.3); color: #4CAF50; }
+        .store-item .item-status.equipped { background: rgba(255,215,0,0.3); color: #FFD700; }
+        .store-item .item-status.buy { background: rgba(76,175,80,0.2); color: #4CAF50; }
+        .store-item .item-status.locked { background: rgba(255,0,0,0.2); color: #ff6b6b; }
+        
+        /* Durum Mesajı */
+        #status {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            border: 2px solid #4CAF50;
+            font-weight: 600;
+            display: none;
+        }
+        #status.show { display: block; }
+        
+        /* Sohbet */
+        #chatContainer {
+            position: absolute;
+            bottom: 80px;
+            left: 20px;
+            z-index: 100;
+            width: 300px;
+        }
+        #chatMessages {
+            background: rgba(0,0,0,0.7);
+            border-radius: 10px;
+            padding: 10px;
+            max-height: 120px;
+            overflow-y: auto;
+            margin-bottom: 5px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        #chatMessages .chat-msg {
+            color: rgba(255,255,255,0.8);
+            font-size: 12px;
+            padding: 2px 0;
+            word-break: break-all;
+        }
+        #chatMessages .chat-msg .chat-name { color: #4CAF50; font-weight: bold; }
+        #chatInput {
+            width: 100%;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.9);
+            font-size: 13px;
+            outline: none;
+            display: none;
+        }
+        #chatInput:focus { box-shadow: 0 0 15px rgba(76, 175, 80, 0.2); }
+        
+        /* Mobil Uyum */
+        @media (max-width: 600px) {
+            #scoreboard {
+                top: 10px;
+                right: 10px;
+                font-size: 11px;
+                min-width: 150px;
+                max-height: 200px;
+                padding: 10px;
+            }
+            #scoreboard h3 { font-size: 13px; }
+            .zoom-controls { bottom: 80px; right: 10px; }
+            .zoom-controls button { width: 36px; height: 36px; font-size: 18px; }
+            .nickname-container {
+                bottom: 10px;
+                left: 10px;
+                padding: 6px 10px;
+                flex-direction: column;
+                gap: 5px;
+                max-width: 140px;
+            }
+            .nickname-container input { width: 100%; font-size: 12px; padding: 6px 10px; }
+            .nickname-container button { width: 100%; font-size: 12px; padding: 6px 10px; }
+            #coinDisplay { top: 10px; left: 10px; font-size: 14px; padding: 6px 12px; }
+            #storeBtn { top: 65px; left: 10px; font-size: 12px; padding: 6px 12px; }
+            #storeContent { padding: 20px; }
+            .store-items { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+            #chatContainer { bottom: 70px; left: 10px; width: 200px; }
+            #chatMessages { max-height: 80px; padding: 6px; }
+            #chatMessages .chat-msg { font-size: 10px; }
+        }
+
+        /* Google Auth Overlay */
+        #authOverlay { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 3000; background: rgba(0,0,0,0.92); }
+        #authOverlay.active { display: flex; }
+        #authCard { width: min(460px, 90%); background: rgba(16,16,40,0.98); border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 28px 24px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.45); }
+        #authCard h2 { color: #fff; margin-bottom: 12px; font-size: 24px; }
+        #authCard p { color: #ccc; margin-bottom: 22px; line-height: 1.5; }
+        #authMessage { color: #ffd93d; margin-top: 16px; min-height: 22px; font-size: 14px; }
+        #googleLoginBtn { display: inline-flex; justify-content: center; width: 100%; min-height: 50px; }
+    </style>
 </head>
 <body>
+    <div id="ui">
+        <div id="authOverlay" class="active">
+            <div id="authCard">
+                <h2>Google ile giriş yapın</h2>
+                <p>Bu oyuna erişmek için hesabınızla Google doğrulaması yapmalısınız.</p>
+                <div id="googleLoginBtn"></div>
+                <div id="authMessage">Lütfen Google oturum açma butonuna tıklayın.</div>
+            </div>
+        </div>
+        <div id="coinDisplay"><span class="coin-icon">🪙</span><span class="coin-amount">0</span></div>
+        <button id="storeBtn"><span class="store-icon">🛒</span> Mağaza</button>
+        <div id="status"></div>
 
-  <div id="wz-center-loader">
-    <div class="loader-card">
-      <div class="loader-title">MYWORM.IO</div>
-      <div class="progress-bar">
-        <div class="progress-fill" id="wzilFill"></div>
-      </div>
-      <div style="color: #aaa; font-size: 14px;" id="wzilTip">Arena Yükleniyor... %0</div>
+        <!-- Store Modal (oyun içi) -->
+        <div id="storeModal">
+            <div id="storeContent">
+                <div id="storeHeader">
+                    <h2>Mağaza <span>🐛</span></h2>
+                    <button id="closeStore">✖</button>
+                </div>
+                <div class="store-tabs">
+                    <div class="store-tab active" data-category="skins">Deriler</div>
+                    <div class="store-tab" data-category="trails">İzler</div>
+                    <div class="store-tab" data-category="hats">Şapkalar</div>
+                    <div class="store-tab" data-category="flags">Bayraklar</div>
+                </div>
+                <div id="storeItemsContainer"></div>
+            </div>
+        </div>
+
+        <!-- Lobby (başlangıç ekranı) -->
+        <div id="lobby" style="position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:2000;background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.8));">
+            <div id="lobbyBox" style="width:90%;max-width:900px;background:rgba(20,20,40,0.95);border-radius:20px;padding:30px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                    <h2 style="color:white;">Lobi <span style="color:#FFD700;">Mağaza</span></h2>
+                    <button id="closeLobby" style="background:none;border:none;color:white;font-size:22px;cursor:pointer;">✖</button>
+                </div>
+                <div class="store-tabs" style="margin-bottom:12px;">
+                    <div class="store-tab active" data-category="skins">Deriler</div>
+                    <div class="store-tab" data-category="trails">İzler</div>
+                    <div class="store-tab" data-category="hats">Şapkalar</div>
+                    <div class="store-tab" data-category="flags">Bayraklar</div>
+                </div>
+                <div id="lobbyStoreContent" style="max-height:440px;overflow:auto;margin-bottom:16px;"></div>
+                <div style="display:flex;gap:12px;justify-content:flex-end;">
+                    <button id="startBtn" style="padding:10px 18px;border-radius:10px;border:none;background:#4CAF50;color:white;font-weight:700;">Oyuna Başla</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-
-  <header>
-    <div class="game-logo">MYWORM.IO</div>
-    <div class="header-buttons">
-      <button class="header-btn active">Oyna</button>
-      <button class="header-btn">Ayarlar</button>
-      <button class="header-btn">Liderlik</button>
-    </div>
-  </header>
-
-  <div class="side-panel">
-    <div class="panel-title">Oyuncu Durumu</div>
-    <div id="scoreBoard">Skor: 0</div>
-
-    <div class="panel-title">Cilt Seçimi (Skin)</div>
-    <div class="skin-selector">
-      <button class="header-btn" onclick="setGameSkin(1)">Alevli Ejder (Kırmızı)</button>
-      <button class="header-btn" onclick="setGameSkin(2)">Gece Mavisi (Mavi)</button>
-      <button class="header-btn" onclick="setGameSkin(3)">Siber Karpuz (Yeşil)</button>
-    </div>
-  </div>
-
-  <canvas id="gameCanvas"></canvas>
-
-  <script>
-    // --- YÜKLEME EKRANI SİMÜLASYONU ---
-    const loader = document.getElementById("wz-center-loader");
-    const fill = document.getElementById("wzilFill");
-    const tip = document.getElementById("wzilTip");
-    let progress = 0;
-
-    let loadInterval = setInterval(() => {
-      progress += Math.floor(Math.random() * 15) + 5;
-      if (progress >= 100) {
-        progress = 100;
-        clearInterval(loadInterval);
-        setTimeout(() => {
-          loader.style.opacity = 0;
-          setTimeout(() => loader.style.display = "none", 500);
-        }, 300);
-      }
-      fill.style.width = progress + "%";
-      tip.innerText = "Arena Hazırlanıyor... %" + progress;
-    }, 100);
-
-    // --- OYUN MOTORU AYARLARI ---
-    const canvas = document.getElementById("gameCanvas");
-    const ctx = canvas.getContext("2d");
-    const scoreBoard = document.getElementById("scoreBoard");
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
-
-    let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
-    let camera = { x: 0, y: 0 };
-
-    window.addEventListener("mousemove", (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    });
-
-    const MAP_SIZE = 3000;
-
-    // Tanımladığımız Güvenli Ciltler
-    const SKINS = {
-      1: { name: "Alevli Ejder", colors: ["#ff4757", "#ff6b81", "#ffa502"] },
-      2: { name: "Gece Mavisi", colors: ["#1e90ff", "#3742fa", "#70a1ff"] },
-      3: { name: "Siber Karpuz", colors: ["#2ed573", "#2ed573", "#ff4757"] }
-    };
-
-    class Snake {
-      constructor(x, y) {
-        this.segments = [];
-        this.length = 30; 
-        this.radius = 16;  
-        this.speed = 4.5;
-        this.angle = 0;
-        this.currentSkin = SKINS[1];
-
-        for (let i = 0; i < this.length; i++) {
-          this.segments.push({ x: x, y: y });
-        }
-      }
-
-      changeSkin(skinId) {
-        if (SKINS[skinId]) this.currentSkin = SKINS[skinId];
-      }
-
-      update() {
-        let head = this.segments[0];
-        let targetX = mouse.x + camera.x;
-        let targetY = mouse.y + camera.y;
-        
-        this.angle = Math.atan2(targetY - head.y, targetX - head.x);
-
-        let newHead = {
-          x: head.x + Math.cos(this.angle) * this.speed,
-          y: head.y + Math.sin(this.angle) * this.speed
-        };
-
-        newHead.x = Math.max(0, Math.min(MAP_SIZE, newHead.x));
-        newHead.y = Math.max(0, Math.min(MAP_SIZE, newHead.y));
-
-        this.segments.unshift(newHead);
-        if (this.segments.length > this.length) this.segments.pop();
-      }
-
-      draw() {
-        // Gövde Çizimi
-        for (let i = this.segments.length - 1; i >= 0; i--) {
-          let seg = this.segments[i];
-          ctx.beginPath();
-          ctx.arc(seg.x - camera.x, seg.y - camera.y, this.radius, 0, Math.PI * 2);
-          
-          let colorIndex = i % this.currentSkin.colors.length;
-          ctx.fillStyle = this.currentSkin.colors[colorIndex];
-          
-          ctx.fill();
-          ctx.strokeStyle = "rgba(0, 0, 0, 0.2)";
-          ctx.lineWidth = 2;
-          ctx.stroke();
-          ctx.closePath();
-        }
-
-        // Göz Tasarımı
-        let head = this.segments[0];
-        let eyeOffset = this.radius * 0.5;
-        let leftEyeX = head.x + Math.cos(this.angle - 0.5) * eyeOffset - camera.x;
-        let leftEyeY = head.y + Math.sin(this.angle - 0.5) * eyeOffset - camera.y;
-        let rightEyeX = head.x + Math.cos(this.angle + 0.5) * eyeOffset - camera.x;
-        let rightEyeY = head.y + Math.sin(this.angle + 0.5) * eyeOffset - camera.y;
-
-        ctx.fillStyle = "#fff";
-        ctx.beginPath();
-        ctx.arc(leftEyeX, leftEyeY, 5, 0, Math.PI * 2);
-        ctx.arc(rightEyeX, rightEyeY, 5, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.fillStyle = "#000";
-        ctx.beginPath();
-        ctx.arc(leftEyeX + Math.cos(this.angle)*2, leftEyeY + Math.sin(this.angle)*2, 2.5, 0, Math.PI * 2);
-        ctx.arc(rightEyeX + Math.cos(this.angle)*2, rightEyeY + Math.sin(this.angle)*2, 2.5, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    class Food {
-      constructor() {
-        this.x = Math.random() * MAP_SIZE;
-        this.y = Math.random() * MAP_SIZE;
-        this.radius = Math.random() * 4 + 4;
-        this.color = `hsl(${Math.random() * 360}, 100%, 60%)`;
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x - camera.x, this.y - camera.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-        ctx.closePath();
-      }
-    }
-
-    const player = new Snake(MAP_SIZE / 2, MAP_SIZE / 2);
-    const foods = [];
+    <!-- PixiJS Kütüphanesi -->
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@8.0.0/dist/pixi.min.js"></script>
+    
+    <!-- Oyun Kodu -->
+    <script src="client.js"></script>
+</body>
+</html>
