@@ -359,6 +359,9 @@ class WormGame {
         this.stage.addChildAt(bg, 0);
     }
     
+    // ====================================================
+    // 🛠️ DÜZELTİLMİŞ connectToServer (PORT EKLEMEZ)
+    // ====================================================
     connectToServer() {
         if (!this.token) {
             if (this.useOfflineMode) return;
@@ -367,26 +370,20 @@ class WormGame {
             return;
         }
 
+        // Basit ve güvenli: host'u olduğu gibi kullan, port EKLEME!
         const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-        const host = window.location.hostname;
-        const port = window.location.port || '3000';
-        
-        let wsUrl;
-        if (host.includes('github.dev') || host.includes('codespaces') || host.includes('app.github.dev')) {
-            wsUrl = `${protocol}//${host}/ws?token=${encodeURIComponent(this.token)}`;
-        } else {
-            wsUrl = `${protocol}//${host}:${port}/ws?token=${encodeURIComponent(this.token)}`;
-        }
-        
+        const host = window.location.host; // 'gamenew.onrender.com' (port boş)
+        const wsUrl = `${protocol}//${host}/ws?token=${encodeURIComponent(this.token)}`;
+
         console.log('🔗 Bağlanılıyor:', wsUrl);
         this.socket = new WebSocket(wsUrl);
-        
+
         this.socket.onopen = () => {
             console.log('✅ Bağlandı');
             this.reconnectAttempts = 0;
             this.showStatus('Bağlandı ✅', '#4CAF50');
         };
-        
+
         this.socket.onmessage = (e) => {
             try {
                 const data = JSON.parse(e.data);
@@ -395,7 +392,7 @@ class WormGame {
                 console.error('❌ Mesaj hatası:', error);
             }
         };
-        
+
         this.socket.onclose = () => {
             console.log('❌ Bağlantı kesildi');
             this.showStatus('Yeniden bağlanılıyor... 🔄', '#ff9800');
@@ -404,12 +401,13 @@ class WormGame {
                 setTimeout(() => this.connectToServer(), 3000 * this.reconnectAttempts);
             }
         };
-        
+
         this.socket.onerror = (error) => {
             console.error('⚠️ WebSocket hatası:', error);
             this.showStatus('Bağlantı hatası ❌', '#f44336');
         };
     }
+    // ====================================================
     
     showStatus(text, color) {
         if (!this.statusEl) return;
