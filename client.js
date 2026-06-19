@@ -19,6 +19,7 @@ class WormGame {
         this.playerData = null;
         this.token = null;
         this.googleClientId = null;
+        this.useOfflineMode = false;
         this.authOverlay = null;
         this.authMessage = null;
         
@@ -86,7 +87,12 @@ class WormGame {
             if (this.lobby) this.toggleLobby(true);
             
             // Oyun Döngüsü
-            this.app.ticker.add(() => this.update());
+            this.app.ticker.add(() => {
+                if (this.useOfflineMode) {
+                    this.updateOfflineGame();
+                }
+                this.update();
+            });
             
             // Pencere Yeniden Boyutlandırma
             window.addEventListener('resize', () => {
@@ -107,16 +113,18 @@ class WormGame {
 
         try {
             const res = await fetch('/config');
+            if (!res.ok) throw new Error('config yok');
             const config = await res.json();
             this.googleClientId = config.googleClientId;
         } catch (error) {
-            console.error('Auth config yüklenemedi:', error);
-            if (this.authMessage) this.authMessage.textContent = 'Sunucu yapılandırması alınamadı.';
+            console.warn('Auth config bulunamadı, çevrimdışı moda geçiliyor:', error);
+            this.enableOfflineMode('Sunucu bulunamadı, çevrimdışı mod etkin.');
             return;
         }
 
         if (!this.googleClientId) {
-            if (this.authMessage) this.authMessage.textContent = 'Google Client ID yapılandırılmadı.';
+            console.warn('Google Client ID yok, çevrimdışı moda geçiliyor.');
+            this.enableOfflineMode('Google Client ID yapılandırılmadı, çevrimdışı mod etkin.');
             return;
         }
 
@@ -173,6 +181,140 @@ class WormGame {
         if (this.lobby) this.lobby.style.display = 'flex';
     }
 
+    enableOfflineMode(message) {
+        this.useOfflineMode = true;
+        this.hideAuthOverlay();
+        this.showStatus(message || 'Çevrimdışı mod etkin. Oyun yerel olarak çalışıyor.', '#4CAF50');
+
+        if (!this.store) this.setupDevStore();
+        if (!this.playerData) this.playerData = {};
+        if (!Array.isArray(this.playerData.ownedSkins)) this.playerData.ownedSkins = ['turkey'];
+        if (!Array.isArray(this.playerData.ownedTrails)) this.playerData.ownedTrails = [];
+        if (!Array.isArray(this.playerData.ownedHats)) this.playerData.ownedHats = [];
+        if (!Array.isArray(this.playerData.ownedFlags)) this.playerData.ownedFlags = [];
+        if (!this.playerData.skin) this.playerData.skin = 'turkey';
+        if (!this.playerData.trail) this.playerData.trail = 'default';
+        if (!this.playerData.hat) this.playerData.hat = 'none';
+        this.playerData.coins = this.playerData.coins || 0;
+
+        this.coins = this.playerData.coins;
+        this.updateCoins();
+
+        const localPlayer = this.createOfflinePlayer();
+        this.players.set(localPlayer.id, localPlayer);
+        this.localPlayerId = localPlayer.id;
+        this.foods = this.createOfflineFoods(25);
+        this.addPlayer(localPlayer);
+        if (this.lobby) this.toggleLobby(true);
+    }
+
+    createOfflinePlayer() {
+        const startX = 0;
+        const startY = 0;
+        const segments = [];
+        for (let i = 0; i < 5; i++) {
+            segments.push({ x: startX - i * 8, y: startY });
+        }
+        return {
+            id: 'local',
+            segments,
+            targetX: startX,
+            targetY: startY,
+            radius: 12,
+            color: 0x4CAF50,
+            nickname: 'You',
+            score: 0,
+            kills: 0,
+            deaths: 0,
+            alive: true,
+            length: 5,
+            direction: { x: 0, y: -1 },
+            coins: this.playerData.coins || 0,
+            skin: this.playerData.skin || 'turkey',
+            trail: this.playerData.trail || 'default',
+            hat: this.playerData.hat || 'none',
+            container: null
+        };
+    }
+
+    createOfflineFoods(count = 20) {
+        const colors = [0x4CAF50, 0xFFD93D, 0xFF6B6B, 0x6BCB77, 0x4D96FF, 0xFF8A5C];
+        const foods = [];
+        for (let i = 0; i < count; i++) {
+            foods.push({
+                id: `food_off_${Date.now()}_${i}`,
+                x: (Math.random() - 0.5) * 1200,
+                y: (Math.random() - 0.5) * 1200,
+                radius: 8 + Math.random() * 4,
+                color: colors[Math.floor(Math.random() * colors.length)]
+            });
+        }
+        return foods;
+    }
+
+    updateOfflineGame() {
+        const local = this.players.get(this.localPlayerId);
+        if (!local || !local.alive) return;
+
+        const rect = this.app.canvas.getBoundingClientRect();
+        const mx = (this.mouseX || rect.left) - rect.left;
+        const my = (this.mouseY || rect.top) - rect.top;
+        const worldX = (mx - this.stage.x) / this.zoom;
+        const worldY = (my - this.stage.y) / this.zoom;
+
+        local.targetX = worldX;
+        local.targetY = worldY;
+
+        const speed = 4;
+        const dx = local.targetX - local.segments[0].x;
+        const dy = local.targetY - local.segments[0].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist > 1) {
+            local.segments[0].x += (dx / dist) * speed;
+            local.segments[0].y += (dy / dist) * speed;
+        }
+
+        for (let i = 1; i < local.segments.length; i++) {
+            const prev = local.segments[i - 1];
+            const seg = local.segments[i];
+            const dx2 = prev.x - seg.x;
+            const dy2 = prev.y - seg.y;
+            const dist2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
+            const minDist = local.radius * 1.6;
+            if (dist2 > 0 && dist2 > minDist) {
+                seg.x += (dx2 / dist2) * (dist2 - minDist);
+                seg.y += (dy2 / dist2) * (dist2 - minDist);
+            }
+        }
+
+        while (local.segments.length < local.length) {
+            const tail = local.segments[local.segments.length - 1];
+            local.segments.push({ x: tail.x, y: tail.y });
+        }
+
+        this.checkOfflineFoodCollisions(local);
+    }
+
+    checkOfflineFoodCollisions(local) {
+        if (!local || !this.foods) return;
+        const head = local.segments[0];
+        for (let i = this.foods.length - 1; i >= 0; i--) {
+            const food = this.foods[i];
+            const dx = head.x - food.x;
+            const dy = head.y - food.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < (local.radius + food.radius) * 0.95) {
+                this.foods.splice(i, 1);
+                local.length += 1;
+                local.score += 1;
+                local.coins += 1;
+                this.coins = local.coins;
+                this.updateCoins();
+                this.foods.push(...this.createOfflineFoods(1));
+            }
+        }
+    }
+
     createMap() {
         const halfWorld = 1500;
         
@@ -219,6 +361,7 @@ class WormGame {
     
     connectToServer() {
         if (!this.token) {
+            if (this.useOfflineMode) return;
             console.warn('Google token yok, sunucuya bağlanma işlemi durduruldu.');
             this.showStatus('Google ile giriş yapılmadı.', '#ff9800');
             return;
