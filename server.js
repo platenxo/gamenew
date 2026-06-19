@@ -57,11 +57,11 @@ loadUsers();
 // ================================================================
 const CONFIG = {
     WORLD_SIZE: 10000,
-    MAX_PLAYERS: 20,
+    MAX_PLAYERS: 5,
     PLAYER_SPEED: 16,
     RESPAWN_TIME: 3000,
     SCORE_PER_KILL: 30000,
-    FOOD_COUNT: 1500,          // optimum
+    FOOD_COUNT: 10,          // optimum
     FOOD_RADIUS: 8,
     PLAYER_START_RADIUS: 12,
     GROWTH_PER_FOOD: 1.2,
