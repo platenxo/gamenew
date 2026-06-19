@@ -56,7 +56,7 @@ loadUsers();
 // 🔧 KONFIGÜRASYON (OPTİMİZE)
 // ================================================================
 const CONFIG = {
-    WORLD_SIZE: 10000,
+    WORLD_SIZE: 3000,
     MAX_PLAYERS: 5,
     PLAYER_SPEED: 16,
     RESPAWN_TIME: 3000,
