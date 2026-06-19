@@ -10,7 +10,7 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({ server, path: '/ws' });
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '337143823950-ni8amg87q94tqnlv3fst5hmdcitnbenu.apps.googleusercontent.com';
-const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || '').split(',').map(s => s.trim()).filter(Boolean);
+const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || 'demirdagserkan323@gmail.com').split(',').map(s => s.trim()).filter(Boolean);
 const VIP_EMAILS = (process.env.VIP_EMAILS || '').split(',').map(s => s.trim()).filter(Boolean);
 
 // In-memory user store: key by google sub or email
