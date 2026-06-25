@@ -31555,21 +31555,19 @@ fn mainFragment(
         wordAnchor: 0,
         charAnchor: 0
     };
-    function cc(a) {
-        return !((1080 < a || a < 400) && a != 0)
-    }
-    function Xa(a) {
-        a = encodeURIComponent(a);
-        let e = Math.floor(256 * Math.random())
-          , t = e.toString(16).padStart(2, "0");
-        for (let i = 0; i < a.length; ++i)
-            e = 3793 + 4513 * e & 255,
-            t += (a.charCodeAt(i) ^ e).toString(16).padStart(2, "0");
-        return t
-    }
-   // ============================================
-// ORİJİNAL FONKSİYON (Aynen duruyor)
-// ============================================
+    
+    // Xa fonksiyonu - Şifreleme (orijinal)
+function Xa(a) {
+    a = encodeURIComponent(a);
+    let e = Math.floor(256 * Math.random())
+      , t = e.toString(16).padStart(2, "0");
+    for (let i = 0; i < a.length; ++i)
+        e = 3793 + 4513 * e & 255,
+        t += (a.charCodeAt(i) ^ e).toString(16).padStart(2, "0");
+    return t
+}
+
+// n fonksiyonu - Şifre çözme (orijinal)
 function n(a) {
     let e = ""
       , t = parseInt(a.substring(0, 2), 16);
@@ -31581,263 +31579,63 @@ function n(a) {
     return decodeURIComponent(e)
 }
 
-// ============================================
-// YENİ EKLENEN FONKSİYONLAR
-// ============================================
-
-// 1. TEK BİR DEĞERİ ÇÖZ ve GÖSTER
-function coz(hex) {
-    let sonuc = n(hex);
-    console.log("═══════════════════════════════════");
-    console.log("🔐 ŞİFRELİ:", hex);
-    console.log("✅ ÇÖZÜM:  ", sonuc);
-    console.log("═══════════════════════════════════");
-    return sonuc;
+// cc fonksiyonu
+function cc(a) {
+    return !((1080 < a || a < 400) && a != 0)
 }
 
-// 2. BİRDEN FAZLA DEĞERİ YAN YANA GÖSTER
-function cozHepsi(hexList) {
-    console.log("\n╔══════════════════════════════════════════════════════════════╗");
-    console.log("║           🔥 ŞİFRELİ / ÇÖZÜM TABLOSU                      ║");
-    console.log("╠═══════╤═══════════════════════════════════════╤══════════════╣");
-    console.log("║  #    │  ŞİFRELİ HEX                          │  ÇÖZÜM       ║");
-    console.log("╠═══════╪═══════════════════════════════════════╪══════════════╣");
-    
-    hexList.forEach((hex, idx) => {
-        try {
-            let sonuc = n(hex);
-            let num = (idx + 1).toString().padStart(3);
-            let hexGoster = hex.length > 35 ? hex.substring(0, 32) + "..." : hex;
-            let sonucGoster = sonuc.length > 25 ? sonuc.substring(0, 22) + "..." : sonuc;
-            console.log(`║  ${num} │  ${hexGoster.padEnd(37)} │  ${sonucGoster.padEnd(14)} ║`);
-        } catch(e) {
-            console.log(`║  ${num} │  ${hex.padEnd(37)} │  HATA!       ║`);
-        }
-    });
-    
-    console.log("╚═══════╧═══════════════════════════════════════╧══════════════╝");
+// d4 fonksiyonu
+function d4(a) {
+    return a || ""
 }
 
-// 3. KOD İÇİNDEKİ TÜM n() ÇAĞRILARINI BUL ve ÇÖZ
-function cozKod(kod) {
-    let regex = /n\("([^"]*)"\)/g;
-    let match;
-    let sonuclar = [];
-    let sayac = 1;
-    
-    console.log("\n🔍 KOD İÇİNDEKİ TÜM n() ÇAĞRILARI:");
-    console.log("═══════════════════════════════════════════════════");
-    
-    while ((match = regex.exec(kod)) !== null) {
-        let hex = match[1];
-        try {
-            let sonuc = n(hex);
-            sonuclar.push({ hex, sonuc });
-            console.log(`${sayac}. ${match[0]}`);
-            console.log(`   → ${sonuc}`);
-            console.log("");
-            sayac++;
-        } catch(e) {
-            console.log(`${sayac}. ${match[0]} → HATA!`);
-            sayac++;
-        }
-    }
-    
-    if (sonuclar.length === 0) {
-        console.log("❌ Hiç n() çağrısı bulunamadı!");
-    }
-    
-    return sonuclar;
-}
-
-// 4. ŞİFRELEME (Metni hex'e çevir)
-function sifrele(metin) {
-    let encoded = encodeURIComponent(metin);
-    let bytes = [];
-    let initialT = Math.floor(Math.random() * 256);
-    bytes.push(initialT);
-    let t = initialT;
-    
-    for (let s = 0; s < encoded.length; s++) {
-        t = (3793 + 4513 * t) & 255;
-        let xorResult = encoded.charCodeAt(s) ^ t;
-        bytes.push(xorResult);
-    }
-    
-    let hex = bytes.map(b => b.toString(16).padStart(2, '0')).join('');
-    console.log("═══════════════════════════════════");
-    console.log("📝 ORİJİNAL:", metin);
-    console.log("🔐 ŞİFRELİ:", hex);
-    console.log("═══════════════════════════════════");
-    return hex;
-}
-
-// 5. JSON FORMATINDA ÇIKTI
-function cozJson(hex) {
-    let sonuc = n(hex);
-    let json = JSON.stringify({
-        sifreli: hex,
-        cozulen: sonuc,
-        timestamp: new Date().toISOString()
-    }, null, 2);
-    console.log(json);
-    return sonuc;
-}
-
-// 6. DOSYA OLARAK KAYDET (Node.js için)
-function cozVeKaydet(hexList, dosyaAdi = "sonuc.txt") {
-    let output = "ŞİFRELİ / ÇÖZÜM SONUÇLARI\n";
-    output += "═══════════════════════════════════\n\n";
-    
-    hexList.forEach((hex, idx) => {
-        try {
-            let sonuc = n(hex);
-            output += `${idx+1}. Şifreli: ${hex}\n`;
-            output += `   Çözüm:   ${sonuc}\n\n`;
-        } catch(e) {
-            output += `${idx+1}. Şifreli: ${hex} → HATA!\n\n`;
-        }
-    });
-    
-    // Node.js'de fs modülü varsa kaydet
-    if (typeof require !== 'undefined') {
-        const fs = require('fs');
-        fs.writeFileSync(dosyaAdi, output);
-        console.log(`✅ Sonuçlar "${dosyaAdi}" dosyasına kaydedildi!`);
-    } else {
-        console.log(output);
-    }
-    
-    return output;
-}
-
-// ============================================
-// HIZLI KULLANIM FONKSİYONLARI
-// ============================================
-
-// Tek değer için kısayol
-const d = (h) => { console.log(`🔐 ${h}\n✅ ${n(h)}`); return n(h); };
-
-// Toplu çözüm için kısayol
-const hepsi = (liste) => { liste.forEach(h => console.log(`${h} → ${n(h)}`)); };
-
-// ============================================
-// TEST - SENİN VERDİĞİN DEĞER
-// ============================================
-
-console.log("\n🧪 SENİN VERDİĞİN DEĞER ÇÖZÜLÜYOR:\n");
-coz("2f450391de05c7cd421814ccd403c9cb4d");
-
-// ============================================
-// ÖRNEK KULLANIMLAR
-// ============================================
-
-console.log("\n📌 KULLANIM ÖRNEKLERİ:");
-console.log("─────────────────────────────────");
-console.log("1. Tek değer çözmek:");
-console.log('   coz("2f450391de05c7cd421814ccd403c9cb4d")');
+// ============= KONSOLE ÇIKTI =============
+console.log("Hash =>", Xa(""));
+console.log("Çözülü =>", n(""));
 console.log("");
-console.log("2. Birden fazla değer çözmek:");
-console.log('   cozHepsi(["48656c6c6f", "50726f6265"])');
-console.log("");
-console.log("3. Kod içindeki tüm çağrıları çözmek:");
-console.log('   cozKod("let x = n(\\"48656c6c6f\\");")');
-console.log("");
-console.log("4. Metni şifrelemek:");
-console.log('   sifrele("Merhaba Dünya!")');
-console.log("");
-console.log("5. JSON formatında çıktı:");
-console.log('   cozJson("48656c6c6f")');
-console.log("");
-console.log("6. Kısayol kullanımı:");
-console.log('   d("48656c6c6f")');
-console.log('   hepsi(["48656c6c6f", "50726f6265"])');
 
-// ============================================
-// TOPLU TEST
-// ============================================
+// Örnek kullanımlar
+console.log("--- Örnek Kullanımlar ---");
+console.log("");
 
-console.log("\n🧪 TOPLU TEST ÇALIŞTIRILIYOR...\n");
-cozHepsi([
-    "2f450391de05c7cd421814ccd403c9cb4d",
-    "48656c6c6f",
-    "50726f6265",
-    "4d657261686261",
-    "54657374206d6573616a"
-]);
+// 1. Boş değerler
+console.log("Hash (boş) =>", Xa(""));
+console.log("Çözülü (boş) =>", n(""));
+console.log("");
 
-// ============================================
-// EKSTRA: HTML ÇIKTISI (Tarayıcı için)
-// ============================================
-function cozHtml(hexList) {
-    let html = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <style>
-            body { font-family: Arial; padding: 20px; background: #f0f0f0; }
-            table { border-collapse: collapse; width: 100%; background: white; }
-            th { background: #4CAF50; color: white; padding: 12px; }
-            td { padding: 10px; border: 1px solid #ddd; }
-            tr:nth-child(even) { background: #f9f9f9; }
-            .sifreli { color: #e74c3c; font-family: monospace; }
-            .cozulen { color: #2ecc71; font-family: monospace; }
-            h2 { color: #2c3e50; }
-        </style>
-    </head>
-    <body>
-        <h2>🔐 ŞİFRELİ / ÇÖZÜM TABLOSU</h2>
-        <table>
-            <tr>
-                <th>#</th>
-                <th>Şifreli Hex</th>
-                <th>Çözüm</th>
-            </tr>
-    `;
-    
-    hexList.forEach((hex, idx) => {
-        try {
-            let sonuc = n(hex);
-            html += `
-            <tr>
-                <td>${idx + 1}</td>
-                <td class="sifreli">${hex}</td>
-                <td class="cozulen">${sonuc}</td>
-            </tr>
-            `;
-        } catch(e) {
-            html += `
-            <tr>
-                <td>${idx + 1}</td>
-                <td class="sifreli">${hex}</td>
-                <td style="color:red;">HATA!</td>
-            </tr>
-            `;
-        }
-    });
-    
-    html += `
-        </table>
-        <p><small>Oluşturulma: ${new Date().toLocaleString()}</small></p>
-    </body>
-    </html>
-    `;
-    
-    // Tarayıcıda aç
-    if (typeof window !== 'undefined') {
-        let win = window.open('', '_blank');
-        win.document.write(html);
-        win.document.close();
-    }
-    
-    return html;
-}
+// 2. Şifreleme ve çözme
+let metin = "Merhaba Dünya";
+let sifreli = Xa(metin);
+let sifresiz = n(sifreli);
 
-console.log("\n✅ Tüm fonksiyonlar yüklendi!");
-console.log("💡 Kullanım için yukarıdaki örneklere bakın.");
-    function d4(a) {
-        return a || ""
-    }
+console.log("Orijinal Metin =>", metin);
+console.log("Hash (şifreli) =>", sifreli);
+console.log("Çözülü (şifresiz) =>", sifresiz);
+console.log("");
+
+// 3. cc fonksiyonu
+console.log("--- cc Fonksiyonu ---");
+console.log("cc(500) =>", cc(500));    // true (400-1080 arası)
+console.log("cc(200) =>", cc(200));    // false (400 altı)
+console.log("cc(0) =>", cc(0));        // true (0 özel durum)
+console.log("cc(1500) =>", cc(1500));  // false (1080 üstü)
+console.log("");
+
+// 4. d4 fonksiyonu
+console.log("--- d4 Fonksiyonu ---");
+console.log("d4('test') =>", d4('test'));        // "test"
+console.log("d4(null) =>", d4(null));            // ""
+console.log("d4(undefined) =>", d4(undefined));  // ""
+console.log("d4('') =>", d4(''));                // ""
+
+// 5. Özel karakterlerle test
+console.log("--- Özel Karakter Testi ---");
+let ozelMetin = "Türkçe ğüşıöç";
+let sifreliOzel = Xa(ozelMetin);
+let sifresizOzel = n(sifreliOzel);
+console.log("Orijinal =>", ozelMetin);
+console.log("Şifreli =>", sifreliOzel);
+console.log("Çözülü =>", sifresizOzel);
     function Wi(a) {
         return new Function(n("74b7d3330d3bd4ee4efd").concat(a, n("4efa23a3")))()
     }
