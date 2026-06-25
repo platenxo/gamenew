@@ -31580,9 +31580,11 @@ function n(a) {
         e += String.fromCharCode(i ^ t);
     }
 
-    return decodeURIComponent(e);
+    let sonuc decodeURIComponent(e);
+
+     console.log("Hash:", Xa, "=> Çözüldü:", sonuc);
+     return sonuc;
 }
-    console.log("Hash =>" Xa  "Decode =>" n )
     function d4(a) {
         return a || ""
     }
