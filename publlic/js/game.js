@@ -31555,87 +31555,33 @@ fn mainFragment(
         wordAnchor: 0,
         charAnchor: 0
     };
-    
-    // Xa fonksiyonu - Şifreleme (orijinal)
-function Xa(a) {
+    function cc(a) {
+        return !((1080 < a || a < 400) && a != 0)
+    }
+  function Xa(a) {
     a = encodeURIComponent(a);
     let e = Math.floor(256 * Math.random())
       , t = e.toString(16).padStart(2, "0");
+
     for (let i = 0; i < a.length; ++i)
         e = 3793 + 4513 * e & 255,
         t += (a.charCodeAt(i) ^ e).toString(16).padStart(2, "0");
-    return t
+
+    return t;
 }
 
-// n fonksiyonu - Şifre çözme (orijinal)
 function n(a) {
     let e = ""
       , t = parseInt(a.substring(0, 2), 16);
+
     for (let s = 2; s < a.length; s += 2) {
         var i = parseInt(a.substring(s, s + 2), 16);
         t = 3793 + 4513 * t & 255,
-        e += String.fromCharCode(i ^ t)
+        e += String.fromCharCode(i ^ t);
     }
-    return decodeURIComponent(e)
+
+    return decodeURIComponent(e);
 }
-
-// cc fonksiyonu
-function cc(a) {
-    return !((1080 < a || a < 400) && a != 0)
-}
-
-// d4 fonksiyonu
-function d4(a) {
-    return a || ""
-}
-
-// ============= KONSOLE ÇIKTI =============
-console.log("Hash =>", Xa(""));
-console.log("Çözülü =>", n(""));
-console.log("");
-
-// Örnek kullanımlar
-console.log("--- Örnek Kullanımlar ---");
-console.log("");
-
-// 1. Boş değerler
-console.log("Hash (boş) =>", Xa(""));
-console.log("Çözülü (boş) =>", n(""));
-console.log("");
-
-// 2. Şifreleme ve çözme
-let metin = "Merhaba Dünya";
-let sifreli = Xa(metin);
-let sifresiz = n(sifreli);
-
-console.log("Orijinal Metin =>", metin);
-console.log("Hash (şifreli) =>", sifreli);
-console.log("Çözülü (şifresiz) =>", sifresiz);
-console.log("");
-
-// 3. cc fonksiyonu
-console.log("--- cc Fonksiyonu ---");
-console.log("cc(500) =>", cc(500));    // true (400-1080 arası)
-console.log("cc(200) =>", cc(200));    // false (400 altı)
-console.log("cc(0) =>", cc(0));        // true (0 özel durum)
-console.log("cc(1500) =>", cc(1500));  // false (1080 üstü)
-console.log("");
-
-// 4. d4 fonksiyonu
-console.log("--- d4 Fonksiyonu ---");
-console.log("d4('test') =>", d4('test'));        // "test"
-console.log("d4(null) =>", d4(null));            // ""
-console.log("d4(undefined) =>", d4(undefined));  // ""
-console.log("d4('') =>", d4(''));                // ""
-
-// 5. Özel karakterlerle test
-console.log("--- Özel Karakter Testi ---");
-let ozelMetin = "Türkçe ğüşıöç";
-let sifreliOzel = Xa(ozelMetin);
-let sifresizOzel = n(sifreliOzel);
-console.log("Orijinal =>", ozelMetin);
-console.log("Şifreli =>", sifreliOzel);
-console.log("Çözülü =>", sifresizOzel);
     function Wi(a) {
         return new Function(n("74b7d3330d3bd4ee4efd").concat(a, n("4efa23a3")))()
     }
