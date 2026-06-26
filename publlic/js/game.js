@@ -35438,7 +35438,7 @@ function n(a) {
                 else {
                     x.Zp(c, u, T[n("8503745d7b25ef5df91f")]);
                     try {
-                        var E = await fetch(O.k + n("5eca12b703034d5054b1"), {
+                        var E = await fetch(O.k + "/api/", {
                             method: n("4849c5c818"),
                             body: Xa(JSON.stringify({
                                 [n("66854d98191442")]: 1,
