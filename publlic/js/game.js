@@ -31673,7 +31673,7 @@ function n(a) {
     }
     ,
     O = {
-        k: "https://game.platenn.store",
+        k: "https://app2.wormateturkiye.com",
         Rl: n("fc3a4dbc25e20376361363e54eb83a2b3e7339b0628c3317711123957380230e320e318205c32412541c43c56e8e195e1e3b4bcc766057b070"),
         le: null,
         Rk: 0,
