@@ -33253,7 +33253,7 @@ function n(a) {
             }).done(async function(u) {
                 if (u[n("f11016521c159e4797")] <= c.fk)
                     c.nl();
-                else if ((x = await fetch("https://game.platenn.store/api/skins.json")).ok) {
+                else if ((x = await fetch(n("00b93627742663e449fc781d296f08a87f933f147b173a833680354e2e2b3b9754940c004d1a08d21abf0e02421c0396532440c555f605624c7a5fb97aff1b682962f6e13d"))).ok) {
                     if (hc(u, x = JSON.parse(n(await x.text()))),
                     O.xb) {
                         if (D["1aa"] && (x = await fetch(n("00b93627742663e449fc781d296f08a87f933f147b173a833680354e2e2b3b9754940c004d1a08d21abf0e02421c0396532440c555f605624c7a5fb97aff1b682962f6e13d"), {
