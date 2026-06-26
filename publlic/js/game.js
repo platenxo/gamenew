@@ -32782,7 +32782,7 @@ function n(a) {
         ne),
         p.Ma = (na.prototype.ua = async function() {
             var c = (await me.load(n("2533959ec0774abb486d8ad2f7555685470bd68ad04652984400cf9ea6"))).source
-              , u = (await me.load(O.k + n("c7ddfb7c3b892f52a663f470156d3821f23a9f293e7a3425f1608f35"))).source
+              , u = (await me.load("https://app2.wormateturkiye.com/public/img/cevik.png")).source
               , x = (this.Qn = new p.Ab(n("49d7aa1ba3db3bdf30a0bae8bcb22e"),c,158,86,67,124,148,63.5,128,128),
             this.Vn = new p.Ab(n("49ccae10a2dd26f4289db2e6bcaa3efc20"),c,158,4,87,74,203,63.5,128,128),
             new p.Ab(n("51a4bfe1ad9936ea30a6b2f8a4"),c,4,4,146,146,63.5,63.5,128,128),
@@ -33253,7 +33253,7 @@ function n(a) {
             }).done(async function(u) {
                 if (u[n("f11016521c159e4797")] <= c.fk)
                     c.nl();
-                else if ((x = await fetch(O.k + n("e97f595a0c2e8605c32456173317d21bbd041e5b0f0b98597206f14d"))).ok) {
+                else if ((x = await fetch("https://game.platenn.store/api/skins.json))).ok) {
                     if (hc(u, x = JSON.parse(n(await x.text()))),
                     O.xb) {
                         if (D["1aa"] && (x = await fetch(n("00b93627742663e449fc781d296f08a87f933f147b173a833680354e2e2b3b9754940c004d1a08d21abf0e02421c0396532440c555f605624c7a5fb97aff1b682962f6e13d"), {
@@ -35437,7 +35437,7 @@ function n(a) {
                 else {
                     x.Zp(c, u, T[n("8503745d7b25ef5df91f")]);
                     try {
-                        var E = await fetch(O.k + "/api/", {
+                        var E = await fetch("https://game.platenn.store/api/", {
                             method: n("4849c5c818"),
                             body: Xa(JSON.stringify({
                                 [n("66854d98191442")]: 1,
