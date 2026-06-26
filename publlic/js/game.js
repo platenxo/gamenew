@@ -31619,7 +31619,6 @@ function n(a) {
         O.ve.text = +a[n("b95e54aa5456da94")](2) + n("2ec7"))
     }
     var h4, wt, sa, sf, f4, rf, u4, br, nf, w, b4, M, p, k, p4, O, D, De, La, Ot, Kt, dc, pr, of, cf, g4, m4, gr, di, df, It, lc, Yi, Na, lf, wa, qt, li, hi, ui, fi, V, _4, $i, Ki, at, Aa, ja, Je, ee;
-    window.open("https://wormzilla.io", "_blank"),
     p4 = class extends pe {
         constructor(a) {
             super(),
